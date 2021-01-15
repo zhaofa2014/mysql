@@ -1,0 +1,476 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>更改内容模型</title>
+    <style type="text/css">
+        <!--
+        body {
+            background-image: url(images/allbg.gif);
+        }
+
+        .STYLE2 {
+            color: #666666;
+        }
+
+        -->
+    </style>
+    <script language="javascript">
+        <!--
+        function Nav() {
+            if (window.navigator.userAgent.indexOf("MSIE") >= 1) return 'IE';
+            else if (window.navigator.userAgent.indexOf("Firefox") >= 1) return 'FF';
+            else return "OT";
+        }
+
+        function $Obj(objname) {
+            return document.getElementById(objname);
+        }
+
+        function ShowHide2(objname) {
+            var obj = $Obj(objname);
+            if (obj.style.display != 'block') {
+                obj.style.display = 'block'
+            } else {
+                obj.style.display = 'none';
+            }
+        }
+
+        //删除
+        function DelNote(gourl) {
+            if (!window.confirm("你确认要删除这个字段么！")) {
+                return false;
+            }
+            location.href = gourl;
+        }
+
+        function ShowObj(objname) {
+            var obj = document.getElementById(objname);
+            if (Nav() == 'IE') {
+                obj.style.display = "block";
+                obj.style.display = "block";
+            } else obj.style.display = "table";
+        }
+
+        function HideObj(objname) {
+            var obj = document.getElementById(objname);
+            obj.style.display = "none";
+        }
+
+        function ShowItem1() {
+            ShowObj('head1');
+            ShowObj('needset');
+            HideObj('head2');
+            HideObj('adset');
+        }
+
+        function ShowItem2() {
+            ShowObj('head2');
+            ShowObj('adset');
+            HideObj('head1');
+            HideObj('needset');
+        }
+
+        -->
+    </script>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body topmargin="8">
+<form action="mychannel_edit.php" method="post" name="form1">
+    <input name='id' type='hidden' value='<?php echo $id?>'>
+    <input name='dopost' type='hidden' value='save'>
+    <input issystem name='issystem' type='hidden' value='<?php echo $row['']; ?>'>
+    <table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" style="margin-bottom:8px;"
+           width="98%">
+        <tr>
+            <td background="images/tbg.gif" colspan="2" height="28" style="padding-left:10px;">
+                <a href="mychannel_main.php"><b>内容模型管理</b></a>
+                <b> &gt; 更改内容模型：</b>
+            </td>
+        </tr>
+    </table>
+
+    <table align="center" border="0" cellpadding="0" cellspacing="0" id="head1" style="display:block" width="98%">
+        <tr>
+            <td colspan="2">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="center" background="images/itemnote1.gif" height="24" width="84">&nbsp;基本设置&nbsp;
+                        </td>
+                        <td align="center" background="images/itemnote2.gif" width="84"><a href="#"
+                                                                                           onClick="ShowItem2()"><u>字段管理</u></a>&nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table align="center" border="0" cellpadding="0" cellspacing="0" id="head2" style="display:none" width="98%">
+        <tr>
+            <td colspan="2">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="center" background="images/itemnote2.gif" bgcolor="#F2F7DF" height="24" width="84"><a
+                                href="#" onClick="ShowItem1()"><u>基本设置</u></a>&nbsp;
+                        </td>
+                        <td align="center" background="images/itemnote1.gif" width="84">字段管理&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table align="center" bgcolor="#cfcfcf" border="0" cellpadding="3" cellspacing="1" id='needset'
+           style="display:block" width="98%">
+        <?php
+	if($row['issystem'] == 1)
+	{
+	?>
+        <tr>
+            <td bgcolor="#FFFFFF" colspan="2" style="color:red">
+                您目前所展开的是系统模型，系统模型一般对发布程序和管理程序已经固化，如果您胡乱更改系统模型将会导致使用这种内容类型的频道可能崩溃。
+            </td>
+        </tr>
+        <?php
+	}
+	?>
+        <tr>
+            <td bgcolor="#FFFFFF"><b>模型性质</b><br/>
+                <span class="STYLE2" id="help5">如果为<u>系统模型</u>将禁止删除，此选项不可更改，对于独立模型，系统强制创建字段aid、栏目ID、发布时间、文档标题。</span>
+            </td>
+            <td bgcolor="#FFFFFF">
+                <?php
+      if($row['issystem']==0) echo "自动模型";
+      else if($row['issystem']==1) echo "系统模型";
+      else if($row['issystem']==-1) echo "独立模型";
+      ?>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" width="35%"><b>频道ID</b><br/>
+                <span class="STYLE2" id='help1'>数字，创建后不可更改，并具有唯一性。</span></td>
+            <td bgcolor="#FFFFFF" width="65%">
+                <?php echo $row['id']; ?>      </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><b>名字标识</b><br/>
+                <span class="STYLE2" id="help2">与文档的模板相关连，建议由英文、数字或下划线组成，因为部份Unix系统无法识别中文文件，频道默认文档模板是 “default/article_名字标识.htm”，列表模板、封面模板类推。 </span>
+            </td>
+            <td bgcolor="#FFFFFF">
+                <?php echo $row['nid']; ?>      </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><b>频道名称</b><br/>
+                <span class="STYLE2" id="help3">频道的中文名称，在后台管理，前台发布等均使用此名字。</span></td>
+            <td bgcolor="#FFFFFF"><input class="pubinputs" id="typename" name="typename" type="text"
+                                         value="<?php echo $row['typename']; ?>"/></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><b>附加表</b><br/>
+                <span class="STYLE2"
+                      id="help4">频道除主表以外其它自定义类型数据存放数据的表，如果您不使用主表关连的各种特性(推荐、会员权限等)，也可以使用完全以附加表作为存储数据。</span></td>
+            <td bgcolor="#FFFFFF"><input class="pubinputs" id="addtable" name="addtable" type="text"
+                                         value="<?php echo $row['addtable']; ?>"/>
+                ( #@__ 是表示数据表前缀)
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>是否支持会员投稿</strong></td>
+            <td bgcolor="#FFFFFF">
+                <input class="np" name="issend" type="radio"
+                       value="0"<?php if($row['issend']==0) echo " checked='1' "; ?> />
+                不支持
+                <input class="np" name="issend" type="radio"
+                       value="1"<?php if($row['issend']==1) echo " checked='1' "; ?> />
+                支持
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>会员许可投稿级别</strong></td>
+            <td bgcolor="#FFFFFF">
+                <select id="sendrank" name="sendrank" style="width:120px">
+                    <option value='0'>游客</option>
+                    <?php
+          $urank = $cuserLogin->getUserRank();
+                    $dsql->SetQuery("Select * from `#@__arcrank` where adminrank<='$urank' And rank>=10");
+                    $dsql->Execute();
+                    while($row2 = $dsql->GetObject())
+                    {
+                    if($row2->rank==$row['sendrank']) echo "
+                    <option selected value='".$row2->rank."'>".$row2->membername."</option>
+                    \r\n";
+                    else echo "
+                    <option value='".$row2->rank."'>".$row2->membername."</option>
+                    \r\n";
+                    }
+                    ?>
+                </select></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>许可投稿会员组</strong></td>
+            <td bgcolor="#FFFFFF">
+                <?php
+        $dsql->SetQuery("Select * from `#@__member_model`");
+                $dsql->Execute();
+                while($row3 = $dsql->GetObject())
+                {
+                echo "<input class='np' name='usertype' type='radio' value=".$row3->name."/>".$row3->name."\r\n";
+                }
+                ?>
+                <input class="np" name="usertype" type="radio"
+                       value=""<?php if($row['usertype']=='') echo " checked='1' ";?> />
+                不限
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>会员稿件默认状态</strong></td>
+            <td bgcolor="#FFFFFF">
+                <input class="np" name="arcsta" type="radio"
+                       value="-1"<?php if($row['arcsta']==-1) echo " checked='1' ";?>>
+                未审核
+                <input class="np" name="arcsta" type="radio"
+                       value="0"<?php if($row['arcsta']==0) echo " checked='1' ";?>>
+                已审核（自动生成HTML）
+                <input class="np" name="arcsta" type="radio"
+                       value="1"<?php if($row['arcsta']==1) echo " checked='1' ";?>>
+                已审核（仅使用动态文档）
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>档案发布程序</strong></td>
+            <td bgcolor="#FFFFFF"><input class="pubinputs" id="addcon" name="addcon" type="text"
+                                         value="<?php echo $row['addcon']; ?>"/></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>档案修改程序</strong></td>
+            <td bgcolor="#FFFFFF"><input class="pubinputs" id="editcon" name="editcon" type="text"
+                                         value="<?php echo $row['editcon']; ?>"/></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>档案管理程序</strong></td>
+            <td bgcolor="#FFFFFF"><input class="pubinputs" id="mancon" name="mancon" type="text"
+                                         value="<?php echo $row['mancon']; ?>"/></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>前台会员发布程序</strong></td>
+            <td bgcolor="#FFFFFF"><input class="pubinputs" id="useraddcon" name="useraddcon" type="text"
+                                         value="<?php echo $row['useraddcon']; ?>"/></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>前台会员修改程序</strong></td>
+            <td bgcolor="#FFFFFF"><input class="pubinputs" id="usereditcon" name="usereditcon" type="text"
+                                         value="<?php echo $row['usereditcon']; ?>"/></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>前台会员管理程序</strong></td>
+            <td bgcolor="#FFFFFF"><input class="pubinputs" id="usermancon" name="usermancon" type="text"
+                                         value="<?php echo $row['usermancon']; ?>"/></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>列表附加字段</strong><br/>
+                <span class="STYLE2" id="help6">用&quot;,&quot;分开，可以在列表模板{dede:list}{/dede:list}中用[field:name /]调用</span>
+            </td>
+            <td bgcolor="#FFFFFF">
+                <input class="pubinputs" id="listfields" name="listfields" size="50" style="width:80%;" type="text"
+                       value="<?php echo $row['listfields']; ?>"/></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><b>投稿标题使用名称</b></td>
+            <td bgcolor="#FFFFFF">
+                <input class="pubinputs" id="titlename" name="titlename" type="text"
+                       value="<?php echo $row['titlename']; ?>"/></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF">
+                <strong>投稿是否使用摘要</strong>
+                <br/>
+                <span class="STYLE2">如果不使用主表(独立模型)，缩略图设置同。</span>
+            </td>
+            <td bgcolor="#FFFFFF">
+                <input class="np" name="needdes" type="radio"
+                       value="1"<?php if($row['needdes']==1) echo " checked='1'"; ?> />
+                使用
+                <input class="np" name="needdes" type="radio"
+                       value="0"<?php if($row['needdes']==0) echo " checked='1'"; ?> />
+                不使用
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>投稿是否使用缩图</strong></td>
+            <td bgcolor="#FFFFFF">
+                <input class="np" name="needpic" type="radio"
+                       value="1"<?php if($row['needpic']==1) echo " checked='1'"; ?> />
+                使用
+                <input class="np" name="needpic" type="radio"
+                       value="0"<?php if($row['needpic']==0) echo " checked='1'"; ?> />
+                不使用
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><b>默认栏目ID</b><br/>
+                <span class="STYLE2" id="help8">与投稿是唯一性结合可以用模型设计自定义表单</span></td>
+            <td bgcolor="#FFFFFF">
+                <input class="pubinputs" id="dfcid" name="dfcid" style="width:80px" type="text"
+                       value="<?php echo $row['dfcid']; ?>"/></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><b>投稿具有唯一性</b><br/>
+                <span class="STYLE2" id="help9">如果投稿是唯一的(会员只能在这个模型对应的栏目中发布单篇文档)，其作用相当于自定义表单</span></td>
+            <td bgcolor="#FFFFFF">
+                <input class="np" name="onlyone" type="radio"
+                       value="1"  <?php if($row['onlyone']==1) echo " checked='1'"; ?> />
+                是
+                <input class="np" name="onlyone" type="radio"
+                       value="0" <?php if($row['onlyone']==0) echo " checked='1'"; ?> />
+                不是
+            </td>
+        </tr>
+    </table>
+
+    <table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" id='adset' style='display:none'
+           width="98%">
+        <tr>
+            <td bgcolor="#ffffff" height="28"><strong>模型字段配置(可视化模式)</strong></td>
+            <td bgcolor="#ffffff">
+                <input class="coolbg np" id="fset" name="fset"
+                       onClick="location.href='mychannel_field_add.php?id=<?php echo $id; ?>'" type="button"
+                       value="添加新字段"/></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" colspan='2' style="padding:6px">
+                <table align="center" border="0" cellpadding="1" cellspacing="1" style="background:#cfcfcf;"
+                       width="100%">
+                    <tr align="center" bgcolor="#FBFCE2" height="24">
+                        <td width="28%">表单提示文字</td>
+                        <td width="18%">数据字段名</td>
+                        <td width="20%">数据类型</td>
+                        <td width="18%">表单类型</td>
+                        <td>维护</td>
+                    </tr>
+                    <?php
+if($row['issystem']==-1)
+{
+?>
+                    <tr bgcolor="#ffffff" height="24">
+                        <td colspan='5'>aid 和 typeid 是强制使用字段，这里不列出。</td>
+                    </tr>
+                    <?php
+}
+else
+{
+?>
+                    <tr bgcolor="#ffffff" height="24">
+                        <td colspan='5'>下面列出的字段是附加表的字段，除此外，它还包含主表dede_archives的所有字段</td>
+                    </tr>
+                    <?php
+}
+$ds = file(DEDEADMIN."/inc/fieldtype.txt");
+foreach($ds as $d){
+	$dds = explode(',',trim($d));
+	$fieldtypes[$dds[0]] = $dds[1];
+}
+$fieldset = $row['fieldset'];
+$dtp = new DedeTagParse();
+$dtp->SetNameSpace("field","<",">");
+                    $dtp->LoadSource($fieldset);
+                    if(is_array($dtp->CTags)){
+                    foreach($dtp->CTags as $ctag)
+                    {
+                    ?>
+                    <tr align="center" align="center" bgcolor="#FFFFFF" height="26" height="24"
+                        onMouseMove="javascript:this.bgColor='#FCFDEE';"
+                        onMouseOut="javascript:this.bgColor='#FFFFFF';">
+                        <td>
+                            <?php
+			$itname = $ctag->GetAtt('itemname');
+                            if($itname=='') echo "没指定";
+                            else echo $itname;
+                            ?>
+                        </td>
+                        <td>
+                            <?php echo $ctag->GetTagName(); ?>
+                        </td>
+                        <td>
+                            <?php
+			$ft = $ctag->GetAtt('type');
+                            if(isset($fieldtypes[$ft])) echo $fieldtypes[$ft];
+                            else echo "系统专用类型";
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+			$ft = $ctag->GetAtt('autofield');
+                            if($ft=='' || $ft==0) {
+                            echo "固化字段";
+                            }
+                            else {
+                            echo "自动表单";
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+if($ft==1)
+{
+?>
+                            <a href='mychannel_field_edit.php?id=<?php echo $id; ?>&fname=<?php echo $ctag->GetTagName(); ?>&issystem=<?php echo $row['
+                               issystem']; ?>'><img alt='更改' src='images/gtk-edit.png' title='更改'/></a>
+                            <?php if($row['issystem']!=1){ ?>
+                            | <a href='#'
+                                 onClick='javascript:DelNote("mychannel_field_edit.php?id=<?php echo $id; ?>&fname=<?php echo $ctag->GetTagName(); ?>&action=delete");'><img
+                                alt='删除' src='images/gtk-del.png' title='删除'/></a>
+                            <?php } ?>
+                            <?php
+}
+else
+{
+	echo "禁止修改";
+}
+?>
+                        </td>
+                    </tr>
+                    <?php
+ }}
+?>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="24" width="35%">
+                <strong>模型字段配置(文本模式) </strong><br/>
+                修改配置文本可调整字段顺序，但不会更改字段属性！
+            </td>
+            <td bgcolor="#FFFFFF" width="65%">
+                <textarea id="fieldset" name="fieldset" rows="10"
+                          style="width:99%;height:300px"><?php echo $row['fieldset']; ?></textarea>
+            </td>
+        </tr>
+    </table>
+    <table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" id='' style='margin-top:6px'
+           width="98%">
+        <tr bgcolor="#F9FCEF">
+            <td colspan="2" height="36">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="26%">&nbsp;</td>
+                        <td width="15%"><input border="0" class="np" height="22" name="imageField"
+                                               src="images/button_ok.gif" type="image" width="60"/></td>
+                        <td width="59%"><img height="22" onClick="location='mychannel_main.php';"
+                                             src="images/button_back.gif" style="cursor:pointer" width="60"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</form>
+<?php
+if(!empty($openfield))
+{
+	echo "<script language='javascript'>ShowItem2();</script>";
+}
+    ?
+>
+<
+/body>
+< /html>

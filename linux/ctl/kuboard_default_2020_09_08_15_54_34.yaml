@@ -1,0 +1,136 @@
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: default
+  name: cloud-centos-k8s
+  annotations:
+    k8s.kuboard.cn/workload: cloud-centos-k8s
+    k8s.kuboard.cn/displayName: centos-k8s
+    k8s.kuboard.cn/ingress: 'true'
+    k8s.kuboard.cn/service: NodePort
+  labels:
+    k8s.kuboard.cn/layer: cloud
+    k8s.kuboard.cn/name: cloud-centos-k8s
+spec:
+  selector:
+    matchLabels:
+      k8s.kuboard.cn/layer: cloud
+      k8s.kuboard.cn/name: cloud-centos-k8s
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        k8s.kuboard.cn/layer: cloud
+        k8s.kuboard.cn/name: cloud-centos-k8s
+    spec:
+      securityContext:
+        seLinuxOptions: {}
+      imagePullSecrets: []
+      restartPolicy: Always
+      initContainers: []
+      containers:
+        - image: '1872220587/k8s:7.8.2003.bt.7.4.5.shelimai.com'
+          imagePullPolicy: IfNotPresent
+          name: centos-k8s
+          volumeMounts:
+            - name: node2-nfs-www
+              mountPath: /www/wwwroot/shelimai.com
+              subPath: wwwroot/shelimai.com
+            - name: node2-nfs-www
+              mountPath: /www/server/data/shelimai_com
+              subPath: server/data/shelimai_com
+          command:
+            - /bin/sh
+            - '-c'
+            - top -b
+          resources:
+            limits:
+            requests:
+          env: []
+          lifecycle: {}
+      volumes:
+        - name: node2-nfs-www
+          nfs:
+            server: 172.18.77.122
+            path: /root/backup/www
+      dnsPolicy: ClusterFirst
+      dnsConfig: {}
+      nodeName: k8s-node1
+      terminationGracePeriodSeconds: 30
+  replicas: 1
+  volumeClaimTemplates: []
+  serviceName: cloud-centos-k8s
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: cloud-centos-k8s
+  annotations:
+    k8s.kuboard.cn/workload: cloud-centos-k8s
+    k8s.kuboard.cn/displayName: centos-k8s
+  labels:
+    k8s.kuboard.cn/layer: cloud
+    k8s.kuboard.cn/name: cloud-centos-k8s
+spec:
+  selector:
+    k8s.kuboard.cn/layer: cloud
+    k8s.kuboard.cn/name: cloud-centos-k8s
+  type: NodePort
+  ports:
+    - port: 8888
+      targetPort: 8888
+      protocol: TCP
+      name: bt
+      nodePort: 32504
+    - port: 443
+      targetPort: 80
+      protocol: TCP
+      name: https
+      nodePort: 30948
+    - port: 3306
+      targetPort: 3306
+      protocol: TCP
+      name: mysql
+      nodePort: 32198
+    - port: 888
+      targetPort: 888
+      protocol: TCP
+      name: mbynxd
+      nodePort: 30992
+  sessionAffinity: None
+  externalIPs:
+    - 120.24.252.169
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  namespace: default
+  name: cloud-centos-k8s
+  annotations:
+    k8s.kuboard.cn/workload: cloud-centos-k8s
+    k8s.kuboard.cn/displayName: centos-k8s
+  labels:
+    k8s.kuboard.cn/layer: cloud
+    k8s.kuboard.cn/name: cloud-centos-k8s
+spec:
+  rules:
+    - host: test.shelimai.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: cloud-centos-k8s
+              servicePort: https
+    - host: bt.shelimai.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: cloud-centos-k8s
+              servicePort: bt
+

@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type"/>
+    <title><?php echo $cfg_webname; ?> - 留言本</title>
+    <link href="<?php echo $cfg_templeturl; ?>/default/style/dedecms.css" media="screen" rel="stylesheet"
+          type="text/css"/>
+    <style>
+        .lefttd {
+            border-left: 1px solid #dedede;
+            border-right: 1px solid #dedede;
+        }
+
+        .ltd {
+            border-left: 1px solid #dedede;
+            border-right: 1px solid #dedede;
+            border-top: 1px solid #dedede;
+            border-bottom: 1px dashed #dedede;
+        }
+
+        .msgtd {
+            line-height: 180%;
+            border-right: 1px solid #dedede;
+            padding-left: 5px;
+        }
+
+        .timetd {
+            border-right: 1px solid #dedede;
+            border-top: 1px solid #dedede;
+            border-bottom: 1px dashed #dedede;
+            padding-left: 5px;
+        }
+
+        .bottomtd {
+            border-right: 1px solid #dedede;
+            border-top: 1px dashed #dedede;
+            padding-left: 5px;
+        }
+
+        .writetable td {
+            padding: 5px;
+        }
+
+        .writetd {
+            background: url(img/wbg.gif);
+        }
+
+        .pagetable {
+            border: 1px solid #dedede;
+            margin-bottom: 8px;
+            background: #FBFEED;
+        }
+
+        .pagelistbox {
+
+        }
+
+        .pagelistbox span {
+            border: 1px solid #dedede;
+            padding: 2px;
+            margin-right: 3px;
+            background: #E8F9BF;
+        }
+
+        .pagelistbox a {
+            border: 1px solid #dedede;
+            padding: 2px;
+            margin-right: 3px;
+            background: #E8F9BF;
+        }
+
+        .rebox {
+            width: 98%;
+            padding: 3px;
+            border: 1px solid #dedede;
+        }
+    </style>
+</head>
+<body class="mapspage">
+
+<div class="header">
+    <div class="top w960 center">
+        <div class="title">
+            <h1>
+                <h1><a href="<?php echo $cfg_basehost;?>/"><?php echo $cfg_webname;?></a></h1>
+            </h1>
+        </div><!-- /title -->
+    </div><!-- /top -->
+</div><!-- /header -->
+<div class="w960 clear center mt1">
+    <div class="sp-title">
+        <a href='guestbook.php'><h2>留言本</h2></a>
+        <span class="more"><a href="<?php echo $cfg_basehost;?>/">返回首页</a> </span></div>
+
+    <table align="center" bgcolor="#dedede" border="0" cellpadding="4" cellspacing="1" class='writetable' width="100%">
+        <form action="guestbook.php" method="post">
+            <input name="action" type="hidden" value="save">
+            <input name="reid" type="hidden" value="<?php echo $row['id']; ?>">
+            <tr>
+                <td class='writetd' colspan='4'><b>回复主题：</b><?php echo $row['title']; ?><a name='write'></a></td>
+            </tr>
+            <tr bgcolor="#ffffff">
+                <td align="center" nowrap width="10%"><font color="#FF0000">*</font>论文标题：</td>
+                <td width="40%"><input class="ipt-txt" maxlength="50" name="title" size="30" type="text"
+                                       value="回复：<?php echo $row['title']; ?>"/></td>
+                <td align="center" nowrap width="10%">验 证 码：</td>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td width="70"><input class="ipt-txt" id="vdcode2" name="validate"
+                                                  style="width:60px;text-transform: uppercase;" type="text"/></td>
+                            <td><img src='../include/vdimgck.php'/></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr bgcolor="#ffffff">
+                <td align="center" nowrap width="10%"><font color="#FF0000">*</font>你的姓名：</td>
+                <td width="40%"><input class="ipt-txt" maxlength="10" name="uname" size="30" type="text"
+                                       value="<?php echo $g_name; ?>"/></td>
+                <td align="center" nowrap width="10%">OICQ号码：</td>
+                <td width="40%"><input class="ipt-txt" maxlength="20" name="qq" size="20" type="text"/></td>
+            </tr>
+            <tr bgcolor="#ffffff">
+                <td align="center" nowrap>&nbsp;电子邮件：</td>
+                <td><input class="ipt-txt" maxlength="80" name="email" size="30" type="text"/></td>
+                <td align="center" height="12" nowrap>个人主页：</td>
+                <td height="12"><input class="ipt-txt" maxlength="80" name="homepage" size="20" type="text"/></td>
+            </tr>
+            <tr bgcolor="#ffffff">
+                <td align="center" nowrap width="10%"><font color="#FF0000">*</font>留言内容：<br/>
+                    (1000字内)
+                </td>
+                <td align="left" width="40%">
+                    <textarea class="textarea ipt-txt" cols="38" name="msg" rows="5"></textarea>
+                </td>
+                <td align="center" height="2" nowrap width="10%">选择头像：</td>
+                <td height="2" nowrap width="40%">
+                    <input checked name="img" type="radio" value="01"/>
+                    <img height="25" src="guestbook/images/01.gif" width="25"/>
+                    <input name="img" type="radio" value="02"/>
+                    <img height="25" src="guestbook/images/02.gif" width="25"/>
+                    <input name="img" type="radio" value="03"/>
+                    <img height="25" src="guestbook/images/03.gif" width="25"/>
+                    <input name="img" type="radio" value="04"/>
+                    <img height="25" src="guestbook/images/04.gif" width="25"/>
+                    <input name="img" type="radio" value="05"/>
+                    <img height="25" src="guestbook/images/05.gif" width="25"/>
+                    <input name="img" type="radio" value="06"/>
+                    <img height="25" src="guestbook/images/06.gif" width="25"/>
+                    <input name="img" type="radio" value="08"/>
+                    <img height="25" src="guestbook/images/08.gif" width="25"/>
+                    <br/><br/>
+                    <input name="img" type="radio" value="13"/>
+                    <img height="25" src="guestbook/images/13.gif" width="25"/>
+                    <input name="img" type="radio" value="14"/>
+                    <img height="25" src="guestbook/images/14.gif" width="25"/>
+                    <input name="img" type="radio" value="15"/>
+                    <img height="25" src="guestbook/images/15.gif" width="25"/>
+                    <input name="img" type="radio" value="16"/>
+                    <img height="25" src="guestbook/images/16.gif" width="25"/>
+                    <input name="img" type="radio" value="17"/>
+                    <img height="25" src="guestbook/images/17.gif" width="25"/>
+                    <input name="img" type="radio" value="18"/>
+                    <img height="25" src="guestbook/images/18.gif" width="25"/>
+                    <input name="img" type="radio" value="20"/>
+                    <img height="25" src="guestbook/images/20.gif" width="25"/>
+                </td>
+            </tr>
+            <tr bgcolor="#ffffff">
+                <td align="center" colspan="4" nowrap><input class="btn-2" maxlength="1000" name="Submit" type="submit"
+                                                             value="提 交"/>
+                    &nbsp;&nbsp;
+                    <input class="btn-2" name="Submit2" type="reset" value="取 消"/></td>
+            </tr>
+        </form>
+    </table>
+
+    <div class="footer">
+        <p class="powered">
+            <?php echo $cfg_powerby; ?>
+        </p><!-- /powered -->
+    </div>
+</div>
+
+</body>
+</html>

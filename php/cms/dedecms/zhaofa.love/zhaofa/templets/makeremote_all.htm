@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>远程服务器同步</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="../include/calendar/calendar-win2k-1.css" media="all" rel="stylesheet" title="win2k-1" type="text/css"/>
+    <script src="../include/calendar/calendar.js" type="text/javascript"></script>
+    <script src="../include/calendar/calendar-cn.js" type="text/javascript"></script>
+    <script language="javascript">
+        function checkAll() {
+            for (i = 0; i < document.form2.Iterm.length; i++) {
+                if (!document.form2.Iterm[i].checked) {
+                    document.form2.Iterm[i].checked = true;
+                } else {
+                    document.form2.Iterm[i].checked = false;
+                }
+            }
+        }
+
+        function changeDopost(postval) {
+            document.form2.maketype.value = postval;
+            document.form2.submit;
+        }
+    </script>
+</head>
+<body background="images/allbg.gif" leftmargin="8" topmargin="8">
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <form action="makeremote_all.php" id="form2" method="post" name="form2" target="stafrm">
+        <input name="dopost" type="hidden" value="make">
+        <input name="maketype" type="hidden" value="">
+        <tr>
+            <td background='images/tbg.gif' colspan="5" height="28">
+                <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                    <tr>
+                        <td height="18" width="30%"><strong>远程服务器同步向导：</strong></td>
+                        <td align="right" width="70%"><a
+                                href="makeremote_all.php?dopost=updateremote">&nbsp;[更新同步目录]</a></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" valign="top" width="61"><label>
+                <input id="remoteiterm" name="remoteiterm" onChange="javascript:checkAll()" type="checkbox">
+            </label>
+                选择
+            </td>
+            <td align="center" bgcolor="#FFFFFF" valign="top" width="185">项目(站点根目录)</td>
+            <td align="center" bgcolor="#FFFFFF" valign="top" width="265">项目说明</td>
+            <td align="center" bgcolor="#FFFFFF" valign="top" width="195">选择服务器</td>
+            <td align="center" bgcolor="#FFFFFF" valign="top" width="196">状态</td>
+        </tr>
+
+        <?php
+    foreach($remotefile as $key => $value)
+        {
+        $bgcolor = ($key % 2 == 0)? '#E6F3CD' : '#FFFFFF';
+        ?>
+        <tr>
+            <td align="center" bgcolor="<?php echo $bgcolor;?>" valign="top" width="61"><input id="Iterm"
+                                                                                               name="Iterm[<?php echo $key;?>]"
+                                                                                               type="checkbox"
+                                                                                               value="<?php echo $value['filedir'] ;?>">
+            </td>
+            <td align="left" bgcolor="<?php echo $bgcolor;?>" valign="top"
+                width="185"><?php echo $value['filedir'] ;?><?php echo ($value['issystem']==1)? '<font color="red">
+                [系统]</font>' : '' ;?>
+            </td>
+            <td bgcolor="<?php echo $bgcolor;?>" valign="top" width="265"><?php echo $value['description'] ;?></td>
+            <td align="center" bgcolor="<?php echo $bgcolor;?>" valign="top" width="195"><label>
+                <?php
+          GetFtp($value['dfserv'], "serviterm[$key]");
+          ?>
+            </label></td>
+            <td align="center" bgcolor="<?php echo $bgcolor;?>" valign="top"
+                width="196"><?php echo GetState($value['state']) ;?></td>
+        </tr>
+        <?php
+    }
+    ?>
+        <tr>
+            <td align="left" bgcolor="#FAFAF1" colspan="5" height="31">
+                功能说明：本功能主要用于本地服务器文件同远程服务器进行同步，这里我们有几个是系统文件夹（Html生成、文件上传、专题）是必须要同远程服务器同步的，当然也有可选文件夹，用户可以在系统根目录\data\config.file.inc.php文件中进行修改（修改方法已在文件中说明）。
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FAFAF1" colspan="5" height="31"><input class='coolbg np' name="Submit2"
+                                                                                type="submit" value="更新选择"/>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input class='coolbg np' name="Submit" onClick="changeDopost('makeall')" type="submit" value="同步更新所有"/>
+            </td>
+        </tr>
+    </form>
+    <tr bgcolor="#E6F3CD">
+        <td colspan="5" height="20">
+            <table width="100%">
+                <tr>
+                    <td width="74%">进行状态：</td>
+                    <td align="right" width="26%">
+                        <script language='javascript'>
+                            function ResizeDiv(obj, ty) {
+                                if (ty == "+") document.all[obj].style.pixelHeight += 50;
+                                else if (document.all[obj].style.pixelHeight > 80) document.all[obj].style.pixelHeight = document.all[obj].style.pixelHeight - 50;
+                            }
+                        </script>
+                        [<a href='#' onClick="ResizeDiv('mdv','+');">增大</a>] [<a href='#'
+                                                                                 onClick="ResizeDiv('mdv','-');">缩小</a>]
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#FFFFFF">
+        <td colspan="5" id="mtd">
+            <div id='mdv' style='width:100%;height:350px;'>
+                <iframe frameborder="0" height="100%" id="stafrm" name="stafrm" width="100%"></iframe>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

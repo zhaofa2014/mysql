@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <title>采集内容导出</title>
+</head>
+<body background="images/allbg.gif" leftmargin="8" topmargin="8">
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <form action="co_export.php" method="get" name="form1" target="stafrm">
+        <input name="nid" type="hidden" value="<?php echo $nid?>"/>
+        <input name="totalcc" type="hidden" value="<?php echo $totalcc?>"/>
+        <input name="channelid" type="hidden" value="<?php echo $channelid?>"/>
+        <input name="dopost" type="hidden" value="done"/>
+        <tr>
+            <td background='images/tbg.gif' colspan="3" height="28" style="padding-left:10px;"><strong><a
+                    href="co_main.php"><u>采集管理</u></a>
+                &gt; 采集内容导出：</strong></td>
+        </tr>
+        <tr>
+            <td bgcolor="#F8FCF1" colspan="3" height="24">
+                <strong>共有[<?php echo $totalcc; ?>]条可导出数据：</strong>
+                <?php
+      	if(empty($nid))
+      	{
+      		echo "<br /><font color='red'>你当进行的操作是--导出所有采集内容，需注意下面问题：<br/>\r\n";
+                echo "1 、如果你采集的内容包含多个内容模型的信息，本操作将会出错！<br/>\r\n";
+                echo "2 、这种模式'完成后自动生成导入内容HTML'功能无效。\r\n";
+                echo "</font>";
+                }
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="24" width="26%">默认导出栏目：</td>
+            <td bgcolor="#FFFFFF" colspan="2" width="74%">
+                <?php
+         $typeOptions = GetOptionList(0,$cuserLogin->getUserChannel(),$channelid);
+                echo "<select name='typeid' style='width:300px'>\r\n";
+                echo "
+                <option selected value='0'>请选择主分类...</option>
+                \r\n";
+                echo $typeOptions;
+                echo "</select>";
+                ?>
+                （请选择白色的栏目）
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="24">
+                批量采集选项：
+            </td>
+            <td bgcolor="#FFFFFF" colspan="2">
+                <input class="np" id="autotype" name="autotype" type="checkbox"
+                       value="1"<?php if($usemore==1 || empty($nid)) echo " checked='1' "; ?>/>
+                使用采集规则中指定的栏目ID(如果目标的栏目ID为0，则用上面选择的栏目)
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="24">发布选项：</td>
+            <td bgcolor="#FFFFFF" colspan="2">
+                <input checked='1' class="np" name="arcrank" type="radio" value="0"/>
+                普通文档
+                <input class="np" name="arcrank" type="radio" value="-1"/>
+                保存为草稿
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="24">每批导入：</td>
+            <td bgcolor="#FFFFFF" colspan="2">
+                <input id="pagesize" name="pagesize" style="width:30px" type="text" value="60"/> 条
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="24">附带选项：</td>
+            <td bgcolor="#FFFFFF" colspan="2">
+                <input class="np" id="onlytitle" name="onlytitle" type="checkbox" value="1"/>
+                排除重复标题
+                <input class="np" id="makehtml" name="makehtml" type="checkbox" value="1"/>
+                完成后自动生成导入内容HTML
+                <input class="np" id="usetitle" name="usetitle" type="checkbox" value="1"/>
+                使用列表索引的标题
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="24">随机推荐：</td>
+            <td bgcolor="#FFFFFF" colspan="2">
+                <input id="randcc" name="randcc" style="width:30px" type="text" value="12"/>
+                (0 表示不推荐，具体数值表示大约多少篇文档出现一篇推荐[随机])
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#F8FCF1" colspan="3" height="24">&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" colspan="3" height="34">
+                <input border="0" class="np" height="22" name="imageField" src="images/button_ok.gif" type="image"
+                       width="60"/>
+                &nbsp;
+                <a href="co_main.php"><img border="0" height="22" src="images/button_back.gif" width="60"/></a>
+            </td>
+        </tr>
+    </form>
+    <tr>
+        <td align="center" bgcolor="#F9FCEF" colspan="3" height="34">
+            <table width="100%">
+                <tr>
+                    <td align="left" width="74%">进行状态：</td>
+                    <td align="right" width="26%"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#FFFFFF" colspan="3" height="150" id="mtd">
+            <iframe frameborder="0" height="300" id="stafrm" name="stafrm" width="100%"></iframe>
+        </td>
+    </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>

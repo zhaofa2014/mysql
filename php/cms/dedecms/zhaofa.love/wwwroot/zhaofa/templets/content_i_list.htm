@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>文档管理</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <script language="javascript" src="../include/js/dedeajax2.js"></script>
+    <script language="javascript" src="js/ieemu.js"></script>
+    <script language="javascript" src="js/context_menu.js"></script>
+    <script language="javascript" src="js/main.js"></script>
+    <script language="javascript" src="js/list.js"></script>
+</head>
+<body background='images/allbg.gif' leftmargin="8" onLoad="ContextMenu.intializeContextMenu()" topmargin="8">
+
+<table align="center" bgcolor="#cfcfcf" border="0" cellpadding="0" cellspacing="1" width="98%">
+    <tr>
+        <td align="center" background="images/newlinebg3.gif" height="28">
+            <input class="coolbg np"
+                   onClick="location='catalog_do.php?channelid={dede:global.channelid/}&cid={dede:global.cid/}&dopost=addArchives';"
+                   type='button' value='添加文档'/>
+            {dede:if $adminid == $mid }
+            <input class="coolbg np" onClick="location='content_i_list.php?cid={dede:global.cid/}&mid=0';" type='button'
+                   value='全部文档'/>
+            {else}
+            <input class="coolbg np"
+                   onClick="location='content_i_list.php?cid={dede:global.cid/}&mid=<?php echo $cuserLogin->getUserID(); ?>';"
+                   type='button' value='我的文档'/>
+            {/dede:if}
+            {dede:global.CheckUserSend/}
+            <input class="coolbg np" onClick="location='catalog_main.php';" type='button' value='栏目管理'/>
+            <input class="coolbg np" name='bb1' onClick="location='makehtml_list.php?cid={dede:global.cid/}';"
+                   type='button' value='更新列表'/>
+            <input class="coolbg np" name='bb2' onClick="location='makehtml_archives.php?cid={dede:global.cid/}';"
+                   type='button' value='更新文档'/>
+            <input class="coolbg np" name='bb1' onClick="location='recycling.php?cid={dede:global.cid/}';" type='button'
+                   value='文章回收站'/>
+        </td>
+    </tr>
+</table>
+
+<table align='center' bgcolor='#cfcfcf' border='0' cellpadding='2' cellspacing='1' style="margin-top:8px;" width='98%'>
+    <tr bgcolor='#EEF4EA' height='26'>
+        <td background='images/wbg.gif' colspan='7' style="padding-left:10px;">
+            {dede:global.positionname/}文档列表 &nbsp;(使用鼠标右键进行常用操作)
+        </td>
+    </tr>
+    <tr align="center" bgcolor="#FBFCE2" height="25">
+        <td width="13%">文档图片</td>
+        <td width="35%">文档标题</td>
+        <td width="12%">类目</td>
+        <td width="11%">权限</td>
+        <td width="10%">发布人</td>
+        <td width="10%">HTML</td>
+        <td width="9%">点击</td>
+    </tr>
+</table>
+
+<form name="form2">
+    {dede:datalist}
+    <table GetColor( bgcolor="{dede:label bind=" border="0" cellpadding="1"
+           cellspacing="1"
+           class='ilist' width="98%"
+    '#FAFAF1','#FFFFFF')" /}" align='center' style="margin-top:8px;">
+    <tr>
+        <td align='center' width="13%">
+            <img alt="文档图片" border="0" height="60" src="{dede:field.litpic function='CheckPic(@me)' /}" width="80">
+        </td>
+        <td width="35%">
+            <input class="np" id="arcID" name="arcID" type="checkbox" value="{dede:field.id/}"/>
+            <img alt="编辑属性" border='0' height='16' onClick="QuickEdit({dede:field.id/}, event, this);"
+                 src='images/trun.gif' style='cursor:pointer' title="编辑属性" width='16'/>
+            <a href="archives_do.php?aid={dede:field.id/}&dopost=editArchives"
+               oncontextmenu="ShowMenu(event,this,{dede:field.id/},'{dede:field.title function=" str_replace('\'', '',
+            @me)" /}')">
+            <b>{dede:field.title/}{dede:field.flag function='IsCommendArchives(@me)'/}</b>
+            </a>
+            <br/>
+            　　发布时间：{dede:field.senddate function='GetDateTimeMk(@me)' /}
+        </td>
+        <td align="center" height="26" width="12%">
+            {dede:field.typeid function='GetTypename(@me)'/}
+            <br/>
+            ID: {dede:field.id/}
+        </td>
+        <td align="center" width="11%">{dede:field.arcrank function='GetRankName(@me)' /}</td>
+        <td align="center" width="10%">{dede:field.mid function=GetMemberName(@me)/}</td>
+        <td align="center" width="10%">{dede:field.ismake function='IsHtmlArchives(@me)' /}</td>
+        <td align="center" width="9%">{dede:field.click/}</td>
+    </tr>
+    </table>
+    {/dede:datalist}
+</form>
+
+<table align='center' bgcolor='#cfcfcf' border="0" cellpadding="1" cellspacing="1" style="margin-top:8px;" width="98%">
+    <tr bgcolor="#ffffff">
+        <td colspan="10" height="36">
+            &nbsp;
+            <a class="coolbg" href="javascript:selAll()">全选</a>
+            <a class="coolbg" href="javascript:noSelAll()">取消</a>
+            <a class="coolbg" href="javascript:viewArc(0)">&nbsp;查看&nbsp;</a>
+            <a class="coolbg" href="javascript:editArc(0)">&nbsp;更改&nbsp;</a>
+            <a class="coolbg" href="javascript:updateArc(0)">&nbsp;更新&nbsp;</a>
+            <a class="coolbg" href="javascript:checkArc(0)">&nbsp;审核&nbsp;</a>
+            <a class="coolbg" href="javascript:adArc(0)">&nbsp;推荐&nbsp;</a>
+            <a class="coolbg" href="javascript:;"
+               onClick="moveArc(event,this,<?php echo (empty($channelid) ? 0 : $channelid); ?>)">&nbsp;移动&nbsp;</a>
+            <a class="coolbg" href="javascript:delArc(0)">&nbsp;删除&nbsp;</a>
+            <a class="coolbg" href="javascript:;" onClick="cAtts('attsAdd',event,this)">&nbsp;增加属性&nbsp;</a>
+            <a class="coolbg" href="javascript:;" onClick="cAtts('attsDel',event,this)">&nbsp;删除属性&nbsp;</a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" bgcolor="#F9FCEF" height="28">
+            {dede:pagelist listsize=5/}
+        </td>
+    </tr>
+</table>
+
+<form action='content_i_list.php' method='get' name='form3'>
+    <input name='dopost' type='hidden' value='listArchives'/>
+    <table align="center" bgcolor='#cfcfcf' border='0' cellpadding='1' cellspacing='1' style="margin-top:8px"
+           width='98%'>
+        <tr>
+            <td align='center' background='images/wbg.gif'>
+                <table border='0' cellpadding='0' cellspacing='0' height="32">
+                    <tr>
+                        <td align='center' width='90'>请选择类目：</td>
+                        <td width='160'>
+                            <select name='cid' style='width:150'>
+                                <option value='0'>选择分类...</option>
+                                {dede:global.optionarr/}
+                            </select>
+                        </td>
+                        <td background='images/wbg.gif' width='70'>
+                            关键字：
+                        </td>
+                        <td width='160'>
+                            <input name='keyword' style='width:150px;height:20px;' type='text'
+                                   value='{dede:global.keyword/}'/>
+                        </td>
+                        <td width='110'>
+                            <select name='orderby' style='width:80px'>
+                                <option value='id'>排序...</option>
+                                <option value='pubdate'>更新时间</option>
+                                <option value='sortrank'>置顶权值</option>
+                                <option value='click'>点击量</option>
+                                <option value='scores'>评论积分</option>
+                                <option value='lastpost'>最后评论</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input border="0" class="np" height="22" name="imageField" src="images/button_search.gif"
+                                   type="image" width="60"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+    </table>
+</form>
+</tr>
+</table>
+
+</body>
+</html>

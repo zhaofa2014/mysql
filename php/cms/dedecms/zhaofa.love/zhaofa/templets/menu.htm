@@ -1,0 +1,199 @@
+<div id="sidebar">
+    <div id="sidebar-wrapper"> <!-- Sidebar with logo and menu -->
+
+
+        <h1 id="sidebar-title"><a href="#">信息管理系统</a></h1>
+
+        <!-- Logo (221px wide) -->
+        <a href="./"><img alt="zcncms logo" id="logo" src="images/logo.png"/></a>
+        <!-- Sidebar Profile links -->
+        <div id="profile-links">
+            Hello, <?php echo $cuserLogin->getUserName(); ?> <br/>
+            <a href="sys_cache_up.php" title="清理缓存">清理缓存</a> | <!--<a href="./" title="前台首页">后台首页</a> |  --><a
+                href="/index.php?upcache=1" target="_blank" title="前台首页">前台首页</a> | <a href="exit.php" title="退出">退出</a>
+        </div>
+
+        <ul id="main-nav">  <!-- Accordion Menu -->
+
+            <li>
+                <a class="nav-top-item no-submenu" href="./" id="index">
+                    <!-- Add the class "no-submenu" to menu items with no sub menu -->
+                    管理首页
+                </a>
+            </li>
+
+            <li>
+                <a class="nav-top-item" href="javascript:void(0);" id="articles">
+                    常用操作
+                </a>
+                <ul>
+                    <li><a href="article_add.php" id="article_add">添加文章</a></li>
+                    <li><a href="catalog_main.php" id="catalog_main">网站栏目管理</a></li>
+                    <li><a href="content_list.php" id="content_list">所有档案列表</a></li>
+                    <li><a href="feedback_main.php" id="feedback_main">评论管理</a></li>
+                    <li><a href="recycling.php" id="recycling">内容回收站</a></li>
+                </ul>
+            </li><!--
+				
+				<li>
+					<a id="books" href="javascript:void(0);" class="nav-top-item">
+						留言管理
+					</a>
+					<ul>
+						<li><a id="books_class_list" href="?c=books_class&a=list">留言类型列表</a></li>
+						<li><a id="books_class_edit" href="?c=books_class&a=edit">留言类型添加</a></li>
+						<li><a id="books_list" href="?c=books&a=list">留言列表</a></li>
+						<li><a id="books_unback" href="?c=books&a=unback">未回复留言列表</a></li>
+					</ul>
+				</li> -->
+
+            <li>
+                <a class="nav-top-item" href="javascript:void(0);" id="media">
+                    附件管理 </a>
+                <ul>
+                    <li><a href="media_add.php" id="media_add">上传新文件</a></li>
+                    <li><a href="media_main.php" id="media_main">附件数据管理</a></li>
+                    <li><a href="media_main.php?dopost=filemanager" id="filemanager">文件式管理器</a></li>
+
+                </ul>
+            </li>
+            <li>
+                <a class="nav-top-item" href="javascript:void(0);" id="channel">
+                    频道模型 </a>
+                <ul>
+                    <li><a href="mychannel_main.php" id="mychannel_main">内容模型管理</a></li>
+                    <li><a href="templets_one.php" id="templets_one">单页文档管理</a></li>
+                    <li><a href="stepselect_main.php" id="stepselect_main">联动类别管理</a></li>
+                    <li><a href="freelist_main.php" id="freelist_main">自由列表管理</a></li>
+                    <li><a href="diy_main.php" id="diy_main">自定义表单</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="nav-top-item" href="javascript:void(0);" id="module">
+                    模块管理 </a>
+                <ul>
+                    <li><a href="module_main.php" id="module_main">模块管理</a></li>
+                    <li><a href="module_upload.php" id="module_upload">上传新模块</a></li>
+                    <li><a href="module_make.php" id="module_make">模块生成向导</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="nav-top-item" href="javascript:void(0);" id="plus">
+                    辅助插件 </a>
+                <ul>
+                    <li><a href="plus_main.php" id="plus_main">插件管理器</a></li>
+                    <li><a href="ad_main.php" id="ad_main">广告管理</a></li>
+                    <li><a href="friendlink_main.php" id="friendlink_main">友情链接</a></li>
+                    <li><a href="vote_main.php" id="vote_main">投票模块</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="nav-top-item" href="javascript:void(0);" id="makehtml">
+                    HTML更新
+                </a>
+                <ul>
+                    <li><a href="makehtml_all.php" id="makehtml_all">一键更新网站</a></li>
+                    <li><a href="sys_cache_up.php" id="sys_cache_up">更新系统缓存</a></li>
+                    <li><a href="makehtml_homepage.php" id="makehtml_homepage">更新主页HTML</a></li>
+                    <li><a href="makehtml_list.php" id="makehtml_list">更新栏目HTML</a></li>
+                    <li><a href="makehtml_archives.php" id="makehtml_archives">更新文档HTML</a></li>
+                    <li><a href="makehtml_map_guide.php" id="makehtml_map_guide">更新网站地图</a></li>
+                    <li><a href="makehtml_rss.php" id="makehtml_rss">更新RSS文件</a></li>
+                    <li><a href="makehtml_js.php" id="makehtml_js">获取JS文件</a></li>
+                    <li><a href="makehtml_spec.php" id="makehtml_spec">更新专题HTML</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="nav-top-item" href="javascript:void(0);" id="member">
+                    会员管理
+                </a>
+                <ul>
+                    <li><a href="member_main.php" id="member_main">注册会员列表</a></li>
+                    <li><a href="member_rank.php" id="member_rank">会员级别设置</a></li>
+                    <li><a href="member_scores.php" id="member_scores">积分头衔设置</a></li>
+                    <li><a href="member_model_main.php" id="member_model_main">会员模型管理</a></li>
+                    <li><a href="member_pm.php" id="member_pm">会员短信管理</a></li>
+                    <li><a href="member_guestbook.php" id="member_guestbook">会员留言管理</a></li>
+                    <li><a href="member_info_main.php?type=feed" id="member_feed">会员动态管理</a></li>
+                    <li><a href="member_info_main.php?type=mood" id="member_mood">会员心情管理</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="nav-top-item" href="javascript:void(0);" id="templets">
+                    模版管理
+                </a>
+                <ul>
+                    <li><a href="templets_main.php" id="templets_main">默认模板管理</a></li>
+                    <li><a href="templets_tagsource.php" id="templets_tagsource">标签源码管理</a></li>
+                    <li><a href="mytag_main.php" id="mytag_main">自定义宏标记</a></li>
+                    <li><a href="mytag_tag_guide.php" id="mytag_tag_guide">智能标记向导</a></li>
+                    <li><a href="tag_test.php" id="tag_test">全局标记测试</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="nav-top-item" href="javascript:void(0);" id="sys">
+                    系统设置
+                </a>
+                <ul>
+                    <li><a href="sys_update.php" id="sys_update">系统更新</a></li>
+                    <li><a href="sys_info.php" id="sys_info">系统基本参数</a></li>
+                    <li><a href="sys_admin_user.php" id="sys_admin_user">系统用户管理</a></li><!--可考虑增加类型管理 -->
+                    <li><a href="sys_group.php" id="sys_group">用户组设定</a></li>
+                    <li><a href="sys_multiserv.php" id="sys_multiserv">服务器分布/远程</a></li>
+                    <li><a href="log_list.php" id="log_list">系统日志管理</a></li>
+                    <li><a href="sys_safe.php" id="sys_safe">验证安全设置</a></li>
+                    <li><a href="sys_info_mark.php" id="sys_info_mark">图片水印设置</a></li>
+                    <li><a href="content_att.php" id="content_att">自定义文档属性</a></li>
+                    <li><a href="soft_config.php" id="soft_config">软件频道设置</a></li>
+
+                    <li><a href="sys_task.php" id="sys_task">计划任务管理</a></li>
+                    <li><a href="sys_data.php" id="sys_data">数据库备份/还原</a></li>
+                    <li><a href="sys_sql_query.php" id="sys_sql_query">SQL命令行工具</a></li>
+
+                </ul>
+            </li>
+
+
+            <li>
+                <a class="nav-top-item" href="javascript:void(0);">
+                    版权信息
+                </a>
+                <ul>
+                    <li><a href="#copyzcn" rel="modal" title="退出">版权信息</a></li>
+                    <li><a href="http://www.dedecms.com" target="_blank">Powered by DEDECMS</a></li>
+                    <li><a href="http://www.dedemao.com" target="_blank">主题：织梦猫</a></li>
+                    <li><a href="http://www.dedemao.com" target="_blank">购买请联系QQ：884358</a></li>
+                </ul>
+
+            </li>
+
+        </ul> <!-- End #main-nav -->
+
+
+    </div> <!-- End #messages -->
+    <div id="copyzcn" style="display: none">
+
+        <h3>提示信息</h3>
+
+        <p>
+            <strong>版权信息</strong> <br/>
+            欢迎使用ZCNCMS(oss) Portal Management System v1.2.12 </p>
+
+    </div>
+    <!-- End #messages -->
+
+</div></div>
+<div id="main-content"> <!-- Main Content Section with everything -->
+    <noscript> <!-- Show a notification if the user has disabled javascript -->
+        <div class="notification error png_bg">
+            <div>
+                Javascript is disabled or is not supported by your browser.
+            </div>
+        </div>
+    </noscript>
+
+    <!-- Page Head -->

@@ -1,0 +1,64 @@
+后端框架tp5.1 6.0     laravel      学好基础php  mysql  redis            微服务  组件式开发   接口式开发                                                
+
+
+
+前端框架vue     学好基础js  json 次要 
+
+
+
+
+环境  K8S       学好基础docke git （我已经会用 ）   会用 CI/CD
+
+兴趣    shell      go    py  swoole
+
+
+
+
+
+
+
+
+
+
+
+-javaagent:E:\JetBrains\PyCharm 2018.3.5\lib\JetbrainsIdesCrack-4.2.jar
+Deshun 
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+class 工作之余 extends 生活
+    {
+        public $工作动手和动脑;
+        public $理论支撑;
+        public $&;
+
+        public function 举例子帮助理解 ()
+        {
+            return "学以致用，赚到钱 财富自由 才算成功" ;
+        }
+        public function &
+
+    }
+
+
+
+
+
+
+
+
+
+ 
+
+
+

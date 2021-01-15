@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>新增采集节点</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="js/co.js" type="text/javascript"></script>
+    <style type="text/css">
+        <!--
+        .STYLE2 {
+            color: #666666
+        }
+
+        -->
+    </style>
+</head>
+<body>
+<div class="bodytitle" style="width:98%">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt" style="padding-left:10px;"><b>新增采集节点：第一步设置基本信息及网址索引页规则</b></div>
+    <div style='float:right;padding-right:6px;padding-top:3px'>
+        <input class="coolbg np" name="b" onclick="location.href='co_main.php';" style="width:110px;height:20px;"
+               type="button" value="返回节点管理页"/>
+    </div>
+</div>
+<form action="co_add.php" method="post" name="form1">
+    <input name='channelid' type='hidden' value='<?php echo $channelid; ?>'/>
+    <input name='step' type='hidden' value='2'/>
+    <input name='dopost' type='hidden' value='test'/>
+    <table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#F2F6E5">
+                <table border="0" cellpadding="0" cellspacing="0" width="400">
+                    <tr class="top" onClick="showHide('sitem');" style="cursor:pointer">
+                        <td align="center" width="26"><img height="8" src="images/file_tt.gif" width="7"></td>
+                        <td width="374"><b>节点基本信息</b><a name="d1"></a></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="sitem">
+            <td bgcolor="#FFFFFF" width="100%">
+                <table border="0" cellpadding="2" cellspacing="2" width="100%">
+                    <tr>
+                        <td height="24" width="18%">节点名称：</td>
+                        <td width="32%"><input id="notename" name="notename" style="width:250px" type="text"/></td>
+                        <td width="18%">目标页面编码：</td>
+                        <td width="32%">
+                            <input checked='1' class="np" id='language1' name="sourcelang" type="radio" value="gb2312"/>
+                            GB2312
+                            <input class="np" id='language2' name="sourcelang" type="radio" value="utf-8"/>
+                            UTF8
+                            <input class="np" id='language3' name="sourcelang" type="radio" value="big5"/>
+                            BIG5
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="24">区域匹配模式：</td>
+                        <td>
+                            <input class="np" name="macthtype" type="radio" value="regex"/>
+                            正则表达式
+                            <input checked='1' class="np" name="macthtype" type="radio" value="string"/>
+                            字符串
+                        </td>
+                        <td>内容导入顺序：</td>
+                        <td>
+                            <input checked='1' class='np' id="cosort1" name="cosort" type="radio" value="asc"/>
+                            与目标站一致
+                            <input class='np' id="cosort2" name="cosort" type="radio" value="desc"/>
+                            与目标站相反
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#FBFCE2" colspan="4" height="24"><img height="8" src="images/file_tt.gif"
+                                                                           width="7"/>以下选项仅在开启防盗链模式才需设定，如果目标网站没有防盗链功能请不要开启，否则会降低采集速度。
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="24">防盗链模式：</td>
+                        <td>
+                            <input checked='1' class="np" name="isref" type="radio" value="no"/>
+                            不开启
+                            <input class="np" name="isref" type="radio" value="yes"/>
+                            开启
+                        </td>
+                        <td>资源下载超时时间：</td>
+                        <td>
+                            <input id="exptime" name="exptime" size="3" type="text" value="10"/>秒
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="24">引用网址：</td>
+                        <td colspan="3">
+                            <input id="refurl" name="refurl" size="30" style='width:250px' type="text" value="http://"/>
+                            （一般为目标网站其中一个文章页的网址）
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#F2F6E5">
+                <table border="0" cellpadding="0" cellspacing="0" width="400">
+                    <tr class="top" onClick="showHide('slist');" style="cursor:pointer">
+                        <td align="center" width="26"><img height="8" src="images/file_tt.gif" width="7"></td>
+                        <td width="374"><b>列表网址获取规则</b></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="slist">
+            <td bgcolor="#FFFFFF">
+                <table border="0" width="100%">
+                    <tr>
+                        <td height="24" width="18%">来源属性：</td>
+                        <td>
+                            <input checked="checked" class='np' id="source1" name="sourcetype" onclick="selSourceSet()"
+                                   type="radio" value="batch"/>
+                            批量生成列表网址
+                            <input class='np' id="source2" name="sourcetype" onclick="selSourceSet()" type="radio"
+                                   value="hand"/>
+                            手工指定列表网址
+                            <input class='np' id="source3" name="sourcetype" onclick="selSourceSet()" type="radio"
+                                   value="rss"/>
+                            从RSS中获取
+                        </td>
+                    </tr>
+                    <tr bgcolor="#F7FCB4" id="rssset" style="display:none">
+                        <td bgcolor="#F4FCCB" height="24">RSS网址：</td>
+                        <td bgcolor="#F4FCCB">
+                            <input id="rssurl" name="rssurl" style="width:350px" type="text" value="http://"/>
+                            <input id="btv2" name="btv2" onclick="testRss()" type="button" value="测试"/>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#FBFCE2" id="batchset">
+                        <td height="77">批量生成地址设置：</td>
+                        <td>
+                            <table width="90%">
+                                <tr>
+                                    <td colspan="2" width="100%">
+                                        匹配网址：
+                                        <input id="regxurl" name="regxurl" style="width:350px" type="text"
+                                               value="http://"/>
+                                        <input id="btv1" name="btv1" onclick="testRegx()" type="button" value="测试"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="STYLE2">(如：http://www.dedecms.com/html/test/list_(*).html，如果不能匹配所有网址，可以在手工指定网址的地方输入要追加的网址) </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        (*)从
+                                        <input id="startid" name="startid" style="width:30px" type="text" value="1"/>
+                                        到
+                                        <input id="endid" name="endid" style="width:30px" type="text" value=""/>
+                                        (页码或规律数字)&nbsp;
+                                        每页递增：
+                                        <input id="addv" name="addv" style="width:30px" type="text" value="1"/>
+                                        <input class="np" id="usemore" name="usemore" onClick="testMore()"
+                                               type="checkbox" value="1"/>
+                                        启用多栏目通配(#)
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr id='handset'>
+                        <td height="171">手工指定网址：<br/>
+                            <span class="STYLE2">在指定了通配规则后有些不能匹配的网址也可以在这里指定。</span><br/></td>
+                        <td><textarea cols="45" id="addurls" name="addurls" rows="5"
+                                      style="width:80%;height:160px"></textarea></td>
+                    </tr>
+                    <tr id='usemoretr' style="display:none">
+                        <td height="171">多栏目通配规则：<br/>
+                            <span class="STYLE2">
+            如果目标网站使用单一模板，可以在匹配网址中用"(#)"表示近似网址的差异，然后在通配规则中设定集合，并且可以指定导出栏目。
+            </span>
+                            <br/>
+                        </td>
+                        <td>
+                            <textarea cols="45" id="batchrule" name="batchrule" rows="5"
+                                      style="width:80%;height:160px"></textarea>
+                            <br/><span style='color:#666666'>格式为：“[(#)=通配字符串; (*)=num-num; typeid=num]换行”
+          <br/>例如：[(#)=>labs/list_3; (*)=>1-25; typeid=>7] 匹配网址：http://www.aaa.com/(#)_(*).html</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#F2F6E5">
+                <table border="0" cellpadding="0" cellspacing="0" width="400">
+                    <tr class="top" onClick="showHide('arturl');" style="cursor:pointer">
+                        <td align="center" width="26"><img height="8" src="images/file_tt.gif" width="7"></td>
+                        <td width="374"><b>文章网址匹配规则</b></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="arturl">
+            <td bgcolor="#FFFFFF" height="76" valign="top">
+                <table width="100%">
+
+                    <!-- //使用与正则匹配链接模式不大稳定，也不适合初级用户，暂时作为保留项  -->
+                    <tr style='display:none'>
+                        <td width="18%">内容网址匹配模式：</td>
+                        <td width="82%">
+                            <input checked="checked" class="np" id="urlrule1" name="urlrule" onclick="selUrlRuleSet()"
+                                   type="radio" value="area"/>
+                            指定包含有文章网址的区域(可以获取区域的网址、标题、图片等信息)
+                            <input class="np" id="urlrule2" name="urlrule" onclick="selUrlRuleSet()" type="radio"
+                                   value="regx"/>
+                            指定网址正则表达式(仅能获得网址信息)
+                        </td>
+                    </tr>
+                    <tr id="regxruletr" style='display:none'>
+                        <td height="84">网址的正则表达式：</td>
+                        <td><textarea cols="45" id="regxrule" name="regxrule" rows="5"
+                                      style="width:80%;height:60px"></textarea></td>
+                    </tr>
+
+                    <tr id="arearuletr">
+                        <td height="84">包含有文章网址的区域设置：</td>
+                        <td>
+                            <table width="90%">
+                                <tr>
+                                    <td align="center" width="22%">区域开始的HTML：</td>
+                                    <td width="78%">
+                                        <textarea cols="45" id="areastart" name="areastart" rows="5"
+                                                  style="width:80%;height:60px"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">区域结束的HTML：</td>
+                                    <td>
+                                        <textarea cols="45" id="areaend" name="areaend" rows="5"
+                                                  style="width:80%;height:60px"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">如果链接中含有图片：</td>
+                                    <td>
+                                        <input class='np' id="listpic1" name="listpic" type="radio" value="0"/>
+                                        不处理
+                                        <input checked="checked" class='np' id="listpic2" name="listpic" type="radio"
+                                               value="1"/>
+                                        采集为缩略图
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" rowspan="2">对区域网址进行再次筛选：<br/>
+                                        (使用正则表达式)
+                                    </td>
+                                    <td>必须包含：
+                                        <input id="musthas" name="musthas" style="width:280px" type="text"/>
+                                        (优先级高于后者)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>不能包含：
+                                        <input id="nothas" name="nothas" style="width:280px" type="text"/></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="94">&nbsp;
+                <input class="coolbg np" name="b12" style="width:200px" type="submit" value="保存信息并进入下一步设置"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

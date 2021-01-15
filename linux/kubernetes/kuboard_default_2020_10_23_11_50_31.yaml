@@ -1,0 +1,174 @@
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: default
+  name: cloud-centos-smoney
+  annotations:
+    k8s.kuboard.cn/workload: cloud-centos-smoney
+    k8s.kuboard.cn/displayName: centos-smoney
+    k8s.kuboard.cn/ingress: 'true'
+    k8s.kuboard.cn/service: NodePort
+  labels:
+    k8s.kuboard.cn/layer: cloud
+    k8s.kuboard.cn/name: cloud-centos-smoney
+spec:
+  selector:
+    matchLabels:
+      k8s.kuboard.cn/layer: cloud
+      k8s.kuboard.cn/name: cloud-centos-smoney
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        k8s.kuboard.cn/layer: cloud
+        k8s.kuboard.cn/name: cloud-centos-smoney
+    spec:
+      securityContext:
+        seLinuxOptions: {}
+      imagePullSecrets: []
+      restartPolicy: Always
+      initContainers: []
+      containers:
+        - image: '1872220587/study:economics.'
+          imagePullPolicy: IfNotPresent
+          name: centos-smoney
+          volumeMounts:
+            - name: node1
+              mountPath: /www/wwwroot/study.economics
+              subPath: study.economics
+          command:
+            - /bin/sh
+            - '-c'
+            - top -b
+          resources:
+            limits:
+            requests:
+          env: []
+          lifecycle: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      volumes:
+        - name: master
+          persistentVolumeClaim:
+            claimName: master
+        - name: node1
+          persistentVolumeClaim:
+            claimName: node1
+        - name: node2
+          persistentVolumeClaim:
+            claimName: node2
+      dnsPolicy: ClusterFirst
+      dnsConfig: {}
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+  replicas: 1
+  volumeClaimTemplates: []
+  serviceName: cloud-centos-smoney
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: cloud-centos-smoney
+  annotations:
+    k8s.kuboard.cn/workload: cloud-centos-smoney
+    k8s.kuboard.cn/displayName: centos-smoney
+  labels:
+    k8s.kuboard.cn/layer: cloud
+    k8s.kuboard.cn/name: cloud-centos-smoney
+spec:
+  selector:
+    k8s.kuboard.cn/layer: cloud
+    k8s.kuboard.cn/name: cloud-centos-smoney
+  type: NodePort
+  ports:
+    - port: 8888
+      targetPort: 8888
+      protocol: TCP
+      name: bt
+      nodePort: 30008
+    - port: 3306
+      targetPort: 3306
+      protocol: TCP
+      name: mysql
+      nodePort: 30006
+  sessionAffinity: None
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  namespace: default
+  name: cloud-centos-smoney
+  annotations:
+    k8s.kuboard.cn/workload: cloud-centos-smoney
+    k8s.kuboard.cn/displayName: centos-smoney
+  labels:
+    k8s.kuboard.cn/layer: cloud
+    k8s.kuboard.cn/name: cloud-centos-smoney
+spec:
+  rules:
+    - host: bt.shelimai.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: cloud-centos-smoney
+              servicePort: bt
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: default
+  name: db-mysql
+  annotations:
+    k8s.kuboard.cn/workload: db-mysql
+    k8s.kuboard.cn/ingress: 'false'
+    k8s.kuboard.cn/service: none
+  labels:
+    k8s.kuboard.cn/layer: db
+    k8s.kuboard.cn/name: db-mysql
+spec:
+  selector:
+    matchLabels:
+      k8s.kuboard.cn/layer: db
+      k8s.kuboard.cn/name: db-mysql
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        k8s.kuboard.cn/layer: db
+        k8s.kuboard.cn/name: db-mysql
+    spec:
+      securityContext:
+        seLinuxOptions: {}
+      imagePullSecrets: []
+      restartPolicy: Always
+      initContainers: []
+      containers:
+        - image: mysql
+          imagePullPolicy: IfNotPresent
+          name: mysql
+          volumeMounts: []
+          resources:
+            limits:
+            requests:
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+          lifecycle: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      volumes: []
+      dnsPolicy: ClusterFirst
+      dnsConfig: {}
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+  replicas: 1
+  volumeClaimTemplates: []
+  serviceName: db-mysql
+

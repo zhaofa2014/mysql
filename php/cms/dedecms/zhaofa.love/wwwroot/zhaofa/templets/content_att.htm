@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>自定义属性管理</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background='images/allbg.gif' leftmargin='8'>
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="0" cellspacing="1" width="98%">
+    <form action="content_att.php" method="post" name="form1">
+        <input name="dopost" type="hidden" value="save"/>
+        <tr>
+            <td background='images/tbg.gif' colspan="3" height="28" style="padding-left:10px;">
+                <strong>文档自定义属性管理</strong>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" colspan="3" height="34" style="line-height:20px;">
+                　　<b>自定义属性的意义和使用说明：</b><br>
+                　　在以往的版本中，网站主页、频道封面的设计，都只能单调的用 arclist
+                标记把某栏目最新或按特定排序方式的文档无选择的读出来，这样做法存在很大的不足，例如，我希望在最顶部的地方显示我想要的文档，在以往的版本中是无法做到的，但使用自定义属性之后，只要给arclist 标记加上
+                att='自定义属性的ID' 的属性，然后在发布的时候对适合的文档选择专门的属性，那么使用arclist的地方就会按您的意愿显示指定的文档。<br>
+                　　<b>注意事项：</b>这个版本中att对应的字段是SET类型字段,因此为了数据安全起见不允许用户增加其它类型,但调用时允许使用组合条件,如:att='c,p'表示推荐图片新闻。
+            </td>
+        </tr>
+        <tr align="center" bgcolor="#FBFCE2">
+            <td height="24" width="15%"><b>ID</b></td>
+            <td height="24" width="15%"><b>排序</b></td>
+            <td align="left" width="70%"><b>属性名称</b></td>
+        </tr>
+        <?php
+	$dsql->SetQuery(" Select * From `#@__arcatt` order by sortid asc ");
+        $dsql->Execute();
+        $k=0;
+        while($row = $dsql->GetObject())
+        {
+        $k++;
+        ?>
+        <input name="att_<?php echo $k?>" type="hidden" value="<?php echo $row->att?>"/>
+        <tr bgcolor="#FFFFFF" height="24">
+            <td align="center">
+                <?php echo $row->att; ?>
+            </td>
+            <td style="padding:3px;">
+                <input class='pubinputs' id="sortid_<?php echo $k?>" name="sortid_<?php echo $k?>" style='width:50%'
+                       type="text" value="<?php echo $row->sortid; ?>"/>
+            </td>
+            <td style="padding-left:5px;">
+                <input class='pubinputs' id="attname_<?php echo $k?>" name="attname_<?php echo $k?>" size="30"
+                       type="text" value="<?php echo $row->attname; ?>"/>
+            </td>
+        </tr>
+        <?php
+	}
+	?>
+        <input name="idend" type="hidden" value="<?php echo $k?>"/>
+        <tr>
+            <td bgcolor="#F9FCEF" colspan="3" height="24">&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" colspan="3" height="34">
+                <input border="0" class="np" height="22" name="imageField" src="images/button_ok.gif" type="image"
+                       width="60"/>
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

@@ -1,0 +1,437 @@
+<script type="text/javascript" src="__PUBLIC__/js/map.js"></script>
+
+<!-- pcbanner -->
+<div id="banner">
+    <div id="myCarousel" class="carousel slide">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner">
+            <!--xyhcms-->
+            <yang:abc id='1' limit='1'>
+                <div class='item active'><img src='{$abc.content}'/></div>
+                <div class='item'><img src='{$abc.content}'/></div>
+            </yang:abc>
+        </div>
+        <a class="carousel-control left s-prev" href="#myCarousel" data-slide="prev">&lt;</a> <a
+            class="carousel-control right s-next" href="#myCarousel" data-slide="next">&gt;</a></div>
+</div>
+<!-- 手机banner -->
+<div id="molbanner">
+    <div class="swiper-container swiper-banner">
+        <ul class="swiper-wrapper banner-img">
+            <!--xyhcms-->
+            <yang:abc id='1' limit='2'>
+                <li class="swiper-slide"><a class="pic"><img src="{$abc.content}"/></a>
+                </li>
+                <li class="swiper-slide"><a class="pic"><img src="{$abc.content}"/></a>
+                </li>
+            </yang:abc>
+        </ul>
+        <!-- Add Pagination -->
+        <div class="swiper-dote">
+            <ul>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="main">
+    <div class="About">
+        <div class="container">
+            <div class="row">
+                <yang:list typeid='1' limit='50' titlelen='' infolen=''>
+                    <!-- <div class="about_line col-md-12 col-sm-12 hidden-xs">
+                                   <img src="">
+                              </div> -->
+                    <div class="about_img col-md-7 col-sm-7 hidden-xs"><img src="__PUBLIC__/images/about.png">
+                    </div>
+                    <div class="about_dec col-lg-6 col-md-7 col-sm-7 col-xs-12">
+                        <!--xyhcms-->
+                        <yang:type typeid='1' level=''>
+                            <h2 class="title">
+                                <i class="zoomInRight wow">{$type.ename}</i>
+                                <span class="fadeInLeft wow">{$type.name}</span>
+                            </h2>
+                        </yang:type>
+                        <div class="a_decs slideInUp wow">
+                            {$list.description}
+                            <!--{$list.content}-->
+                        </div>
+                        <a href="{$list.url}" class="more db"><span>Read more</span></a></div>
+                </yang:list>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="Probox">
+    <div class="container">
+        <div class="row">
+            <div class="pros col-md-12 col-sm-12 col-xs-12">
+                <!--xyhcms-->
+                <yang:type typeid='2' level=''>
+                    <h2 class="title">
+                        <i class="zoomInRight wow">{$type.ename}</i>
+                        <span class="fadeInLeft wow">{$type.name}</span>
+                    </h2>
+                </yang:type>
+
+                <div class="slide_pro">
+                    <div class="hd col-md-7 col-sm-7 col-xs-12">
+                        <ul>
+                            <yang:catlist flag='1' type='son' typeid='2'>
+                                <li class='pro_lb on'>{$catlist.name}</li>
+                            </yang:catlist>
+
+                        </ul>
+                    </div>
+                    <div class="bd col-md-12 col-sm-12 col-xs-12">
+                        <div class="detil">
+                            <yang:abc id='3' limit=''>
+                            <div class="pro1 col-md-7 col-sm-7 col-xs-12 slideInLeft wow animated"><a
+                                    href='#'><img
+                                    src='__PUBLIC__/images/allimg/180726/1-1PH6162941463.jpg'>
+                                <p class="p_title transition">案例标题三</p>
+                            </a></div>
+                            </yang:abc>
+
+                            <div class="pro1 pro2 col-md-5 col-sm-5 col-xs-6 slideInRight wow animated"><a
+                                    href='#'><img
+                                    src='__PUBLIC__/images/allimg/180726/1-1PH6162914638.jpg'>
+                                <p class="p_title transition">案例标题二</p>
+                            </a></div>
+
+                            <div class="pro1 pro3 col-md-4 col-sm-4 col-xs-6 slideInUp wow animated"><a
+                                    href='#'><img
+                                    src='__PUBLIC__/images/allimg/180726/1-1PH6162Ta11.jpg'>
+                                <p class="p_title transition">案例标题一</p>
+                            </a></div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12"><a href='/a/cp1/'
+                                                                          class="more db"><span>Read more</span></a>
+                            </div>
+                        </div>
+                        <div class="detil">
+                            <div class="pro1 col-md-7 col-sm-7 col-xs-12 slideInLeft wow animated"><a
+                                    href='#><img
+                                    src='__PUBLIC__/images/allimg/180726/1-1PZ5093530643.jpg'>
+                                <p class="p_title transition">案例标题六</p>
+                            </a></div>
+
+                            <div class="pro1 pro2 col-md-5 col-sm-5 col-xs-6 slideInRight wow animated"><a
+                                    href='#'><img
+                                    src='__PUBLIC__/images/allimg/180726/1-1PH616302a21.jpg'>
+                                <p class="p_title transition">案例标题五</p>
+                            </a></div>
+
+                            <div class="pro1 pro3 col-md-4 col-sm-4 col-xs-6 slideInUp wow animated"><a
+                                    href='#'><img
+                                    src='__PUBLIC__/images/allimg/180726/1-1PH6163004H1.jpg'>
+                                <p class="p_title transition">案例标题四</p>
+                            </a></div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12"><a href='/a/cp2/'
+                                                                          class="more db"><span>Read more</span></a>
+                            </div>
+                        </div>
+                        <div class="detil">
+                            <div class="pro1 col-md-7 col-sm-7 col-xs-12 slideInLeft wow animated"><a
+                                    href='#'><img
+                                    src='__PUBLIC__/images/allimg/180726/1-1PH61632451R.jpg'>
+                                <p class="p_title transition">案例标题九</p>
+                            </a></div>
+
+                            <div class="pro1 pro2 col-md-5 col-sm-5 col-xs-6 slideInRight wow animated"><a
+                                    href='#'><img
+                                    src='__PUBLIC__/images/allimg/180726/1-1PH6163524425.jpg'>
+                                <p class="p_title transition">案例标题八</p>
+                            </a></div>
+
+                            <div class="pro1 pro3 col-md-4 col-sm-4 col-xs-6 slideInUp wow animated"><a
+                                    href='#'><img
+                                    src='__PUBLIC__/images/allimg/180726/1-1PH6163152550.jpg'>
+                                <p class="p_title transition">案例标题七</p>
+                            </a></div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12"><a href='/a/cp3/'
+                                                                          class="more db"><span>Read more</span></a>
+                            </div>
+                        </div>
+                        <div class="detil">
+                            <div class="pro1 col-md-7 col-sm-7 col-xs-12 slideInLeft wow animated"><a
+                                    href='#'><img
+                                    src='__PUBLIC__/images/allimg/180726/1-1PZ5093Q2602.jpg'>
+                                <p class="p_title transition">案例标题十二</p>
+                            </a></div>
+
+                            <div class="pro1 pro2 col-md-5 col-sm-5 col-xs-6 slideInRight wow animated"><a
+                                    href='#'><img
+                                    src='__PUBLIC__/images/allimg/180726/1-1PZ5093K3D3.jpg'>
+                                <p class="p_title transition">案例标题十一</p>
+                            </a></div>
+
+                            <div class="pro1 pro3 col-md-4 col-sm-4 col-xs-6 slideInUp wow animated"><a
+                                    href='#'><img
+                                    src='__PUBLIC__/images/allimg/180726/1-1PH6163219505.jpg'>
+                                <p class="p_title transition">案例标题十</p>
+                            </a></div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12"><a href='#'
+                                                                          class="more db"><span>Read more</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="Newbox pr">
+    <div class="container">
+        <div class="row">
+            <div class="new_bg pa col-md-12 col-sm-12 col-xs-12"><img src="__PUBLIC__/images/new_bg.jpg">
+            </div>
+            <div class="news pr">
+                <!--xyhcms-->
+                <yang:type typeid='11' level=''>
+                    <h2 class="title">
+                        <i class="zoomInRight wow">{$type.ename}</i><br>
+                        <span class="fadeInLeft wow">{$type.name}</span>
+                    </h2>
+                </yang:type>
+
+
+                <ul class="newlist">
+                    <yang:list titlelen='30' limit='2' typeid='14' infolen='100·'>
+                        <li>
+                            <div class="nimg col-md-3 col-sm-3 hidden-xs"><a href="{$list.url}"><img
+                                    src="{$list.litpic}"></a></div>
+                            <div class="newdec col-md-9 col-sm-9 col-xs-12">
+                                <div class="time tc col-md-2 col-sm-2 col-xs-3"><span>{$list.publish_time|get_date='d'}</span><br>
+                                   {$list.publish_time|get_date='Y-m'}
+                                </div>
+                                <div class="descript col-md-10 col-sm-10 col-xs-9">
+                                    <dd><a href="{$list.url}">{$list.title}</a></dd>
+                                    <dt>
+                                        {$list.description}...
+                                    </dt>
+                                </div>
+                            </div>
+                        </li>
+                    </yang:list>
+                </ul>
+                <a href="{$list.url}" class="more db"><span>Read more</span></a></div>
+        </div>
+    </div>
+</div>
+<div class="Yousbox">
+    <div class="chiz"></div>
+    <div class="container">
+        <div class="row">
+            <h2 class="title"><span class="zoomInRight wow">我们的优势</span><br>
+                <i class=" fadeInLeft wow">为大众节省装修费用，提供便捷服务，营造幸福之家</i></h2>
+            <div class="youshis">
+                <ul class="ys_list">
+                    <li><a>
+                        <div class="icon transition tc"><img src="__PUBLIC__/images/a1.png"></div>
+                        <p>国内外优秀设计师</p>
+                    </a></li>
+                    <li><a>
+                        <div class="icon transition tc"><img src="__PUBLIC__/images/a2.png"></div>
+                        <p>顶级的服务水平</p>
+                    </a></li>
+                    <li><a>
+                        <div class="icon transition tc"><img src="__PUBLIC__/images/a3.png"></div>
+                        <p>完善的材料供应链</p>
+                    </a></li>
+                    <li><a>
+                        <div class="icon transition tc"><img src="__PUBLIC__/images/a4.png"></div>
+                        <p>多风格的设计方案</p>
+                    </a></li>
+                    <li><a>
+                        <div class="icon transition tc"><img src="__PUBLIC__/images/a5.png"></div>
+                        <p>性价比最高的报价方案</p>
+                    </a></li>
+                    <li><a>
+                        <div class="icon transition tc"><img src="__PUBLIC__/images/a6.png"></div>
+                        <p>优质环保的装修材料</p>
+                    </a></li>
+                    <li><a>
+                        <div class="icon transition tc"><img src="__PUBLIC__/images/a7.png"></div>
+                        <p>完善的施工团队</p>
+                    </a></li>
+                    <li><a>
+                        <div class="icon transition tc"><img src="__PUBLIC__/images/a8.png"></div>
+                        <p>一条龙服务</p>
+                    </a></li>
+                </ul>
+            </div>
+            <!-- 手机优势 -->
+            <div id="molyousbox">
+                <div class="swiper-container swiper-yous">
+                    <ul class="swiper-wrapper youshi">
+                        <li class="swiper-slide">
+                            <div class="y_icons"><a>
+                                <div class="icon tc dtc vm"><img src='__PUBLIC__/images/a1.png'></div>
+                                <p>国内外优秀设计师</p>
+                            </a></div>
+                            <div class="y_icons"><a>
+                                <div class="icon tc dtc vm"><img src='__PUBLIC__/images/a2.png'></div>
+                                <p>顶级的服务水平</p>
+                            </a></div>
+                            <div class="y_icons"><a>
+                                <div class="icon tc dtc vm"><img src='__PUBLIC__/images/a3.png'></div>
+                                <p>完善的材料供应链</p>
+                            </a></div>
+                            <div class="y_icons"><a>
+                                <div class="icon tc dtc vm"><img src='__PUBLIC__/images/a4.png'></div>
+                                <p>多风格的设计方案</p>
+                            </a></div>
+                        </li>
+                        <li class="swiper-slide">
+                            <div class="y_icons"><a>
+                                <div class="icon tc dtc vm"><img src='__PUBLIC__/images/a5.png'></div>
+                                <p>性价比最高的报价方案</p>
+                            </a></div>
+                            <div class="y_icons"><a>
+                                <div class="icon tc dtc vm"><img src='__PUBLIC__/images/a6.png'></div>
+                                <p>优质环保的装修材料</p>
+                            </a></div>
+                            <div class="y_icons"><a>
+                                <div class="icon tc dtc vm"><img src='__PUBLIC__/images/a7.png'></div>
+                                <p>完善的施工团队</p>
+                            </a></div>
+                            <div class="y_icons"><a>
+                                <div class="icon tc dtc vm"><img src='__PUBLIC__/images/a8.png'></div>
+                                <p>一条龙服务</p>
+                            </a></div>
+                        </li>
+                    </ul>
+                    <!-- Add Pagination -->
+                    <div class="swiper-dote">
+                        <ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chiz2"></div>
+</div>
+<div class="Map">
+    <div class="container">
+        <div class="row">
+            <div class="map col-md-12 col-sm-12 col-xs-12">
+                <div style="width:100%;height:600px;border:#ccc solid 1px;font-size:12px" id="map"></div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    //创建和初始化地图函数:
+                    function initMap() {
+                        createMap();//创建地图
+                        setMapEvent();//设置地图事件
+                        addMapControl();//向地图添加控件
+                        addMapOverlay();//向地图添加覆盖物
+                    }
+
+                    function createMap() {
+                        map = new BMap.Map("map");
+                        map.centerAndZoom(new BMap.Point(122.129632, 37.430076), 15);
+                    }
+
+                    function setMapEvent() {
+                        map.enableScrollWheelZoom();
+                        map.enableKeyboard();
+                        map.enableDragging();
+                        map.enableDoubleClickZoom()
+                    }
+
+                    function addClickHandler(target, window) {
+                        target.addEventListener("click", function () {
+                            target.openInfoWindow(window);
+                        });
+                    }
+
+                    function addMapOverlay() {
+                    }
+
+                    //向地图添加控件
+                    function addMapControl() {
+                        var scaleControl = new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT});
+                        scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
+                        map.addControl(scaleControl);
+                        var navControl = new BMap.NavigationControl({
+                            anchor: BMAP_ANCHOR_TOP_LEFT,
+                            type: BMAP_NAVIGATION_CONTROL_LARGE
+                        });
+                        map.addControl(navControl);
+                        var overviewControl = new BMap.OverviewMapControl({
+                            anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+                            isOpen: true
+                        });
+                        map.addControl(overviewControl);
+                    }
+
+                    var map;
+                    initMap();
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="Contact pr">
+        <div class="row">
+            <div class="tact_l col-md-6 col-sm-12 col-xs-12">
+                <div class="compy">地址:
+                    <yang:address/>
+                    <br>
+                    电话:
+                    <yang:phone/>
+                    <br>
+                    手机:
+                    <yang:phone/>
+                    <br>
+                    邮箱:
+                </div>
+                <div class="shares"><a
+                        href="javascript:(function(){window.open('http://v.t.sina.com.cn/share/share.php?title='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href)+'&source=bookmark','_blank','width=450,height=400');})()"
+                        title="新浪微博分享"><img src="__PUBLIC__/images/s1.png"></a>
+                    <!--    <a href=""><img src="__PUBLIC__/images/s2.png"></a>-->
+                    <a href="javascript:void(0);"
+                       onclick="window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(document.location.href));return false;"
+                       title="分享到QQ空间" target="_blank"><img src="__PUBLIC__/images/s3.png"></a></div>
+            </div>
+            <div class="tact_r col-md-6 col-sm-12 col-xs-12">
+                <h2 class="title wow zoomInLeft">Feedback<span>意见反馈</span></h2>
+                <script type="text/javascript">
+                    function checkemail() {
+                        var emial = $("#email").val();
+                        if (emial != "") {
+                            var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                            if (!myreg.test(emial)) {
+                                $("#email").val("");
+                                alert("请输入正确的邮箱格式");
+                                return false;
+                            }
+                        }
+                    }
+                </script>
+                <form class="search_div" action="<yang:gbookaddurl />" enctype="multipart/form-data" method="post">
+                    <input type="hidden" name="action" value="post"/>
+                    <input type="hidden" name="diyid" value="1"/>
+                    <input type="hidden" name="do" value="2"/>
+                    <span class="input fl">姓名:
+              <input name="username" type="text" placeholder="" required="required">
+              </span> <span class="input fr">邮箱:
+              <input id="email" name="email" type="text" placeholder="" required="required">
+              </span> <span class="input2">内容:
+              <input name="content" type="text" placeholder="" required="required">
+              </span>
+                    <input type="submit" class="btn transition" value="提交" onclick=" return checkemail();">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

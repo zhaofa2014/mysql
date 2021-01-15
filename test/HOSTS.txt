@@ -1,0 +1,38 @@
+#localhost name resolution is handled within DNS itself.
+127.0.0.1 localhost
+#::1 localhost
+
+#vmware_centos_docker
+#PHPStudy for linux面板
+192.168.1.88	study.economics
+192.168.1.88	www.study.economics
+192.168.1.88	mysql.economics
+#192.168.1.88	wq.economics
+#192.168.1.88	yz.economics
+#192.168.1.88	zfaka.economics
+#192.168.1.88	shopxo.economics
+#192.168.1.88	crmeb.economics
+#192.168.1.88	dskms.economics
+#192.168.1.88	dsmall.economics
+#192.168.1.88	yd.economics
+#192.168.1.88	cms.economics
+#192.168.1.88	niushop.economics
+192.168.1.66	zhaofa.love
+192.168.1.66	mysql.zhaofa.love
+
+
+#K8S
+#120.24.254.242 	k8s-master
+#120.24.252.169 	k8s-node-1
+#47.107.45.108	    k8s-node-3
+#120.25.105.153	    k8s-node-3
+#47.113.113.246	    k8s-node-4
+#120.24.254.242 	18887142223.cn
+
+
+#K8S内网
+#172.18.225.254	k8s-master
+#172.18.170.65	k8s-node-1
+#172.18.77.122	k8s-node-2
+#172.18.205.47	k8s-node-3
+#172.18.5.145	k8s-node-4

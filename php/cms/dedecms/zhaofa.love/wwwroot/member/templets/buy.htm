@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type"/>
+    <title>点卡/会员服务购买 - 会员中心 - <?php echo $cfg_webname; ?></title>
+    <link href="templets/style/base.css" rel="stylesheet" type="text/css"/>
+    <script src="templets/js/j.js" type="text/javascript"></script>
+    <script src="templets/js/load.js" type="text/javascript"></script>
+    <script src="templets/js/leftmenu.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="main">
+    <?php include(DEDEMEMBER."/templets/head.htm"); ?>
+    <div class="w960 clearfix" id="content">
+        <?php include(DEDEMEMBER."/templets/menu.php"); ?>
+        <div id="mcpmain">
+            <div id="appTab">
+                <ul>
+                    <li class="thisTab"><a href="buy.php">会员升级/点卡充值</a></li>
+                    <li><a href="operation.php">点卡/会员定单</a></li>
+                    <li><a href="mypay.php" id="buy">我购买的文章</a></li>
+                    <li><a href="shops_orders.php">商品定单</a></li>
+                    <li><a href="shops_products.php" id="buy">我购买的商品</a></li>
+                </ul>
+            </div>
+            <div id="mainCp">
+                <div class="appMsg">
+                    <p class="tips"><?php echo $cfg_ml->GetSta($dsql); ?></p>
+                </div>
+                <!--内容消息提示 -->
+                <?php
+          if($cfg_money_scores > 0) {
+                ?>
+                <div class="postForm">
+                    <h3 class="meTitle">
+                        <?php
+         	$canCav = floor($cfg_ml->fields['scores'] / $cfg_money_scores);
+                        ?>
+                        <strong>用积分兑换金币</strong>
+                        &nbsp;(<?php echo "兑换价格：{$cfg_money_scores} 积分/个，你目前可兑换金币数量：{$canCav} 个"; ?>)</h3>
+                    <form action="index_do.php?dopost=money2s&fmdo=user" method="post" name="formrank">
+                        <table border="0" cellpadding="0" cellspacing="0" class="list" width="100%">
+                            <tbody>
+                            <tr>
+                                <td align="right" valign="top" width="15%">兑换数量：</td>
+                                <td width="35%"><input class="intxt" id="money" name="money" size="38"
+                                                       style="width:200px" type="text" value="<?php echo $canCav; ?>"/>
+                                </td>
+                                <td align='left'>
+                                    <button class="button2" type="submit">兑换</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+                <?php } ?>
+                <div class="postForm">
+                    <h3 class="meTitle">用点卡充值</h3>
+                    <form action="check_card.php" method="post" name="formrank">
+                        <table border="0" cellpadding="0" cellspacing="0" class="list" width="100%">
+                            <tbody>
+                            <tr>
+                                <td align="right" valign="top" width="15%">点卡密码：</td>
+                                <td><input class="intxt" id="cardid" name="cardid" size="38" style="width:200px"
+                                           type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td align="right" valign="top">验证码：</td>
+                                <td><input class="intxt" id="vdcode" name="vdcode" size="8"
+                                           style='width:50px;text-transform:uppercase;' type="text"/>
+                                    <img align="absmiddle" alt="看不清？点击更换" onclick="this.src=this.src+'?'"
+                                         src="../include/vdimgck.php" style="cursor:pointer"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td align="right" valign="top">&nbsp;</td>
+                                <td>
+                                    <button class="button2 mt5" type="submit">充值</button>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </form>
+                </div>
+                <div class="postForm">
+                    <h3 class="meTitle">购买新点卡:</h3>
+                    <form action="buy_action.php" method="post" name="f1">
+                        <input name="product" type="hidden" value="card"/>
+                        <table border="0" cellpadding="0" cellspacing="0" class="list" width="100%">
+                            <tr style='height:28px;background:#F9FEE9;'>
+                                <th width="10%">选择</th>
+                                <th>点卡类型</th>
+                                <th width="15%">金币数量</th>
+                                <th width="15%">购买价格</th>
+                            </tr>
+                            <tbody>
+                            <?php echo $moneycards;?>
+                            </tbody>
+                        </table>
+                        <button class="button2 mt5" type="submit">购买</button>
+                    </form>
+                </div>
+                <div class="postForm">
+                    <h3 class="meTitle">会员升级</h3>
+                    <form action="buy_action.php" method="post" name="f1">
+                        <input name="product" type="hidden" value="member"/>
+                        <table border="0" cellpadding="0" cellspacing="0" class="list" width="100%">
+                            <thead>
+                            <tr>
+                                <th colspan='5' style='text-align:left;padding-left:10px;height:24px;line-height:24px;'>
+                                    会员升级:
+                                </th>
+                            </tr>
+                            </thead>
+                            <tr style='height:28px;background:#F9FEE9;'>
+                                <th width="10%">选择</th>
+                                <th>产品名称</th>
+                                <th width="12%">会员类型</th>
+                                <th width="12%">时限(天)</th>
+                                <th width="10%">价格</th>
+                            </tr>
+                            <tbody>
+                            <?php echo $membertypes?>
+                            </tbody>
+                        </table>
+                        <button class="button2 mt5" type="submit">购买</button>
+                    </form>
+                </div>
+            </div>
+            <!--主操作区域 -->
+        </div>
+    </div>
+    <?php include(DEDEMEMBER."/templets/foot.htm"); ?>
+</div>
+</body>
+</html>

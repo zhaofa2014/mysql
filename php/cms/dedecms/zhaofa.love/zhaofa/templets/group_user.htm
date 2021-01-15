@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content='text/html; charset=<?php echo $cfg_soft_lang; ?>' http-equiv='Content-Type'>
+    <title>圈子管理>圈子列表><?php echo $groupname?></title>
+    <script language='javascript' src='js/main.js'></script>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        .rb {
+            border-right: 1px solid #98CAEF
+        }
+
+        .tb {
+            border-top: 1px solid #98CAEF
+        }
+
+        a.current {
+            border-left: 1px solid #cfcfcf;
+            border-right: 1px solid #cfcfcf;
+            background: #ffffff;
+            color: #FF0000;
+            font-weight: bold;
+        }
+    </style>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt">圈子管理</div>
+</div>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+       width="98%">
+    <tr>
+        <td align="left" bgcolor="#ffffff" height="30">
+            <table align="left" border="0" cellpadding="0" cellspacing="0" width="228">
+                <form action="group_user.php" id="form1" method="get" name="form1">
+                    <input name="gid" type="hidden" value="<?php echo $gid?>"/>
+                    <tr>
+                        <td width="60">&nbsp;成员：</td>
+                        <td width="87"><input id="username" name="username" size="12" style="width:100" type="text"
+                                              value="<?php echo $username?>"/></td>
+                        <td align="center" width="81"><input class="np coolbg" name="imageField" type="submit"
+                                                             value="搜索"/></td>
+                    </tr>
+                </form>
+            </table>
+
+            <table border="0" cellpadding="0" cellspacing="0" width="405">
+                <form action="group_user.php" id="form2" method="get" name="form2">
+                    <input name="gid" type="hidden" value="<?php echo $gid?>"/>
+                    <input name="action" type="hidden" value="add"/>
+                    <tr>
+                        <td align="right" width="90">&nbsp;加入会员：</td>
+                        <td width="112"><input id="uname" name="uname" size="15" style="width:100" type="text"
+                                               value="<?php echo $username?>"/></td>
+                        <td align="left" width="75"><input id="setmaser" name="setmaster" type="radio" value="1"/>
+                            管理员
+                        </td>
+                        <td align="left" width="128"><input class="np coolbg" id="imageField" name="imageField2"
+                                                            type="submit" value="添加"/></td>
+                    </tr>
+                </form>
+            </table>
+        </td>
+    </tr>
+</table>
+<br/>
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
+    <tr>
+        <td height="24" width="100%">
+            <table border="0" cellpadding="0" cellspacing="0" class="gtab"
+                   style="border:1px solid #CFCFCF;border-bottom:none;" width="99%">
+                <tr>
+                    <td background="images/tbg.gif" height="26">
+                        <a href="group_main.php">圈子列表</a>
+                        <a href="group_edit.php?id=<?php echo $gid?>"><span id="cate_1">基本资料</span></a>
+                        <a class="current" id="cate_2">成员管理</a>
+                        <a href="group_guestbook.php?gid=<?php echo $gid?>"><span id="cate_3">留言管理</span></a>
+                        <a href="group_notice.php?gid=<?php echo $gid?>"><span id="cate_4">公告管理</span></a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" bgcolor="#FFFFFF" height="26">
+            <!--成员管理-->
+            <div id="cate_info_2">
+                <table bgcolor="#CFCFCF" border="0" cellpadding="1" cellspacing="1" width="100%">
+                    <tr bgcolor="#FBFCE2">
+                        <td align="center" height="28" width="19%">用户名</td>
+                        <td align="center" height="28" width="17%">身份</td>
+                        <td align="center" height="28" width="17%">加入时间</td>
+                        <td align="center" height="28" width="13%">发贴数</td>
+                        <td align="center" width="11%">回贴数</td>
+                        <td align="center" width="23%">操作</td>
+                    </tr>
+                    {dede:datalist}
+                    <?php
+$rs = $fields;
+?>
+                    <tr bgcolor="#FFFFFF" height="28" onMouseMove="javascript:this.bgColor='#FCFDEE';"
+                        onMouseOut="javascript:this.bgColor='#FFFFFF';">
+                        <td align="center" height="28"><a
+                                href="member_view.php?id=<?php echo $rs['uid']?>"><?php echo $rs['username']?></a></td>
+                        <td align="center" height="28"><?php echo GetMaster($rs['username'])?></td>
+                        <td align="center" height="28"><?php echo GetDateMk($rs['jointime'])?></td>
+                        <td align="center" height="28"><?php echo $rs['posts']?></td>
+                        <td align="center" height="28"><?php echo $rs['replies']?></td>
+                        <td align="center" height="28"><a
+                                href="group_user.php?action=admin&id=<?php echo $rs['uid']?>&gid=<?php echo $gid?>">设为管理员</a>
+                            |
+                            <a href="group_user.php?action=del&id=<?php echo $rs['uid']?>&gid=<?php echo $gid?>">移出群</a>
+                        </td>
+                    </tr>
+                    {/dede:datalist}
+                    <tr>
+                        <td bgcolor="#F9FCEF" colspan="6" height="28">{dede:pagelist
+                            listitem="info,index,end,pre,next,pageno" listsize="5"/}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<a id="nmes" name="nmes"></a>
+</body>
+</html>

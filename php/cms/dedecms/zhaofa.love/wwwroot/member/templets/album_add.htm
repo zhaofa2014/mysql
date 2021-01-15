@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type"/>
+    <title>新建<?php echo $cInfos['typename']; ?> - 会员中心 - <?php echo $cfg_webname; ?></title>
+    <link href="templets/style/base.css" rel="stylesheet" type="text/css"/>
+    <script src="templets/js/j.js" type="text/javascript"></script>
+    <script src="templets/js/main.js" type="text/javascript"></script>
+    <script src="templets/js/album.js" type="text/javascript"></script>
+    <script src="templets/js/inputAutoClear.js" type="text/javascript"></script>
+    <script src="templets/js/load.js" type="text/javascript"></script>
+    <script src="templets/js/leftmenu.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="main">
+    <?php include(DEDEMEMBER."/templets/head.htm"); ?>
+    <div class="w960 clearfix" id="content">
+        <?php include(DEDEMEMBER."/templets/menu.php"); ?>
+        <div id="mcpmain">
+            <div id="appTab">
+                <ul>
+                    <li class="thisTab"><a href="#"><span>新建<?php echo $cInfos['typename']; ?></span></a></li>
+                </ul>
+            </div>
+            <form action="album_add.php" enctype="multipart/form-data" method="post" name="form1"
+                  onsubmit="return checkSubmit();">
+                <input name="dopost" type="hidden" value="save"/>
+                <input name="channelid" type="hidden" value="<?php echo $channelid; ?>"/>
+                <input id="imagebody" name="imagebody" type="hidden" value=''/>
+                <div id="mainCp">
+                    <h3 class="meTitle"><strong>新建<?php echo $cInfos['typename']; ?></strong></h3>
+                    <div class="postForm">
+                        <p class="cellBg">
+                            <label><?php echo $cInfos['typename']; ?>标题：</label>
+                            <input class="intxt" id="title" maxlength="100" name="title" onfocus="inputAutoClear(this)"
+                                   type="text" value="请输入内容主题"/>
+                        </p>
+                        <p>
+                            <label>标签TAG：</label>
+                            <input class="intxt" id="tags" maxlength="100" name="tags" type="text"/>(用逗号分开)
+                        </p>
+                        <p class="cellBg">
+                            <label>作者：</label>
+                            <input class="intxt" id="writer" maxlength="100" name="writer" style="width:219px"
+                                   type="text" value="<?php echo $cfg_ml->M_UserName?>"/>
+                        </p>
+                        <p>
+                            <label>隶属栏目：</label>
+                            <?php
+    			$typeOptions = GetOptionList(0,$channelid);
+    			echo "<select name='typeid' size='1'>\r\n";
+                            echo "
+                            <option selected value='0'>请选择栏目...</option>
+                            \r\n";
+                            echo $typeOptions;
+                            echo "</select>";
+                            ?>
+                            <span style="color:#F00">*</span>(不能选择带颜色的分类)
+                        </p>
+                        <p class="cellBg">
+                            <label>我的分类：</label>
+                            <?php
+            	$classlist = classification($cfg_ml->M_ID, 0, $channelid);
+                            echo "<select name='mtypesid' size='1'>\r\n";
+                            echo "
+                            <option selected value='0'>请选择分类...</option>
+                            \r\n";
+                            echo $classlist;
+                            echo "</select>";
+                            ?>
+                            <a href="mtypes.php">添加分类</a>
+                        </p>
+                        <p>
+                            <label>图集简介：</label>
+                            <textarea id="description" name="description"></textarea>(内容的简要说明)
+                        </p>
+                        <p class="cellBg">
+                            <label>缩略图：</label>
+                            <input class="intxt" id="litpic" maxlength="100" name="litpic"
+                                   onchange="SeePicNew('divpicview',this);" type="file"/>
+                        </p>
+                    </div>
+                    <input id="maxwidth" name="maxwidth" type="hidden" value="<?php echo $cfg_album_width; ?>"/>
+                    <input name="prow" type="hidden" value="<?php echo $cfg_album_row; ?>"/>
+                    <input name="pcol" type="hidden" value="<?php echo $cfg_album_col; ?>"/>
+                    <input name="ddmaxwidth" type="hidden" value="<?php echo $cfg_album_ddwidth; ?>"/>
+                    <!-- 表单操作区域 -->
+                    <h3 class="meTitle">图集内容</h3>
+                    <div class="contentShow postForm">
+                        <p class="cellBg">
+                            <label>表现方式：</label>
+                            <input id="pagestyle1" name="pagestyle" onclick="checkMuList()" type="radio"
+                                   value="1" <?php if($cfg_album_style==1) echo " checked='checked'"; ?> />
+                            多页多图显示(适用于QQ表情等)
+                            <input id="pagestyle2" name="pagestyle" onclick="checkMuList()" type="radio"
+                                   value="2" <?php if($cfg_album_style==2) echo " checked='checked'"; ?> />多页单图显示(幻灯)
+                            <input id="pagestyle3" name="pagestyle" onclick="checkMuList()" type="radio"
+                                   value="3" <?php if($cfg_album_style==3) echo " checked='checked'"; ?>/>多行多列显示(缩略图)
+                        <div class="mTB10" id='spagelist' style='display:none'> 每页图片数：
+                            <input class="text" id='pagpicnum' name='pagpicnum' size='10'
+                                   value='<?php echo $cfg_album_pagesize; ?>'/>
+                        </div>
+                        </p>
+                        <p>
+                            <label>手工上传：</label>
+                            图片数目：<input class="intxt" id="picnum" maxlength="100" name="picnum" size="6" type="text"
+                                        value="3"/>
+                            <button class="buttonGary2" id='kkkup2' name='kkkup' onclick="MakeUpload(0);" type='button'>
+                                增加
+                            </button>
+                            (最大60幅)
+                        </p>
+                        <p>
+                        <div id="uploadfield"></div>
+                        <script language="JavaScript">MakeUpload(2);</script>
+                        </p>
+                        <?php
+      if($safe_faq_send == '1'){
+      	$faqkey = array_rand($safefaqs);
+      ?>
+                        <p class="cellBg">
+                            <label>验证问题：</label>
+                            <?php echo $safefaqs[$faqkey]['question'];?> (答案:<?php echo $safefaqs[$faqkey]['answer'];?>)<input
+                                class="intxt" id="safeanswer" name="safeanswer" size="25" style='width:250px;'
+                                type="text"/>
+                            <input name="faqkey" type="hidden" value="<?php echo $faqkey;?>"/>
+                        </p>
+                        <?php
+   		 }
+      	//游客强制加验证码，会员则判断后台开关
+      	if(preg_match("/3/",$safe_gdopen)){
+      ?>
+                        <p class="cellBg">
+                            <label>验证码：</label>
+                            <input class="intxt" id="vdcode" maxlength="100" name="vdcode"
+                                   style='width:50px;text-transform:uppercase;' type="text"/>
+                            <img align="absmiddle" alt="看不清？点击更换" onclick="this.src=this.src+'?'"
+                                 src="../include/vdimgck.php" style="cursor:pointer"/>
+                        </p>
+                        <?php }?>
+                        <p>
+                            <button class="button2" type="submit">提交</button>
+                            <button class="button2 ml10" onclick="location.reload();" type="reset">重置</button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+            <!--主操作区域 -->
+        </div>
+    </div>
+    <?php include(DEDEMEMBER."/templets/foot.htm"); ?>
+</div>
+</body>
+</html>

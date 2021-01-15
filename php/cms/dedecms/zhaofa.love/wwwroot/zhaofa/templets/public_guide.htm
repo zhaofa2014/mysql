@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>内容发布向导</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .np {
+            border: 0px
+        }
+    </style>
+    <script language='javascript'>
+        var selCheckbox = '';
+
+        function ResetBox(selid) {
+            var selobj = document.getElementById(selid);
+            var preobj = null;
+            if (selCheckbox != '') preobj = document.getElementById(selCheckbox);
+            if (selobj.checked) {
+                if (preobj != null && selid != selCheckbox) preobj.checked = false;
+                selCheckbox = selid;
+            } else {
+                if (selCheckbox == selid) selCheckbox = '';
+            }
+        }
+
+        function SetDefault() {
+            if (selCheckbox == '') {
+                alert("你没有选中需要设置为默认的栏目！");
+            } else {
+                var selobj = document.getElementById(selCheckbox);
+                location = "public_guide.php?action=setdefault&cid=" + selobj.value;
+            }
+        }
+
+        function ResetDefault() {
+            location = "public_guide.php?action=setdefault&cid=0";
+        }
+    </script>
+</head>
+<body background='images/allbg.gif' leftmargin="8" topmargin="8">
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" height="31"
+       style="border:1px solid #CFCFCF;margin-top:6px;border-bottom:none;" width="98%">
+    <tr>
+        <td background='images/tbg.gif' class="tbtitletxt"><strong>&nbsp;内容发布向导：</strong></td>
+    </tr>
+</table>
+<table align="center" border="0" cellpadding="1" cellspacing="1" style="border:1px solid #CFCFCF;" width="98%">
+    <tr align="center">
+        <td align="left" bgcolor="#FFFFFF" height="120" style="padding:6px;padding-bottom:20px" valign="top">
+            <table border="0" cellpadding="6" cellspacing="0" width="100%">
+                <tr>
+                    <td><strong>内容发布说明：</strong><br/>
+                        1、必须先建立与频道内容模型关连的栏目才能发布内容（<a href="catalog_main.php"><u>栏目管理</u></a>）；<br/>
+                        2、如果您设置了某频道为默认发布表单，以后将不再显示此向导，而是直接显示您所选的频道的发布表单，如果想要发布其它频道的内容，可以从左边的目录树中选择，如果以后您想要修改默认发布表单，请点击目录树上方的“发布向导”图标；
+                    </td>
+                </tr>
+            </table>
+            <table bgcolor="#cfcfcf" border="0" cellpadding="3" cellspacing="1" width="100%">
+                <tr align="center" bgcolor="#FBFCE2" height="22">
+                    <td width="8%"><strong>选择</strong></td>
+                    <td width="8%"><strong>频道ID</strong></td>
+                    <td width="20%"><strong>频道内容模型</strong></td>
+                    <td width="23%"><strong>附加表</strong></td>
+                    <td width="10%"><strong>栏目数</strong></td>
+                    <td><strong>操作选项</strong></td>
+                </tr>
+                <?php
+   $i=0;
+   while($row = $dsql->GetArray()){
+                $i++;
+                $row['mancon'] = ($row['mancon']=='' ? 'content_list.php?channelid='.$row['id'] :
+                $row['mancon'].'?channelid='.$row['id']);
+                $checkbox = ($row['isdefault']==0 ? '' : ' checked');
+                if($checkbox!=''){
+                echo "
+                <script language='javascript'>selCheckbox = 'cid{$i}';</script>
+                \r\n";
+                }
+                $catnum = GetCatalogs($dsql,$row['id']);
+                ?>
+                <tr align="center" bgcolor="#FFFFFF" height="20" onMouseMove="javascript:this.bgColor='#FCFDEE';"
+                    onMouseOut="javascript:this.bgColor='#FFFFFF';">
+                    <td><input class="np" id="cid<?php echo $i; ?>" name="cid<?php echo $i; ?>"
+                               onClick="ResetBox('cid<?php echo $i; ?>')" type="checkbox"
+                               value="<?php echo $row['id']; ?>" <?php echo $checkbox; ?>/>
+                    </td>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo $row['typename']; ?></td>
+                    <td><?php echo $row['addtable']; ?></td>
+                    <td><?php echo $catnum; ?></td>
+                    <td>
+                        <a href="catalog_main.php">管理栏目</a>
+                        <?php
+        if($catnum>0){
+                        ?>
+                        |
+                        <a href="<?php echo $row['mancon']; ?>">管理内容</a>
+                        |
+                        <a href="catalog_do.php?channelid=<?php echo $row['id'];?>&cid=0&dopost=addArchives">发布内容</a>
+                        <?php }else{ ?>
+                        |
+                        <font color='#cccccc'>管理内容</font>
+                        |
+                        <font color='#cccccc'>发布内容</font>
+                        <?php } ?>
+                    </td>
+                </tr>
+                <?php
+    }
+    ?>
+            </table>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input class="coolbg" id="b1" name="b1" onClick="SetDefault()" type="button"
+                               value="把所选的频道表单设为默认表单"/>
+                        &nbsp;&nbsp;
+                        <input class="coolbg" id="b2" name="b2" onClick="ResetDefault()" type="button" value="取消默认表单"/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<div align="center">&nbsp;</div>
+</body>
+</html>

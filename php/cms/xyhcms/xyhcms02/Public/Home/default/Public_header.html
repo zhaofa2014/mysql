@@ -1,0 +1,47 @@
+<!-- 侧边导航 -->
+
+<div class="class page-prev visible-xs">
+  <h1 class="class-top"><img src="__PUBLIC__/images/logo.png"><span class="class-close">×</span></h1>
+  <div class="class-m">
+    <ul class="nnav">
+      <li><a href="{$navlist.url}" class="ce">网站首页</a> </li>
+      <!--xyhcms-->
+      <yang:navlist typeid='0'>
+        <li class="menu_head">
+          <dl class="ericon">
+            <span class="icon1">-</span><span class="icon2">+</span>
+          </dl>
+          <a href="{$navlist.url}" class="ce">{$navlist.name}</a>
+          <ul class="menu_body">
+            <!--xyhcms-->
+            <volist name="navlist['child']" id="vo">
+              <li><a href='{$vo|get_url}' class="er">{$vo.name}</a> </li>
+            </volist>
+          </ul>
+        </li>
+      </yang:navlist>
+    </ul>
+  </div>
+</div>
+<div class="opacity2"></div>
+<div id="header" class="head">
+  <div class="container">
+    <div class="mol_navbutton visible-xs fl tc"> <img src="__PUBLIC__/images/menu.png"> </div>
+    <div class="logo fl"> <a href="<yang:siteurl/>"> <img src="__PUBLIC__/images/logo.png"> </a> </div>
+    <div class="collapse navbar-collapse fr">
+      <ul class="nav navbar-nav nav_box">
+        <li id="pindex" class='yiji current'><a href="<yang:siteurl/>">首页</a> </li>
+        <!--xyhcms-->
+        <yang:navlist typeid='0'>
+          <li id="pcase" class="yiji "><a href="{$navlist.url}">{$navlist.name}</a> 
+            <!--xyhcms-->
+            <volist name="navlist['child']" id="vo">
+              <div class="libox"> <a href="{$vo|get_url}">{$vo.name}</a> </div>
+            </volist>
+          </li>
+        </yang:navlist>
+      </ul>
+    </div>
+  </div>
+</div>
+<!---->

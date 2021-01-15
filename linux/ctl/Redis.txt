@@ -1,0 +1,1 @@
+先cd 到装redis的目录，然后cd src，再输入 ./redis-cli  即可进入redis

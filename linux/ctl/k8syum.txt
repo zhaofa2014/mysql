@@ -1,0 +1,120 @@
+配置转发参数
+
+cat <<EOF > /etc/sysctl.d/k8s.conf 
+net.bridge.bridge-nf-call-ip6tables = 1 
+net.bridge.bridge-nf-call-iptables = 1 
+EOF
+sysctl --system
+
+
+
+配置kubernetes的yum源
+cat > /etc/yum.repos.d/kubernetes.repo << EOF
+[kubernetes]
+name=Kubernetes
+baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+
+
+
+
+yum -y install kubelet kubeadm kubectl 
+
+
+
+
+
+
+kubeadm init \ --apiserver-advertise-address=106.15.73.60 \ --image-repository registry.aliyuncs.com/google_containers \ --kubernetes-version v1.15.0 \ --service-cidr=10.1.0.0/16\ --pod-network-cidr=10.244.0.0/16
+
+
+初始化
+kubeadm init --apiserver-advertise-address=172.19.127.94 --image-repository registry.aliyuncs.com/google_containers --kubernetes-version v1.15.0 --service-cidr=10.1.0.0/16 --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=all
+
+
+
+
+kubeadm join 172.19.127.94:6443 --token bacyjf.th90zq4pee64elz4 --discovery-token-ca-cert-hash sha256:8e975fb656c5bdbe5e0d4e19ca5e0751a448f258f54819773f3e649c7c4231f7
+
+kubeadm join 106.15.73.60:6443 --token bacyjf.th90zq4pee64elz4 --discovery-token-ca-cert-hash sha256:8e975fb656c5bdbe5e0d4e19ca5e0751a448f258f54819773f3e649c7c4231f7
+
+
+
+
+
+
+
+
+
+
+cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2",
+  "storage-opts": [
+    "overlay2.override_kernel_check=true"
+  ]
+}
+EOF
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+teLnet 106.15.73.60 6443
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+systemctl enable rpcbind
+systemctl enable nfs-server
+
+systemctl start rpcbind
+systemctl start nfs-server
+exportfs -r
+
+#执行以下命令挂载 nfs 服务器上的共享目录到本机路径 /root/www/wwwroot
+mkdir -p /root/www/wwwroot
+# mount -t nfs $(nfs服务器的IP):/root/nfs_root /root/nfsmount
+mount -t nfs 172.18.205.47:/www/wwwroot /root/www/wwwroot
+# 写入一个测试文件
+echo "hello nfs server" > /root/www/wwwroot/test.txt
+
+
+#复制备份
+mkdir -p /root/nfs_root/www/wwwroot
+nohup cp -r /root/www/wwwroot /root/nfs_rootwww/wwwroot &
+
+mkdir -p /root/nfs_root/www/wwwroot/shelimai.com/upload
+cp -r /root/www/wwwroot/default/upload /root/nfs_root/www/wwwroot/shelimai.com/
+cd /root/nfs_root/www/wwwroot/shelimai.com/upload
+du -s upload
+
+showmount -e 172.18.205.47
+showmount -e 172.18.77.122
+
+mkdir -p /www/wwwroot
+mount -t nfs 172.18.77.122:/root/nfs_root/www/wwwroot/shelimai.com/upload /www/wwwroot/shelimai.com/upload
+
+#卸载
+umount /www/wwwroot

@@ -1,0 +1,41 @@
+<?php
+$z[0] = Array("field", "", 271, 290);
+$z[0][4] = array();
+$z[0][4]['name'] = "title";
+$z[1] = Array("global", "", 291, 317);
+$z[1][4] = array();
+$z[1][4]['name'] = "cfg_webname";
+$z[2] = Array("field", "", 358, 387);
+$z[2][4] = array();
+$z[2][4]['name'] = "keywords";
+$z[3] = Array("field", "", 427, 485);
+$z[3][4] = array();
+$z[3][4]['name'] = "description";
+$z[3][4]['function'] = "html2text(@me)";
+$z[4] = Array("global", "", 1161, 1189);
+$z[4][4] = array();
+$z[4][4]['name'] = "cfg_mobileurl";
+$z[5] = Array("field", "", 1203, 1219);
+$z[5][4] = array();
+$z[5][4]['name'] = "id";
+$z[6] = Array("global", "", 1688, 1716);
+$z[6][4] = array();
+$z[6][4]['name'] = "cfg_mobileurl";
+$z[7] = Array("field", "", 1730, 1746);
+$z[7][4] = array();
+$z[7][4]['name'] = "id";
+$z[8] = Array("include", "", 1843, 1878);
+$z[8][4] = array();
+$z[8][4]['filename'] = "head.htm";
+$z[9] = Array("field", "", 2134, 2156);
+$z[9][4] = array();
+$z[9][4]['name'] = "typename";
+$z[10] = Array("list", "\r\n          <li class=\"serviceitem\"><a href=\"[field:arcurl/]\" target=\"_blank\"><img src=\"[field:litpic/]\" width=\"320\" height=\"120\" />\r\n            <div>\r\n              <p class=\"title\">[field:title/]</p>\r\n              <p class=\"description\">[field:description function='cn_substr(@me,150)'/]...</p>\r\n            </div>\r\n            </a> <a href=\"[field:arcurl/]\" target=\"_blank\" class=\"details\">more<i class=\"fa fa-angle-right\"></i></a> </li>\r\n          ", 2277, 2782);
+$z[10][4] = array();
+$z[10][4]['pagesize'] = "80";
+$z[10][4]['titlelen'] = "36";
+$z[11] = Array("include", "", 2920, 2955);
+$z[11][4] = array();
+$z[11][4]['filename'] = "foot.htm";
+
+?>

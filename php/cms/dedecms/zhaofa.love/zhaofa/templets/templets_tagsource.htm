@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>标签源码碎片管理</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        .linerow {
+            border-bottom: 1px solid #CBD8AC;
+        }
+
+        td {
+            padding-left: 5px;
+        }
+    </style>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" style="margin-bottom:6px;"
+       width="98%">
+    <tr>
+        <td background="images/tbg.gif" colspan="7" height="28" style="padding-left:10px;">
+            <b>标签源码碎片管理</b> &nbsp; (DedeCMS 5.3及以上版本标签源码是完全独立的，懂程序的用户可以按需修改或自行增加标签)
+        </td>
+    </tr>
+</table>
+<table align="center" bgcolor="#cfcfcf" border='0' cellpadding='0' cellspacing='1' width='98%'>
+    <tr align="center" height="26">
+        <td background="images/wbg.gif" width="25%"><strong>标签文件名</strong></td>
+        <td align="left" background="images/wbg.gif" width="33%"><strong>标签说明</strong></td>
+        <td background="images/wbg.gif" width="22%"><strong>修改时间</strong></td>
+        <td background="images/wbg.gif" width="20%"><strong>操作</strong></td>
+    </tr>
+    <tr>
+        <td bgcolor="#F9FCEF" colspan='4' height="28">
+            <div style='float:left'>
+                <b>
+                    当前位置：标签源码碎片管理(文件存放在 ../include/taglib 文件夹)
+                </b>
+            </div>
+            <div style='float:right;padding-right:10px'>
+                <a href='tpl.php?action=addnewtag'>[<u>增加一个新的标签</u>]</a>
+            </div>
+        </td>
+    </tr>
+    <?php
+   $dh = dir($libdir);
+   while($filename=$dh->read())
+    {
+    if(!preg_match("#\.php$#", $filename)) continue;
+    $filetime = filemtime($libdir.'/'.$filename);
+    $filetime = MyDate("Y-m-d H:i",$filetime);
+    $fileinfo = GetHelpInfo(str_replace('.lib.php','',$filename));
+    ?>
+    <tr bgcolor='#FFFFFF' height="26" onMouseMove="javascript:this.bgColor='#FCFDEE';"
+        onMouseOut="javascript:this.bgColor='#FFFFFF';">
+        <td>
+            <img align='absmiddle' border='0' src='images/htm.gif'/><?php echo $filename; ?>
+        </td>
+        <td>
+            <?php echo $fileinfo; ?>
+        </td>
+        <td align='center'>
+            <?php echo $filetime; ?>
+        </td>
+        <td align='center'>
+            <a href='tpl.php?action=edittag&filename=<?php echo $filename; ?>'>[编辑]</a>
+        </td>
+    </tr>
+    <?php } ?>
+    <tr>
+        <td bgcolor="#F9FCEF" colspan="4" height='32'>
+            <p style="text-align:center;color:red">修改系统标签有风险，请小心操作！</p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

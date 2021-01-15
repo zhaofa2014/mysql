@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>关键字管理</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="div.css" rel="stylesheet" type="text/css">
+    <style>
+        .nnpp {
+            border-bottom: 1px solid #666666;
+            border-top: 1px solid #FFFFFF;
+            border-left: 1px solid #FFFFFF;
+            border-right: 1px solid #FFFFFF;
+            filter: alpha(opacity=50);
+        }
+    </style>
+    <script language='javascript'>
+        function selAll() {
+            var celements = document.getElementsByName('aids[]');
+            for (i = 0; i < celements.length; i++) {
+                if (!celements[i].checked) celements[i].checked = true;
+                else celements[i].checked = false;
+            }
+        }
+    </script>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<div class="main">
+    <table align='center' bgcolor="#D6D6D6" border="0" cellpadding="1" cellspacing="1" width="98%">
+        <tr>
+            <td background="images/tbg.gif" colspan="6" height="26">
+                <table border="0" width="96%">
+                    <tr>
+                        <td style="padding-left:10px;" width="25%"><strong>关键词维护</strong></td>
+                        <form action="article_keywords_main.php" name='form1'>
+                            <td align="right" width="75%">
+                                搜索：<input name='keyword' size='20' type='text'/>
+                                <input class="coolbg np" name='sb' type='submit' value='确定'/>
+                                &nbsp;
+                                <input class="coolbg np" id="n1" name="n1"
+                                       onClick="location='article_keywords_make.php';" style="width:130px" type="button"
+                                       value="分析系统内的关键字"/>
+                                &nbsp;
+                                <input class="coolbg np" id="n11" name="n11"
+                                       onClick="location='search_keywords_main.php';" style="width:125px" type="button"
+                                       value="管理搜索的关键字"/>
+                            </td>
+                        </form>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <form action="article_keywords_main.php" name='form2'>
+            <input name='dopost' type='hidden' value='add'/>
+            <tr align="center" bgcolor="#ffffff">
+                <td colspan="6" height="30" width="100%">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="center" width="100">新增关键字：</td>
+                            <td width="140"><input id="keyword" name="keyword" style="width:130px" type="text"/></td>
+                            <td width="60">链接网址：</td>
+                            <td width="140"><input id="rpurl" name="rpurl" style="width:130px" type="text"/></td>
+                            <td width="40">频率：</td>
+                            <td width="50"><input id="rank" name="rank" style="width:30px" type="text" value="30"/></td>
+                            <td width="80"><input class="coolbg np" name="Submit" type="submit" value="保存"/></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </form>
+        <tr align="center" bgcolor="#FBFCE2" height="26">
+            <td width="8%">选择</td>
+            <td width="25%">关键字</td>
+            <td width="35%">链接网址</td>
+            <td width="10%">频率</td>
+            <td width="22%">管理</td>
+        </tr>
+        <form action="article_keywords_main.php" method="post" name='form3'>
+            <input name='dopost' type='hidden' value='saveall'/>
+            {dede:datalist}
+            <tr align="center" bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='#FCFDEE';"
+                onMouseOut="javascript:this.bgColor='#FFFFFF';">
+                <td height="24">
+                    <input checked='1' class="np" name="aids[]" type="checkbox" value="{dede:field.aid/}"/>
+                </td>
+                <td>
+                    <input name='keyword_{dede:field.aid/}' type='hidden' value='{dede:field.keyword/}'/>
+                    {dede:field.keyword/}
+                </td>
+                <td style="padding:5px 0;">
+                    <input name='rpurlold_{dede:field.aid/}' type='hidden' value='{dede:field.rpurl/}'/>
+                    <input class='nnpp' name='rpurl_{dede:field.aid/}' style='width:90%' type='text'
+                           value='{dede:field.rpurl/}'/>
+                </td>
+                <td>
+                    <input class='nnpp' name='rank_{dede:field.aid/}' size='5' type='text' value='{dede:field.rank/}'/>
+                </td>
+                <td>
+                    <input name='staold_{dede:field.aid/}' type='hidden' value='{dede:field.sta/}'/>
+                    <input class='np' function="GetSta(@me)" name='isnouse_{dede:field.aid/}' type='checkbox' value='1'
+                           {dede:field.sta/} />
+                    禁用
+                    &nbsp;
+                    <input class='np' name='isdel_{dede:field.aid/}' type='checkbox' value='1'/>
+                    删除
+                </td>
+            </tr>
+            {/dede:datalist}
+            <tr bgcolor="#ffffff">
+                <td colspan="6" height="28">
+                    &nbsp;
+                    <input class="coolbg np" name="dl1" onClick="selAll()" type="button" value="反选"/>
+                    &nbsp;
+                    <input class="coolbg np" name="dl2" onClick="this.form.submit();" type="button" value="保存更改"/>
+                </td>
+            </tr>
+        </form>
+        <tr align="center" bgcolor="#F9FCEF">
+            <td colspan="6" height="28">
+                {dede:pagelist listsize=3/}
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

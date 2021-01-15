@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>更改文档</title>
+    <style type="text/css">
+        <!--
+        body {
+            background-image: url(images/allbg.gif);
+        }
+
+        -->
+    </style>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <script language="javascript" src="../include/js/dedeajax2.js"></script>
+    <script language="javascript" src="js/main.js"></script>
+    <script src="js/calendar/calendar.js" type="text/javascript"></script>
+    <script language="javascript">
+        <!--
+        function checkSubmit() {
+            if (document.form1.title.value == "") {
+                alert("<?php echo $cInfos['titlename']; ?>不能为空！");
+                document.form1.title.focus();
+                return false;
+            }
+        }
+
+        -->
+    </script>
+</head>
+<body topmargin="8">
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
+    <tr>
+        <td height="30" width="65%"><IMG height=14 src="images/book1.gif" width='20'/>
+            &nbsp;<a
+                    href="content_sg_list.php?cid=<?php echo $addRow['typeid']?>&channelid=<?php echo $channelid?>&dopost=listArchives"><u>文档列表</u></a>
+            &gt;&gt; 更改文档
+        </td>
+        <td align='right' width="30%">&nbsp; <?php echo $backurl; ?><a href="catalog_main.php">[<u>栏目管理</u>]</a></td>
+    </tr>
+</table>
+
+<table align="center" border="0" cellpadding="0" cellspacing="0" id="head1" width="98%">
+    <tr>
+        <td colspan="2">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="center" background="images/itemnote1.gif" height="24" width="84">&nbsp;常规信息&nbsp;</td>
+                    <td align="center" width="84"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<form action="archives_sg_edit.php" enctype="multipart/form-data" method="post" name="form1"
+      onSubmit="return checkSubmit();">
+    <input name="channelid" type="hidden" value="<?php echo $channelid; ?>"/>
+    <input name="id" type="hidden" value="<?php echo $aid; ?>"/>
+    <input name="sortrank" type="hidden" value="<?php echo $addRow['senddate']; ?>"/>
+    <input name="dopost" type="hidden" value="save"/>
+    <table align="center" border="0" cellpadding="2" cellspacing="2" id="needset"
+           style="border:1px solid #cfcfcf;background:#ffffff;" width="98%">
+        <tr>
+            <td class="bline" height="24">
+                <table border="0" cellpadding="0" cellspacing="0" width="800">
+                    <tr>
+                        <td width="90">&nbsp;<?php echo $cInfos['titlename']; ?>：</td>
+                        <td><input id="title" name="title" style="width:388px" type="text"
+                                   value="<?php echo $addRow['title']; ?>">&nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="bline" height="24" width="400%">
+                <table border="0" cellpadding="0" cellspacing="0" width="800">
+                    <tr>
+                        <td width="90">&nbsp;自定义属性：</td>
+                        <td>
+                            <?php
+                $dsql->SetQuery("SELECT * FROM `#@__arcatt` WHERE att<>'j' AND att<>'p' ORDER BY sortid ASC");
+                            $dsql->Execute();
+                            while($trow = $dsql->GetObject())
+                            {
+                            if(preg_match("#".$trow->att."#", $addRow['flag']))
+                            echo "<input checked='checked' class='np' id='flags{$trow->att}' name='flags[]'
+                                         type='checkbox' value='{$trow->att}'/>{$trow->attname}[{$trow->att}]";
+                            else
+                            echo "<input class='np' id='flags{$trow->att}' name='flags[]' type='checkbox'
+                                         value='{$trow->att}'/>{$trow->attname}[{$trow->att}]";
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="bline" height="24">
+                <table border="0" cellpadding="0" cellspacing="0" width="800">
+                    <tr>
+                        <td width="90">&nbsp;浏览权限：</td>
+                        <td>
+                            <select id="arcrank" name="arcrank" style="width:150px">
+                                <option value='<?php echo $addRow["arcrank"]; ?>'><?php echo $addRow["rankname"]; ?></option>
+                                <?php
+              $urank = $cuserLogin->getUserRank();
+                                $dsql->SetQuery("Select * from `#@__arcrank` where adminrank<='$urank' And
+                                rank<>'{$addRow["arcrank"]}' ");
+                                $dsql->Execute();
+                                while($row = $dsql->GetObject()) {
+                                echo "
+                                <option value='".$row->rank."'>".$row->membername."</option>
+                                \r\n";
+                                }
+                                ?>
+                            </select></td>
+                        <td width="90"></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="pictable" needpicstyle='<?php if($cInfos['
+        ']==0) echo 'display:none'; ?>'>
+        <td class="bline" height="24">
+            <table border="0" cellpadding="0" cellspacing="0" width="800">
+                <tr>
+                    <td height="81" width="90">
+                        &nbsp;缩 略 图：<br/>
+                        &nbsp;
+                    </td>
+                    <td width="500">
+                        <input id="picname" litpic name="picname" style="width:280px" type="text"
+                               value="<?php echo $addRow[""]; ?>"><input name="Submit"
+                                                                         onClick="SelectImage('form1.picname','');"
+                                                                         style="width:60px" type="button"
+                                                                         value="浏览..."/>
+                        <input class='np coolbg' name="Submit2" onClick="imageCut('picname');" style="margin-left:8px;"
+                               type="button" value="裁剪"/>
+                        <input class='np' name='ddisremote' type='checkbox' value='1'/>
+                        远程
+                    </td>
+                    <td align="center">
+                        <img litpicsrc="<?php if( !empty($addRow[""]) ) echo $addRow["litpic"]; else echo
+                        "images/pview.gif"; ?>" width="150" height="100" id="picview" name="picview" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </tr>
+        <?php if($cInfos['dfcid']>0)
+        {
+        echo "<input dfcid name='typeid' type='hidden' value='{$cInfos['']}' />\r\n";
+        }
+        else
+        {
+        ?>
+        <tr>
+            <td class="bline" height="24">
+                <table border="0" cellpadding="0" cellspacing="0" width="800">
+                    <tr>
+                        <td width="90">&nbsp;文档主栏目：</td>
+                        <td>
+                            <?php
+            $typeOptions = GetOptionList($addRow['typeid'],$cuserLogin->getUserChannel(),$channelid);
+                            echo "<select id='typeid' name='typeid' style='width:240px'>\r\n";
+                            if($addRow["typeid"]=="0") echo "
+                            <option selected value='0'>请选择栏目...</option>
+                            \r\n";
+                            echo $typeOptions;
+                            echo "</select>";
+                            ?>
+                            <img alt='快捷选择'
+                                 onClick="ShowCatMap(event, this, <?php echo $channelid; ?>, 'typeid', '<?php echo $addRow['typeid']; ?>')"
+                                 src='images/menusearch.gif' style='cursor:pointer' title='快捷选择'/>
+                            <?php
+     			 if($cfg_remote_site=='Y')
+     			 {
+   				 ?> 　
+                            <input id="isremote" name="isremote" type="checkbox"
+                                   value="1" <?php if($cfg_title_site=='Y') echo "checked";?>
+                            >是否同步远程发布  <?php GetFtp();?>     <?php
+     			 }
+    		?>  </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <?php } ?>
+
+        <tr>
+            <td>
+                <?php
+        PrintAutoFieldsEdit($cInfos['fieldset'],$addRow,'autofield');
+      ?>
+            </td>
+        </tr>
+    </table>
+
+    <table align="center" bgcolor="#F9FCEF" border="0" cellpadding="0" cellspacing="0"
+           style="border:1px solid #cfcfcf;border-top:none;" width="98%">
+        <tr>
+            <td height="35">
+                <table border="0" cellpadding="1" cellspacing="1" width="100%">
+                    <tr>
+                        <td width="17%">&nbsp;</td>
+                        <td width="83%">
+                            <table border="0" cellpadding="0" cellspacing="0" width="214">
+                                <tr>
+                                    <td width="115"><input border="0" class="np" height="22" name="imageField"
+                                                           src="images/button_ok.gif" style="cursor:pointer"
+                                                           type="image" width="60"></td>
+                                    <td width="99">
+                                        <img border="0" height="22" onClick="location.reload();"
+                                             src="images/button_reset.gif" style="cursor:pointer" width="60">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

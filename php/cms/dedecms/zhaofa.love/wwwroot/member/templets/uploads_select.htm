@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>浏览我的附件 - 会员中心 - <?php echo $cfg_webname; ?></title>
+    <?php include(DEDEMEMBER."/templets/head_inc.htm"); ?>
+    <link href="templets/style/base.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript" type="text/javascript">
+        var fname = '<?php echo $f; ?>';
+        var mediatype = '<?php echo $mediatype; ?>';
+        var keyword = '<?php echo $keyword; ?>';
+
+        function addNew() {
+            location = "uploads_add.php?f=" + fname + "&mediatype=" + mediatype + "&keyword=" + keyword;
+        }
+
+        function selOK(surl) {
+            window.opener.document. < ? php echo
+            $f;
+                ?
+        >.
+            value = surl;
+            if (document.all) window.opener = true;
+            window.close();
+        }
+
+    </script>
+</head>
+<body>
+
+<table align="center" style="margin-top:20px;" width="96%">
+    <tr>
+        <td>
+            <form action='uploads_select.php' method='post' name='forms'>
+                <input name="f" type="hidden" value="<?php echo $f; ?>"/>
+                <input name="mediatype" type="hidden" value="<?php echo $mediatype; ?>"/>
+                <input name="keyword" type="hidden" value="<?php echo $keyword; ?>"/>
+                <input class="intxt" id="keyword" name="keyword" style="width:200px;" type="text"
+                       value="<?php echo $keyword?>"/>
+                <select name='mediatype'>
+                    <option value='0'>文件类型</option>
+                    <option value='1'
+                    <?php if($mediatype==1) echo " selected='1' "; ?>>图片</option>
+                    <option value='2'
+                    <?php if($mediatype==2) echo " selected='1' "; ?>>FLASH</option>
+                    <option value='3'
+                    <?php if($mediatype==3) echo " selected='1' "; ?>>视频/音频</option>
+                    <option value='4'
+                    <?php if($mediatype==4) echo " selected='1' "; ?>>其它附件</option>
+                </select>
+                <button class="button2 ml10" type="submit">搜索</button>
+            </form>
+        </td>
+        <td style="text-align:right;">
+            <button class="buttonGary5 mR10" onclick="addNew();" type="button">上传新文件</button>
+        </td>
+    </tr>
+</table>
+<form class="mTB10" name="form1">
+    <table align="center" cellspacing="1" class="list" width="96%">
+        <thead>
+        <tr>
+            <th align="left" align="cener" width="35"><input id="checkedClick" name="checkedClick" type="checkbox"
+                                                             value=""></th>
+            <th>文件标题</th>
+            <th width="10%">大小</th>
+            <th width="10%">类型</th>
+            <th width="15%">上传时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {dede:datalist}
+        <tr>
+            <td align="cener" width="35"><input aid id='aids<?php echo $fields[' name='aids' type='checkbox'']?>'
+                value="<?php echo $fields['url']; ?>" onclick="selOK('<?php echo $fields['url']; ?>');" />
+            </td>
+            <td><?php
+			$color = '';
+			if($filename==$fields['url']) $color=" style='color:red' ";
+			?>
+                <a href="#" onclick="selOK('<?php echo $fields['url']; ?>');" <?php echo $color; ?>
+                > <?php echo GetImageView($fields['url'],$fields['mediatype']); ?> <?php echo $fields['title']; ?> </a>
+            </td>
+            <td align="center"><?php echo GetFileSize($fields['filesize']); ?></td>
+            <td align="center"><?php echo MediaType($fields['mediatype'],$fields['url']); ?></td>
+            <td align="center"><?php echo MyDate("Y-m-d",$fields['uptime']); ?></td>
+        </tr>
+        {/dede:datalist}
+        </tbody>
+
+        <tfoot>
+        <tr>
+            <td colspan="6">
+                <div>
+                    <div class="fLeft">
+                        <button class="buttonGary5 mt10" onclick="addNew();" type="button">上传新文件</button>
+                    </div>
+                    <div class="pages fRight mt10">{dede:pagelist listsize=5/}</div>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</form>
+</body>
+</html>

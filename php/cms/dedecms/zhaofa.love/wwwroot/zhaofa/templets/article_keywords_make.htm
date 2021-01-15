@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>关键字维护</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background="images/allbg.gif" leftmargin="8" topmargin="8">
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <tr>
+        <td background='images/tbg.gif' height="20">
+            <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                <tr>
+                    <td height="18" style="padding-left:10px;" width="30%"><strong>关键字维护：</strong></td>
+                    <td align="right" width="70%"><input id="kw" name="kw"
+                                                         onClick="location='article_keywords_main.php';" type="button"
+                                                         value="返回关键字管理页"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#FFFFFF" height="48">
+            　　本向导帮助自动分析您系统内的关键字，并统计关键字的数量，对其进行排序，您可以清理掉错误的关键字或无意义的关键字，以提高文档关连和搜索的准确性，本分析器是直接在内存中对关键字进行分析排序后加入到数据库的，因此本操作比较占用内存，如果您的文档数量很大并且使用的又是虚拟主机，可能无法完成本操作。<br/>
+            　　本程序只分析文章频道的关键字数据，其它频道或自定义频道请自行手工指定内容的关系字。<br/>
+            　　如果您的文章是采集回来的，请先用“自动获取关键字”的功能对未有关键字的文章进行分词索引，然后再检测关键字。
+        </td>
+    </tr>
+    <tr>
+        <td align="center" bgcolor="#ffffff" height="31">
+            [<a href="article_keywords_make.php?dopost=analyse" target="stafrm"><u>检测已有的关键字</u></a>]
+            &nbsp;
+            [<a href="article_keywords_make.php?dopost=fetch" target="stafrm"><u>自动获取关键字</u></a>]
+        </td>
+    </tr>
+    <tr bgcolor="#F9FCEF">
+        <td height="20">
+            <table width="100%">
+                <tr>
+                    <td width="74%"><strong>结果：</strong></td>
+                    <td align="right" width="26%">
+                        <script language='javascript'>
+                            function ResizeDiv(obj, ty) {
+                                if (ty == "+") document.all[obj].style.pixelHeight += 50;
+                                else if (document.all[obj].style.pixelHeight > 80) document.all[obj].style.pixelHeight = document.all[obj].style.pixelHeight - 50;
+                            }
+                        </script>
+                        [<a href='#' onClick="ResizeDiv('mdv','+');">增大</a>] [<a href='#'
+                                                                                 onClick="ResizeDiv('mdv','-');">缩小</a>]
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#FFFFFF">
+        <td id="mtd">
+            <div id='mdv' style='width:100%;height:350px;'>
+                <iframe frameborder="0" height="100%" id="stafrm" name="stafrm" width="100%"></iframe>
+            </div>
+            <script language="JavaScript">
+                document.all.mdv.style.pixelHeight = screen.height - 360;
+            </script>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

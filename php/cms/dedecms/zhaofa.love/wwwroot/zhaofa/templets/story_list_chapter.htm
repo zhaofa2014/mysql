@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>连载章节列表</title>
+    <link href='css/base.css' rel='stylesheet' type='text/css'>
+    <script language="javascript" src="js/main.js"></script>
+    <script language="javascript" src="../include/js/dedeajax2.js"></script>
+    <script language="javascript" src="js/story.js"></script>
+    <script language="javascript">
+        function EditChapter(cid) {
+            $Obj('editchapter').style.display = 'block';
+            var chapterid = cid;
+            var chaptername = $Obj('chaptername_' + cid).value;
+            var chapnum = $Obj('chapnum_' + cid).value;
+            var myajax = new DedeAjax($Obj('editchapter'), false, true, "", "", "请稍候，正在处理...");
+        <
+                ? php
+            if (strtolower(substr($cfg_soft_lang, 0, 3)) == 'utf') {
+                    ?
+            >
+                //utf8
+                myajax.AddKeyUtf8('cid', cid);
+                myajax.AddKeyUtf8('chaptername', chaptername);
+                myajax.AddKeyUtf8('chapnum', chapnum);
+                myajax.AddKeyUtf8('action', 'editChapter');
+                myajax.SendPost2('story_do.php');
+            <
+                    ? php
+            }
+            elseif(strtolower(substr($cfg_soft_lang, 0, 2)) == 'gb')
+            {
+                    ?
+            >
+                //gbk
+                myajax.SendGet2("story_do.php?cid=" + cid + "&chaptername=" + chaptername + "&chapnum=" + chapnum + "&action=editChapter");
+            <
+                    ? php
+            }
+                ?
+        >
+            DedeXHTTP = null;
+        }
+    </script>
+    <style type="text/css">
+        <!--
+        #editchapter {
+            position: absolute;
+            left: 455px;
+            top: 64px;
+            width: 250px;
+            height: 150px;
+            z-index: 1;
+            background-color: #F2FDDB;
+            border: 1px solid #889D8F;
+            padding: 8px;
+            display: none
+        }
+
+        -->
+    </style>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt" style="padding-left:10px;">小说管理 <a href="../book" target="_blank">[查看首页]</a></div>
+</div>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="	background:#CFCFCF;"
+       width="98%">
+    <tr>
+        <td background="images/tbg.gif" bgcolor="#EDF9D5" class="tbtitletxt">
+            <table border="0" cellpadding='0' cellspacing='0' width='96%'>
+                <tr>
+                    <td class="tbtitletxt" style="padding-left:10px;" width='30%'><strong>连载章节列表</strong></td>
+                    <td align='right'>
+                        [<a href="story_books.php"><u>图书管理</u></a>]
+                        &nbsp;
+                        [<a href="story_list_content.php"><u>连载内容管理</u></a>]
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<table align="center" border="0" cellpadding="5" cellspacing="1"
+       style=" border:1px solid #CFCFCF;line-height:31px;margin:auto;border-top:none;" width="98%">
+    <tr>
+        <td style="background:#ffffff;padding:3px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                <tr>
+                    <td width='50%'>
+                        <form action='story_list_chapter.php' method='get' name='form1'>
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style='padding-left:10px;padding-right:10px;'>关键字:</td>
+                                    <td style='padding-right:10px;'>
+                                        <input class='alltxt' id="keyword" name="keyword" size="30" type="text"
+                                               value="<?php echo $keyword; ?>"/>
+                                    </td>
+                                    <td><input class='np coolbg' name="Submit" type="submit" value="搜 索"/></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </td>
+                    <td align='right'>
+                        <?php
+    	if(!empty($bookid)){
+    		echo "<a href='story_add_content.php?bookid={$bookid}'>添加内容</a> | ";
+                        echo "<a href='story_list_content.php?bookid={$bookid}'>本书内容</a> | ";
+                        echo "<a href='story_list_chapter.php'>所有章节</a>";
+                        }
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<form action='story_do.php' method='post' name='form2'>
+    <input name='action' type='hidden' value='upChapterSort'/>
+    <table align="center" border="0" cellpadding="1" cellspacing="1"
+           style=" margin-top:3px; margin-bottom:3px; border:1px solid #CFCFCF;line-height:31px;background:#F9FFE6;"
+           width="98%">
+        <tr align="center" style="background:#FBFCE2;height:26px">
+            <td width="10%">选择</td>
+            <td width="10%">章节序号</td>
+            <td width="28%">章节名称</td>
+            <td width="28%">隶属图书</td>
+            <td>管理项目</td>
+        </tr>
+        {dede:datalist}
+        <tr align="center" height="24" style="background:#ffffff;">
+            <td>
+                <input class='np' id='ids{dede:field.id/}' name='ids[]' type='checkbox' value='{dede:field.id/}'/>
+            </td>
+            <td style="padding:5px 0;">
+                第<input class='alltxt' id="chapnum_{dede:field.id/}" name='chapnum_{dede:field.id/}' size='3'
+                        type='text' value='{dede:field.chapnum/}'/>章
+            </td>
+            <td><input class='alltxt' id="chaptername_{dede:field.id/}" name='chaptername_{dede:field.id/}'
+                       style='width:96%' type='text' value='{dede:field.chaptername/}'/></td>
+            <td>
+                <a href='story_list_content.php?bookid={dede:field.id/}'>{dede:field.bookname/}</a>
+            </td>
+            <td>
+                <a href='story_list_content.php?chapid={dede:field.id/}&bookid={dede:field.bookid/}'>内容({dede:field.postnum/})</a>
+                |
+                <a href="javascript:EditChapter('{dede:field.id/}');">更新</a> |
+                <a href="javascript:DelStoryChapter('{dede:field.id/}')">删除</a>
+            </td>
+        </tr>
+        {/dede:datalist}
+    </table>
+    <table align="center" border="0" cellpadding="0" cellspacing="0"
+           style="border:1px solid #CFCFCF;line-height:35px;height:35px;margin-bottom:3px;" width="98%">
+        <tr>
+            <td bgcolor="#ffffff" style="padding-left:10px;">
+                <input class='np coolbg' name='sbt102' onClick='ReSelChapter()' type='button' value='反选'/>
+                &nbsp;
+                <input class='np coolbg' name='sbt1' type='submit' value='批量修改'/>
+                (批量修改选中项)
+            </td>
+        </tr>
+    </table>
+</form>
+<table align="center" border="0" cellpadding="5" cellspacing="1"
+       style=" border:1px solid #CFCFCF;line-height:30px;margin:auto;" width="98%">
+    <tr>
+        <td style="background:#F9FCEF;">
+            {dede:pagelist listsize=5 /}
+        </td>
+    </tr>
+</table>
+</div>
+<div id='editchapter'></div>
+</body>
+</html>

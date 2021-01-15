@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>文件上传</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <script language="JavaScript" src="menu.js"></script>
+</head>
+<body background="images/allbg.gif" leftmargin="0" topmargin="0">
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="98%">
+    <tr>
+        <td align="center" height="425" valign="top">
+            <script language="javascript">
+                var i = 1;
+
+                function make_upload() {
+                    i++;
+                    myob = document.getElementById("upfield");
+                    myob.innerHTML += "<br>文件" + i + ":<input type='file' name='upfile" + i + "' size='30'>";
+                }
+
+                function reset_upload() {
+                    myob = document.getElementById("upfield");
+                    myob.innerHTML = "文件1:<input type='file' name='upfile1' size='30'>";
+                }
+            </script>
+            <form action="file_manage_control.php" enctype="multipart/form-data" method="POST" name="form1">
+                <input name='activepath' type='hidden' value="{dede:global name='activepath'/}">
+                <input name='fmdo' type='hidden' value="upload">
+                <table border="0" bordercolor="#111111" cellpadding="0" cellspacing="0"
+                       style="border-collapse: collapse" width="600">
+                    <tr>
+                        <td align="center" colspan="2" height="10" width="100%"></td>
+                    </tr>
+                    <tr>
+                        <td height="40" valign="top" width="10%"></td>
+                        <td width="90%">
+                            <input class="bt1" name="bbb" onClick="make_upload();" type="button" value="增加上传框">
+                            <a href="file_manage_main.php?activepath={dede:global name='activepath'/}">[返回目录{dede:global
+                                name='activepath'/}]</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="10%">　</td>
+                        <td width="90%">
+                            <div id="upfield">文件1:<input name='upfile1' size='30' type='file'></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" height="40" width="100%">
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input name="B1" type="submit" value=" 上传文件 ">
+                            &nbsp;
+                            <input name="B12" onClick="reset_upload();" type="button" value=" 重设表单 ">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

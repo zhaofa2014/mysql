@@ -1,0 +1,200 @@
+碎片化学习时间
+看完本教程，你至少应该学会以下知识点，这样我觉得你才对得起我们的小编，更重要的是对得起你浪费的时间！
+
+1、能够创建scrapy项目、编写个简单的蜘蛛并运行蜘蛛；
+2、能够简单的使用scrapy shell 调试数据；
+3、能够使用scrapy css选择器提取简单数据；
+4、除了能够提取一页数据，还要能提取下一页、在下一页。
+
+
+
+
+pip3 install pandas -i http://mirrors.aliyun.com/pypi/simple/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+招聘平台数据分析
+职位:PHP工程师
+技能书:
+后端框架tp5.1 6.0	laravel
+学好基础php	mysql	redis	微服务	组件式开发	接口式开发
+前端框架vue	学好基础js	json次要
+环境	K8S	学好基础docke git （我已经会用 ）   会用 CI/CD
+兴趣  shell       	py          go	            swoole
+赚钱
+经济学
+社会学
+心理学
+神学
+
+
+
+
+
+
+
+
+
+
+新媒体
+QQ群:540457466
+钉钉群:30711101
+微信群:
+dockerhub:https://hub.docker.com/u/1872220587
+github:https://github.com/zhaofa2014?tab=repositories
+gitee:https://gitee.com/zhaofafa/projects
+工作微信:18887142223
+生活微信:13114274876
+学习微信:18213520223
+工作 QQ:1872220587
+生活 QQ:1844480921
+游戏 QQ:1655592531
+facebook:18887142223
+twitter:Zhaofa142857
+line:zhaofa2014@hotmail.com
+百家号:https://baijiahao.baidu.com/u?app_id=1670732549254864
+头条号:https://www.toutiao.com/c/user/103768153980/#mid=1670731303068686
+微信公众号:https://mp.weixin.qq.com/s/_5QxA7ySiCNAyzofRdgHTQ
+企鹅号:https://media.om.qq.com/author?id=MZEXcM1irPYu7uTJilL6bXvQ0
+爱奇艺号:https://www.iqiyi.com/u/2000622273/feeds
+微博:https://weibo.com/5504212058/profile?topnav=1&amp;wvr=6&amp;is_all=1
+哔哩哔哩:https://space.bilibili.com/433162955/
+快手:https://live.kuaishou.com/profile/zhaofa2014
+抖音:https://v.douyin.com/JjvY66V/
+优酷:https://i.youku.com/i/UMTc5ODYzNTkwNA==?spm=a2hbt.13141534.1_1.d_2_2
+腾讯视频:http://v.qq.com/s/videoplus/299369362
+youtube:https://www.youtube.com/channel/UCJVc5bPRemRCAVZskxpJTYw?view_as=subscriber
+知乎:https://www.zhihu.com/people/zhao-yi-79-22﻿
+
+天猫:
+淘宝:
+京东:
+
+
+
+
+
+结婚支出收入大概明细
+新娘衣服支出:2600
+秀禾服 458
+婚纱 640
+敬酒服 288
+鞋子 300
+
+新朗衣服支出:1799
+伴郎衣服 176cm／65kg
+红包
+
+风俗习惯
+鞋子尺码
+新朗奶奶  35
+新朗爷爷  40
+新朗爸爸  40
+新朗妈妈  38
+新朗姐姐  36
+新朗姐夫  36
+
+新娘老爸    41
+新娘老妈    38
+
+四件套
+
+
+婚车装饰
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+class 工作之余 extends 生活
+    {
+        public $工作动手和动脑;
+        public $理论支撑;
+        public $&;
+
+        public function 举例子帮助理解 ()
+        {
+            return "学以致用，赚到钱 财富自由 才算成功" ;
+        }
+        public function &
+
+    }
+
+
+-javaagent:E:\JetBrains\PyCharm 2018.3.5\lib\JetbrainsIdesCrack-4.2.jar
+Deshun
+
+
+
+
+
+
+
+
+
+
+

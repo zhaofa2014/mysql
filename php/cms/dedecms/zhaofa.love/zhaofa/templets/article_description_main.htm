@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>文档自动摘要、自动分页</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background="images/allbg.gif" leftmargin="8" topmargin="8">
+<table align="center" bgcolor="#CFCFCF" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <form action="article_description_main.php" method="post" name="form1" target="stafrm">
+        <tr>
+            <td background='images/tbg.gif' height="28">
+                <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                    <tr>
+                        <td height="18" style="padding-left:10px;" width="30%"><strong>文档自动摘要、自动分页：</strong></td>
+                        <td align="right" width="70%">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="33">
+                　　用于自动更新您系统没有填写摘要的文档的摘要信息或更新没分页的文档的自动分页标识（文档使用了自动分页后会降低HTML生成速度，并且在没人工干扰的情况下可能导致分页内容的HTML错误，请小心使用此功能）。
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="48">
+                <table border="0" cellpadding="2" cellspacing="2" width="90%">
+                    <tr>
+                        <td width="50%">频道ID：
+                            <input id="channel" name="channel" size="10" type="text" value="1">
+                            （可在“<a href="mychannel_main.php"><u>频道模型管理</u></a>”处获得）
+                        </td>
+                        <td width="50%">摘要大小：
+                            <input id="dsize" name="dsize" size="15" type="text"
+                                   value="<?php echo $cfg_auot_description?>">
+                            (最大250字节)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>数据表：
+                            <input id="table2" name="table" size="20" type="text"
+                                   value="<?php echo $cfg_dbprefix?>addonarticle"></td>
+                        <td>分析字段：
+                            <input id="field2" name="field" size="15" type="text" value="body"></td>
+                    </tr>
+                    <tr>
+                        <td>最小值：
+                            <input id="msize2" name="msize" size="10" type="text" value="512">
+                            （字节，内容大于该值才分析）
+                        </td>
+                        <td>每批处理：
+                            <input id="pagesize" name="pagesize" size="10" type="text" value="100">
+                            条记录
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>开始ID：
+                            <input id="sid" name="sid" size="8" type="text">
+                            结束ID：
+                            <input id="eid" name="eid" size="8" type="text"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>操　作：
+                            <input checked class="np" name="dojob" type="radio" value="des">
+                            自动摘要　
+                            <input class="np" name="dojob" type="radio" value="page">
+                            自动分页　
+                        </td>
+                        <td>（自动分页大小：
+                            <?php echo $cfg_arcautosp_size?>
+                            K，<a href='sys_info.php'><u>修改系统参数</u></a>）
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#ffffff" height="31">
+                <input class="np coolbg" name="Submit" type="submit" value="开始执行分析"/>
+            </td>
+        </tr>
+    </form>
+    <tr bgcolor="#F9FCEF">
+        <td height="20">
+            <table width="100%">
+                <tr>
+                    <td width="74%"><strong>结果：</strong></td>
+                    <td align="right" width="26%">
+                        <script language='javascript'>
+                            function ResizeDiv(obj, ty) {
+                                if (ty == "+") document.all[obj].style.pixelHeight += 50;
+                                else if (document.all[obj].style.pixelHeight > 80) document.all[obj].style.pixelHeight = document.all[obj].style.pixelHeight - 50;
+                            }
+                        </script>
+                        [<a href='#' onClick="ResizeDiv('mdv','+');">增大</a>] [<a href='#'
+                                                                                 onClick="ResizeDiv('mdv','-');">缩小</a>]
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#FFFFFF">
+        <td id="mtd">
+            <div id='mdv' style='width:100%;height:350px;'>
+                <iframe frameborder="0" height="100%" id="stafrm" name="stafrm" width="100%"></iframe>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,107 @@
+{dede:page pagesize="20"/}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>用户短信管理</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        .rb {
+            border-right: 1px solid #98CAEF
+        }
+
+        .tb {
+            border-top: 1px solid #98CAEF
+        }
+
+        .current {
+            border: 1px solid #CFCFCF;
+            padding: 5px;
+            background: #FFFEF4;
+            color: #FF0000;
+        }
+    </style>
+</head>
+<body background="images/allbg.gif">
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt" style="padding-left:10px;">短信管理</div>
+</div>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle"
+       style="background:#CFCFCF;margin-bottom:5px;" width="98%">
+    <tr>
+        <td align="center" bgcolor="#F9FCEF" height="30">
+            <form action="member_pm.php" method="get" name="form1">
+                <table border="0" cellpadding="0" cellspacing="0" width="484">
+                    <tr>
+                        <td width="90">&nbsp;关键字：</td>
+                        <td align="center" width="110">
+                            <input id="keyword" name="keyword" size="12" style="width:100" type="text"
+                                   value="{dede:global name='keyword'/}"/>
+                        </td>
+                        <td width="80">&nbsp;用户：</td>
+                        <td width="74"><input id="username" name="username" size="12" style="width:100" type="text"
+                                              value="{dede:global name='username'/}"/></td>
+                        <td align="center" width="100">
+                            <select id="folder" name="folder">
+                                <option value="inbox">收件箱</option>
+                                <option value="outbox">发件箱</option>
+                            </select>
+                        </td>
+                        <td align="center" width="60">
+                            <input class="np coolbg" name="imageField" type="submit" value="搜索"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="	background:#CFCFCF;"
+       width="98%">
+    <tr>
+        <td background='images/tbg.gif' bgcolor="#EDF9D5" colspan="9" height="24">
+            <table border="0" cellpadding="0" cellspacing="0" width="99%">
+                <tr>
+                    <td align="left"><span class="current" id="cate_1">短信列表</span> <a href='member_pmall.php'>群发短信</a>
+                        <a href='member_pmone.php'>单独短信</a></td>
+                    <td align="left"></td>
+                    <td align="left"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#FBFCE2" height="26">
+        <td align="center" width="10%">发送时间</td>
+        <td align="center" width="20%">标题</td>
+        <td align="center" width="5%">已读?</td>
+        <td align="center" width="10%">{dede:global name='postuser'/}</td>
+        <td align="center" width="36%">内容</td>
+        <td align="center" width="9%">文件夹</td>
+        <td align="center" width="10%">操作</td>
+    </tr>
+    {dede:datalist}
+    <tr align="center" bgcolor="#FFFFFF" height="26" onMouseMove="javascript:this.bgColor='#FCFDEE';"
+        onMouseOut="javascript:this.bgColor='#FFFFFF';">
+        <td>{dede:field.sendtime function='GetDateMk(@me)'/}</td>
+        <td>{dede:field.subject function='dede_htmlspecialchars(@me)'/}<br></td>
+        <td>{dede:field.hasview function='IsReader(@me)'/}</td>
+        <td>{dede:field.floginid/}</td>
+        <td title="{dede:field.message/}">{dede:field.message function='cn_substr(HtmlReplace(@me),60)'/}</td>
+        <td>{dede:field.folder function='GetFolders(@me)'/}</td>
+        <td>
+            <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                <tr>
+                    <td align="center" height="25"><a href="member_pm.php?ID={dede:field.id/}&dopost=del">删除</a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    {/dede:datalist}
+    <tr bgcolor="#F9FCEF">
+        <td align="center" colspan="9" height="26"> {dede:pagelist listsize=6/}</td>
+    </tr>
+</table>
+
+</body>
+</html>

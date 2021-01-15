@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>系统用户组管理</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <form action="content_att.php" method="post" name="form1">
+        <input name="dopost" type="hidden" value="save">
+        <tr>
+            <td background='images/tbg.gif' colspan="3" height="28">
+                <table border="0" cellpadding="1" cellspacing="1" width="96%">
+                    <tr>
+                        <td style="padding-left:10px;" width="24%"><b>系统用户组管理</b></td>
+                        <td align="right" width="76%"><b>
+                            <a href="sys_group_add.php"><u>增加一个用户组</u></a>
+                            |
+                            <a href="sys_admin_user.php"><u>管理系统用户</u></a>
+                        </b>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr align="center" bgcolor="#FBFCE2">
+            <td height="24" width="20%">Rank</td>
+            <td width="45%">组名称</td>
+            <td width="35%">管理</td>
+        </tr>
+        <?php
+	$dsql->SetQuery("Select rank,typename,system From #@__admintype");
+        $dsql->Execute();
+        while($row = $dsql->GetObject())
+        {
+        ?>
+        <tr align="center" bgcolor="#FFFFFF">
+            <td height="24">
+                <?php echo $row->rank?>
+            </td>
+            <td height="24">
+                <?php echo $row->typename?>
+            </td>
+            <td>
+                <a href='sys_group_edit.php?rank=<?php echo $row->rank?>'>[权限设定]</a>
+                <a href='sys_admin_user.php?rank=<?php echo $row->rank?>'>[组用户]</a>
+                <?php if($row->system==0){ ?><a href='sys_group_edit.php?dopost=del&rank=<?php echo $row->rank; ?>'>[删除组]</a><?php } ?>
+            </td>
+        </tr>
+        <?php
+	}
+	?>
+        <tr>
+            <td bgcolor="#F9FCEF" colspan="3" height="24">&nbsp;</td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

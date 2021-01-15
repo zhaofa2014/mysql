@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>文档批量管理</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <script src="js/calendar/calendar.js" type="text/javascript"></script>
+    <script language='javascript'>
+        function ShowHideTime() {
+            var selBox = document.getElementById('seltime');
+            var obj = document.getElementById('seltimeField');
+            if (selBox.checked) obj.style.display = "block";
+            else obj.style.display = "none";
+        }
+
+        function ShowHideMove() {
+            var selBox = document.getElementById('moveradio');
+            var obj = document.getElementById('moveField');
+            if (selBox.checked) obj.style.display = "block";
+            else obj.style.display = "none";
+        }
+    </script>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <form action="content_batchup_action.php" method="post" name="form1" target="stafrm">
+        <input name="dopost" type="hidden" value="go">
+        <tr>
+            <td background='images/tbg.gif' colspan="2" height="28">
+                <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                    <tr>
+                        <td height="18" style="padding-left:10px;" width="177"><strong>文档批量管理：</strong></td>
+                        <td align="right">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" width="177">选定栏目：</td>
+            <td bgcolor="#FFFFFF">
+                <?php
+       $tl = new TypeLink(0);
+       $typeOptions = $tl->GetOptionArray(0,$admin_catalogs,0,1);
+                echo "<select name='typeid' style='width:300'>\r\n";
+                echo "
+                <option selected value='0'>不限栏目...</option>
+                \r\n";
+                echo $typeOptions;
+                echo "</select>";
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="20">起始ID：</td>
+            <td bgcolor="#FFFFFF" height="20">开始：
+                <input id="startid" name="startid" size="10" type="text">
+                结束：
+                <input id="endid" name="endid" size="10" type="text"></td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="20">档案发布时间：</td>
+            <td bgcolor="#FFFFFF" height="20">
+                <table border="0" cellpadding="0" cellspacing="0" width="500">
+                    <tr>
+                        <td colspan="2"><label>
+                            <input class="np" id="seltime" name="seltime" onClick="ShowHideTime()" type="checkbox"
+                                   value="1">
+                            启用时间筛选（仅移动或删除文档可用该选项）</label></td>
+                    </tr>
+                    <tr height='20' id='seltimeField' style='display:none'>
+                        <td width="250">开始：
+                            <?php $nowtime = GetDateTimeMk(time()-(24*3600*30)); ?>
+                            <input id="starttime" name="starttime" style="width:120px"
+                                   type="text" value="<?php echo $nowtime; ?>"/>
+                            <script language="javascript" type="text/javascript">
+                                Calendar.setup({
+                                    inputField: "starttime",
+                                    ifFormat: "%Y-%m-%d %H:%M:%S",
+                                    showsTime: true,
+                                    timeFormat: "24"
+                                });
+                            </script>
+                        </td>
+                        <td width="250">结束：
+                            <?php $nowtime = GetDateTimeMk(time()); ?>
+                            <input id="endtime" name="endtime" style="width:120px"
+                                   type="text" value="<?php echo $nowtime; ?>"/>
+                            <script language="javascript" type="text/javascript">
+                                Calendar.setup({
+                                    inputField: "endtime",
+                                    ifFormat: "%Y-%m-%d %H:%M:%S",
+                                    showsTime: true,
+                                    timeFormat: "24"
+                                });
+                            </script>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="20">用户的登录id：</td>
+            <td bgcolor="#FFFFFF" height="20"><input id="userid" name="userid" size="20" type="text"/>
+                (网址uid=后面跟的id)
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="20">操作：</td>
+            <td bgcolor="#FFFFFF" height="20">
+                <input checked='1' class="np" id="checkradio" name="action" onClick="ShowHideMove()" type="radio"
+                       value="check"/>
+                审核文档
+                <input class="np" id="makehtmlradio" name="action" onClick="ShowHideMove()" type="radio"
+                       value="makehtml"/>
+                更新HTML
+                <input class="np" id="moveradio" name="action" onClick="ShowHideMove()" type="radio" value="move"/>
+                移动文档
+                <input class="np" id="delradio" name="action" onClick="ShowHideMove()" type="radio" value="del"/>
+                删除文档
+            </td>
+        </tr>
+        <tr bgcolor="#FFFFFF" height="20">
+            <td align="center" bgcolor="#FFFFFF" height="20">移动选项：</td>
+            <td bgcolor="#FFFFFF" height="20">
+                <?php
+       echo "<span id='moveField' style='display:none'>新位置：";
+                echo "<select name='newtypeid' style='width:250;'>\r\n";
+                echo $typeOptions;
+                echo "</select>";
+                echo "<br/>";
+                echo "标题关键字：<input id='movekeyword' name='keyword' style='width:220;' type='text' value=''></span>";
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#ffffff" colspan="2" height="31">
+                <input class="coolbg np" name="b112" onClick="document.form1.submit();" style="width:100px"
+                       type="button" value="开始操作"/>
+            </td>
+        </tr>
+    </form>
+    <tr bgcolor="#F9FCEF">
+        <td colspan="2" height="20">
+            <table width="100%">
+                <tr>
+                    <td width="74%">进行状态：</td>
+                    <td align="right" width="26%">
+                        <script language='javascript'>
+                            function ResizeDiv(obj, ty) {
+                                if (ty == "+") document.all[obj].style.pixelHeight += 50;
+                                else if (document.all[obj].style.pixelHeight > 80) document.all[obj].style.pixelHeight = document.all[obj].style.pixelHeight - 50;
+                            }
+                        </script>
+                        [<a href='#' onClick="ResizeDiv('mdv','+');">增大</a>] [<a href='#'
+                                                                                 onClick="ResizeDiv('mdv','-');">缩小</a>]
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#FFFFFF">
+        <td colspan="2" id="mtd">
+            <div id='mdv' style='width:100%;height:250;'>
+                <iframe frameborder="0" height="100%" id="stafrm" name="stafrm" width="100%"></iframe>
+            </div>
+        </td>
+    </tr>
+    <form action="content_batchup_action.php" method="post" name="form2" target="stafrm">
+        <input name="dopost" type="hidden" value="go">
+        <tr>
+            <td background='images/tbg.gif' colspan="2" height="20">
+                <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                    <tr>
+                        <td height="18" style="padding-left:10px;" width="30%"><strong>错误文档修正：</strong></td>
+                        <td align="right" width="70%">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr bgcolor="#FFFFFF" height="20">
+            <td align="center" bgcolor="#FFFFFF" colspan="2" height="20">
+                <input class='np' name='action' type='radio' value='delnulltitle'/>
+                删除空标题的文章
+                <input class='np' name='action' type='radio' value='delnullbody'/>
+                删除内容为空的文章
+                <input class='np' name='action' type='radio' value='modddpic'/>
+                更正缩图错误
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#F9FCEF" colspan="2" height="31">
+                <input class="coolbg np" name="b112" onClick="document.form2.submit();" style="width:100px"
+                       type="button" value="开始操作"/>
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

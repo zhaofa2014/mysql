@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>评论管理</title>
+    <script language='javascript'>
+        //获得选中文件的文件名
+        function getCheckboxItem() {
+            var allSel = "";
+            if (document.feedback.fid.value) return document.feedback.fid.value;
+            for (i = 0; i < document.feedback.fid.length; i++) {
+                if (document.feedback.fid[i].checked) {
+                    if (allSel == "")
+                        allSel = document.feedback.fid[i].value;
+                    else
+                        allSel = allSel + "," + document.feedback.fid[i].value;
+                }
+            }
+            return allSel;
+        }
+
+        function selAll() {
+            for (i = 0; i < document.feedback.fid.length; i++) {
+                document.feedback.fid[i].checked = true;
+            }
+        }
+
+        function selNone() {
+            for (i = 0; i < document.feedback.fid.length; i++) {
+                document.feedback.fid[i].checked = false;
+            }
+        }
+
+        function selNor() {
+            for (i = 0; i < document.feedback.fid.length; i++) {
+                if (document.feedback.fid[i].checked == false)
+                    document.feedback.fid[i].checked = true;
+                else
+                    document.feedback.fid[i].checked = false;
+
+            }
+        }
+
+        function delFeedback() {
+            var qstr = getCheckboxItem();
+            if (qstr == "") alert("你没选中任何内容！");
+            else if (window.confirm('你确定要删除这些评论吗?')) location.href = "feedback_main.php?job=del&fid=" + qstr;
+        }
+
+        function delFeedbackIP() {
+            var qstr = getCheckboxItem();
+            if (qstr == "") alert("你没选中任何内容！");
+            else if (window.confirm('你确定要删除这些评论吗?')) location.href = "feedback_main.php?job=delall&fid=" + qstr;
+        }
+
+        function checkFeedback() {
+            var qstr = getCheckboxItem();
+            if (qstr == "") alert("您没选中任何内容！");
+            else location.href = "feedback_main.php?job=check&fid=" + qstr;
+        }
+
+        function editFeedback() {
+            var qstr = getCheckboxItem();
+            if (qstr == "") alert("您没选中任何内容！");
+            else location.href = "feedback_edit.php?job=edit&fid=" + qstr;
+        }
+    </script>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <tr>
+        <td background='images/tbg.gif' height="28" style="padding-left:10px;">
+            <div style="float:left;">
+                <a href='feedback_main.php'><u><b>评论管理</b></u></a>
+            </div>
+            <div style="float:right;padding-right:10px">
+                <form name='form1'>
+                    关键字：
+                    <input name='keyword' size='15' style='width:150' type='text'>
+                    <select name="typeid" style="width:180">
+                        <option value="0">--请选择--</option>
+                        {dede:global.openarray /}
+                    </select>
+                    <input class='coolbt' name='sb' type='submit' value=' 搜索 '/>
+                </form>
+            </div>
+        </td>
+    </tr>
+    <form name='feedback'>
+        <tr>
+            <td bgcolor="#FFFFFF" height="215" valign="top">
+                <table border='0' cellpadding='0' cellspacing='0' width='100%'>
+                    {dede:datalist}
+                    <tr height='25'>
+                        <td>
+                            <table bgcolor="#EEF7D2" border="0" cellpadding="0" cellspacing="1" width="100%">
+                                <tr bgcolor="#F4FAE4">
+                                    <td width="9%">
+                                        &nbsp;选择 <input class="np" id="fid" name="fid" type="checkbox"
+                                                        value="{dede:field.id/}">
+                                    </td>
+                                    <td width="12%">
+                                        用户：{dede:field.username/}
+                                    </td>
+                                    <td width="30%">
+                                        文档：<a href='feedback_main.php?aid={dede:field.aid/}'><u>{dede:field.arctitle
+                                        function="RemoveXSS(@me)"/}</u></a> (<a
+                                            href="{dede:global.cfg_phpurl /}/view.php?aid={dede:field.aid/}"
+                                            target="_blank"><u>浏览</u></a>)
+                                    </td>
+                                    <td align="center" width="18%">
+                                        IP地址：<a href='feedback_main.php?ip={dede:field.ip/}'><u>{dede:field.ip/}</u></a>
+                                    </td>
+                                    <td width="21%">
+                                        时间：{dede:field.dtime function="GetDateTimeMK(@me)" /}
+                                    </td>
+                                    <td align="center" width="10%">
+                                        <a href='feedback_edit.php?id={dede:field.id/}'><img border="0" height="18"
+                                                                                             src="images/feedback-edit.gif"
+                                                                                             width="45"></a>
+                                    </td>
+                                </tr>
+                                <tr align="center" bgcolor="#FFFFFF">
+                                    <td colspan="6" height="28">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                                            <tr>
+                                                <td align="left">
+                                                    {dede:field.ischeck function="IsCheck(@me)" /}
+                                                    {dede:field.msg function='cn_substr(Text2Html(@me), 50)'/}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                                <tr>
+                                    <td height="3"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    {/dede:datalist}
+                    <tr>
+                        <td align='center' bgcolor="#F9FCEF" height='20'>
+                            {dede:pagelist listsize='5' /}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height='30'>
+                            <table width="98%">
+                                <tr>
+                                    <td width="30%">
+                                        <input class="coolbg np" name='kk1' onClick="selAll()" type='button'
+                                               value='全选'/>
+                                        <input class="coolbg np" name='kk2' onClick="selNone()" type='button'
+                                               value='取消'/>
+                                        <input class="coolbg np" name='kk3' onClick="selNor()" type='button'
+                                               value='反选'/>
+                                    </td>
+                                    <td align="right">
+                                        <input class="coolbg np" name='db' onClick="delFeedbackIP()" type='button'
+                                               value=' 删除相同IP的所有评论 '/>
+                                        <input class="coolbg np" name='db' onClick="delFeedback()" type='button'
+                                               value=' 删除评论 '/>
+                                        <input class="coolbg np" name='db2' onClick="checkFeedback()" type='button'
+                                               value=' 审核评论 '/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

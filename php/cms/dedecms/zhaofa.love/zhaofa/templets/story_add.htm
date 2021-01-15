@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>新增连载图书</title>
+    <link href='css/base.css' rel='stylesheet' type='text/css'>
+    <script language="javascript" src="js/main.js"></script>
+    <script language="javascript" src="../include/js/dedeajax2.js"></script>
+    <script language="javascript" src="js/story.js"></script>
+    <style type="text/css">
+        <!--
+        #addCatalog {
+            position: absolute;
+            left: 455px;
+            top: 64px;
+            width: 325px;
+            height: 238px;
+            z-index: 2;
+            background-color: #F2FDDB;
+            border: 1px solid #889D8F;
+            padding: 6px;
+            display: none
+        }
+
+        #editCatalog {
+            position: absolute;
+            left: 455px;
+            top: 64px;
+            width: 325px;
+            height: 238px;
+            z-index: 1;
+            background-color: #F2FDDB;
+            border: 1px solid #889D8F;
+            padding: 6px;
+            display: none
+        }
+
+        -->
+    </style>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="	background:#CFCFCF;"
+       width="98%">
+    <tr>
+        <td background="images/tbg.gif" bgcolor="#EDF9D5" class="tbtitletxt">
+            <table border="0" cellpadding='0' cellspacing='0' width='96%'>
+                <tr>
+                    <td class="tbtitletxt" width='30%'><strong>新增图书</strong></td>
+                    <td align='right'>
+                        [<a href="story_books.php"><u>图书列表</u></a>]
+                        &nbsp;
+                        [<a href="story_catalog.php"><u>栏目管理</u></a>]
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<form action='story_add_action.php' enctype="multipart/form-data" method='post' name='form1'
+      onSubmit="return checkSubmitAdd();">
+    <table align="center" border="0" cellpadding="5" cellspacing="1"
+           style=" border:1px solid #CFCFCF;line-height:31px;margin:auto;border-top:none;" width="98%">
+        <tr>
+            <td style="background:#ffffff;padding:7px 6px 6px 10px;">
+                <font color='red'><?php echo $msg; ?></font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="116" style="padding:7px 6px 6px 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                    <tr>
+                        <td class="bline" style="width:100px" width="100">图书隶属栏目：</td>
+                        <td class="bline">
+                            <select id="catid" name="catid" style="width:200px">
+                                <option value='0'>请选择栏目</option>
+                                <?php
+    if(!isset($catid)) $catid = 0;
+    foreach($btypes as $k=>$v){
+                                if($catid!=$k) echo "
+                                <option value='$k'>[{$booktypes[$k]}]$v</option>
+                                \r\n";
+                                else echo "
+                                <option selected value='$k'>[{$booktypes[$k]}]$v</option>
+                                \r\n";
+                                foreach($stypes[$k] as $kk=>$vv){
+                                if($catid!=$kk) echo "
+                                <option value='$kk'> --[{$booktypes[$k]}]$vv</option>
+                                \r\n";
+                                else echo "
+                                <option selected value='$kk'> --[{$booktypes[$k]}]$vv</option>
+                                \r\n";
+                                }
+                                }
+                                ?>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td class="bline" height="32">图书名称：</td>
+                        <td class="bline"><input class='alltxt' id="bookname" name="bookname" size="35" type="text"/>
+                            　
+                            <input class='np' id="iscommend" name="iscommend" type="checkbox" value="1"/>
+                            推荐
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bline" height="32">免费章节数：</td>
+                        <td class="bline">
+                            <input class='alltxt' id="freenum" name="freenum" size="5" type="text"
+                                   value="<?php echo $cfg_book_freenum; ?>"/>
+                            (-1 表示全部免费，0 表示全部收费)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bline" style="width:100px">免费阅读所有<br/>内容会员级别：</td>
+                        <td class="bline">
+                            <select id="arcrank" name="arcrank" style="width:150px">
+                                <?php
+    	$urank = $cuserLogin->getUserRank();
+                                $dsql->SetQuery("Select * from `#@__arcrank` where adminrank<='$urank'");
+                                $dsql->Execute();
+                                while($row = $dsql->GetObject())
+                                {
+                                echo "
+                                <option value='".$row->rank."'>".$row->membername."</option>
+                                \r\n";
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bline" height="114">图书封面图片：</td>
+                        <td class="bline">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td height="81" width="75%">
+                                        <table border="0" cellpadding="1" cellspacing="1" width="100%">
+                                            <tr>
+                                                <td height="30"> 本地直接上传请点击“浏览”按钮
+                                                    <input id="litpic" name="litpic"
+                                                           onchange="SeePic($Obj('picview'),$Obj('litpic'));"
+                                                           style="width:200px" type="file"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="30"><input class='alltxt' id="litpicname" name="litpicname"
+                                                                       style="width:250px" type="text"/>
+                                                    <input class='np coolbg' name="Submit22"
+                                                           onclick="SelectImage('form1.litpicname','small');"
+                                                           style="width:120px" type="button" value="在网站内选择"/></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td align="center"><img id="picview" name="picview" src="images/pview.gif"
+                                                            width="150"/></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bline" height="32">初始化数据：</td>
+                        <td class="bline">
+                            <table border="0" cellpadding="0" cellspacing="0" width="85%">
+                                <tr>
+                                    <td>作者：
+                                        <input class='alltxt' id="author" name="author" style="width:120px" type="text"
+                                               value="<?php echo $writer; ?>"/>
+                                        <input id="selwriter" name="selwriter" type="button" value="选择"/></td>
+                                    <td>上架时间：
+                                        <input class='alltxt' id="pubdate" name="pubdate" type="text"
+                                               value="<?php echo GetDateTimeMk(time()); ?>"/></td>
+                                    <td>点击量：
+                                        <input class='alltxt' id="click" name="click" size="5" type="text" value="0"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr height="32">
+                        <td class="bline">关键字：</td>
+                        <td class="bline"><input id="keywords" name="keywords" size="40" type="text"
+                                                 value="<?php echo $keywords; ?>"/> 手动填写用","分开
+                            <input name="Submit" onClick="SelectKeywords('form1.keywords');" style="width:56;height:20"
+                                   type="button" value="浏览..."/></td>
+                    </tr>
+                    <tr height="80">
+                        <td class="bline">摘　要：</td>
+                        <td class="bline"><textarea cols="80" id="description" name="description" rows="3"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bline" height="32">具体介绍：</td>
+                        <td class="bline">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" height="82">
+                            <?php
+	GetEditor("body","",300);
+	?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="70">&nbsp;</td>
+                        <td>
+                            <input class='np coolbg' name="Submit" type="submit" value="保 存"/>　　
+                            <input class='np coolbg' name="Submit2" type="reset" value="重 置"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+<script language='javascript'>InitPage();</script>
+</body>
+</html>

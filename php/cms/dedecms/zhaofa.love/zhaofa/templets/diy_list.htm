@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title><?php echo $diy->name;?></title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt" style="padding-left:10px;"><?php echo $diy->name;?>内容列表</div>
+</div>
+<form action="diy_list.php" method="post">
+    <input name="diyid" type="hidden" value="<?php echo $diyid;?>"/>
+    <table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+           width="98%">
+        <tr>
+            <td background='images/tbg.gif' colspan="3" height="28">
+                <div style='float:left'>&nbsp;<a href='diy_main.php'><b>自定义表单管理</b></a> &gt; <b>内容列表</b></div>
+                <div style='float:right;padding-right:8px;'>
+                    <a href="../plus/diy.php?action=list&diyid=<?php echo $diy->diyid; ?>" target="_blank"><img
+                            align='left' alt='预览' src='images/gtk-tmp.png' title='预览'/><u>前台预览</u></a>
+                </div>
+            </td>
+        </tr>
+        {dede:datalist}
+        <?php
+if(!empty($fields))
+{
+		$allowhtml = array('htmltext');
+		$fields['sta'] = $fields['ifcheck'] == 1 ? '已审核' : '未审核';    
+		echo '<tr bgcolor="#F8FDE3">
+        <td width="20%"><input class="np" name="id[]" type="checkbox" value="'.$fields['id'].'"/>id</td>
+        <td><a href="diy_list.php?action=edit&diyid='.$diy->diyid.'&id='.$fields['id'].'">'.$fields['id'].'</a> &nbsp;
+            状态: '.$fields['sta'].'
+        </td>
+        <td align="center" width="10%"><a
+                href="diy_list.php?action=edit&diyid='.$diy->diyid.'&id='.$fields['id'].'"><img border="0" height="18"
+                                                                                                src="images/feedback-edit.gif"
+                                                                                                width="45"></a></td>
+        </tr>';
+        foreach($fieldlist as $field=>$fielddata)
+        {
+        if($fields[$field]=='') continue;
+        if($fielddata[1]=='img')
+        {
+        $fields[$field] = "<a href='{$fields[$field]}' target='_blank'><img border='0' src='images/channeladd.gif'/>
+        图片附件</a>\r\n";
+        }
+        else if($fielddata[1]=='addon')
+        {
+        $fields[$field] = "<a href='{$fields[$field]}' target='_blank'><img border='0' src='images/channeladd.gif'/>
+        其它附件</a>";
+        }
+        else
+        {
+        if(!in_array($fielddata[1],$allowhtml)){
+        $fields[$field] = dede_htmlspecialchars($fields[$field]);
+        }
+        }
+        echo '
+        <tr>
+            <td bgcolor="#ffffff">'.$fielddata[0].'</td>
+            <td bgcolor="#ffffff" colspan="2">'.$fields[$field].'</td>
+        </tr>
+        ';
+        }
+        } else {
+        echo "
+        <tr>
+            <td bgcolor=\"#ffffff\">暂无记录</td>
+        </tr>
+        ";
+        }
+        ?>
+        {/dede:datalist}
+        <tr>
+            <td bgcolor="#ffffff" colspan="3">{dede:pagelist listsize=5 /}</td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#F8FCF1" colspan="3" height='36'>
+                <label><input class='np' name="action" type="radio" value="check"/>审核</label>
+                <label><input class='np' name="action" type="radio" value="delete"/>删除</label>
+                &nbsp;&nbsp;
+                <input class='np coolbg' name="submit" type="submit" value="提交"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

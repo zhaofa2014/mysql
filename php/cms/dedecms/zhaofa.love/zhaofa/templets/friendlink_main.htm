@@ -1,0 +1,129 @@
+{dede:config.pagesize value="20"/}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>友情链接管理</title>
+    <link href="css/base.css" rel="stylesheet" type='text/css'>
+    <script language='javascript'>
+        function Sel(stype) {
+            for (var i = 0; i < document.getElementsByName('aids').length; i++) {
+                if (stype == 'all') document.getElementsByName('aids')[i].checked = true;
+                else document.getElementsByName('aids')[i].checked = false;
+            }
+        }
+
+        function checkSubmit() {
+            var str = '';
+            for (var i = 0; i < document.getElementsByName('aids').length; i++) {
+                if (document.getElementsByName('aids')[i].checked) {
+                    if (str == '') str += document.getElementsByName('aids')[i].value;
+                    else str += ',' + document.getElementsByName('aids')[i].value;
+                }
+            }
+            if (str == '') {
+                alert('你没选择任何内容！');
+                return false;
+            } else {
+                location = "friendlink_edit.php?aids=" + str + "&dopost=delall";
+            }
+        }
+    </script>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <tr>
+        <td background="images/tbg.gif" colspan="8" height="28" style="padding-left:10px;">
+            <div style="float:left">
+                <b>友情链接管理</b>
+            </div>
+            <div style="float:right;padding-right:6px;">
+                [<a href="friendlink_add.php"><u>增加链接</u></a>]
+                [<a href="friendlink_type.php"><u>网站类型管理</u></a>]
+                [<a cfg_phpurlhref='{dede:global name='' /}/flink.php' target='_blank'><u>友情链接预览</u></a>]
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" bgcolor="#F9FCEF" colspan="8" height="30">
+            <form action="friendlink_main.php" method="get" name="form1">
+                <table border="0" cellpadding="3" cellspacing="0">
+                    <tr>
+                        <td>关键字：</td>
+                        <td><input id="keyword" name="keyword" size="12" style="width:250px" type="text"
+                                   value="<?php echo $keyword; ?>"/></td>
+                        <td>
+                            <select id="ischeck" name="ischeck">
+                                <?php
+        			foreach($selCheckArr as $k=>$v)
+                                {
+                                if($k==$ischeck) echo "
+                                <option selected value='$k'>$v</option>
+                                \r\n";
+                                else echo "
+                                <option value='$k'>$v</option>
+                                \r\n";
+                                }
+                                ?>
+                            </select>
+                        </td>
+                        <td>
+                            <input border="0" class="np" height="22" name="imageField" src="images/button_search.gif"
+                                   type="image" width="60"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+    <form action='friendlink_edit.php' method='post' name='form1' onSubmit='return checkSubmit();'>
+        <input name='dopost' type='hidden' value='delall'/>
+        <input name='allid' type='hidden' value=''/>
+        <tr align="center" bgcolor="#FBFCE2" height="26">
+            <td width="6%">选择</td>
+            <td width="23%">网站名称</td>
+            <td width="12%">网站Logo</td>
+            <td width="15%">站长Email</td>
+            <td width="15%">时间</td>
+            <td width="8%">状态</td>
+            <td width="8%">顺序</td>
+            <td width="15%">管理</td>
+        </tr>
+        {dede:datalist}
+        <tr align="center" bgcolor="#FFFFFF" height="26" onMouseMove="javascript:this.bgColor='#FCFDEE';"
+            onMouseOut="javascript:this.bgColor='#FFFFFF';">
+            <td><input class='np' name='aids' type='checkbox' value='{dede:field.id/}'></td>
+            <td>{dede:field.webname function='dede_htmlspecialchars(@me)'/}<br><i>地址：{dede:field.url/}</i></td>
+            <td>{dede:field.logo function="GetPic(@me)"/}</td>
+            <td>{dede:field.email/}</td>
+            <td>{dede:field.dtime function="MyDate('Y-m-d',@me)"/}</td>
+            <td>{dede:field.ischeck function="GetSta(@me)"/}</td>
+            <td>{dede:field.sortrank/}</td>
+            <td>
+                <a href='friendlink_edit.php?id={dede:field.id/}&dopost=getedit'>[更改]</a>
+                <a href='friendlink_edit.php?id={dede:field.id/}&dopost=delete'>[删除]</a>
+            </td>
+        </tr>
+        {/dede:datalist}
+    </form>
+    <tr bgcolor="#ffffff" height="28">
+        <td colspan="8">
+            　
+            <a class='np coolbg' href='#' onclick='Sel("all")'>[全选]</a>
+            <a class='np coolbg' href='#' onclick='Sel("none")'>[取消]</a>
+            <a class='np coolbg' href='#' onclick='checkSubmit()'>批量删除</a>
+
+        </td>
+    </tr>
+    <tr align="center" bgcolor="#F9FCEF" height="28">
+        <td colspan="8">
+            {dede:pagelist listsize=6/}
+        </td>
+    </tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>

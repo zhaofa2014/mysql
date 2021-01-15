@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content='text/html; charset=<?php echo $cfg_soft_lang; ?>' http-equiv='Content-Type'>
+    <title>圈子管理-&gt;圈子列表</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        .rb {
+            border-right: 1px solid #98CAEF
+        }
+
+        .tb {
+            border-top: 1px solid #98CAEF
+        }
+    </style>
+    <script type="text/javascript">
+        var flag = false;
+
+        function MyImage(Img) {
+            var image = new Image();
+            image.src = Img.src;
+            width = 80;//预先设置的所期望的宽的值
+            height = 80;//预先设置的所期望的高的值
+            if (image.width > width || image.height > height) {//现有图片只有宽或高超了预设值就进行js控制
+                w = image.width / width;
+                h = image.height / height;
+                if (w > h) {//比值比较大==>宽比高大
+                    //定下宽度为width的宽度
+                    Img.width = width;
+                    //以下为计算高度
+                    Img.height = image.height / w;
+                } else {//高比宽大
+                    //定下宽度为height高度
+                    Img.height = height;
+                    //以下为计算高度
+                    Img.width = image.width / h;
+                }
+            }
+        }
+    </script>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt">圈子管理 <a href="../group" target="_blank">[查看首页]</a></div>
+</div>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+       width="98%">
+    <tr>
+        <td align="center" bgcolor="#ffffff" height="30">
+            <form action="group_main.php" method="get" name="form1">
+                <table border="0" cellpadding="0" cellspacing="0" width="600">
+                    <tr>
+                        <td width="70">&nbsp;关键字：</td>
+                        <td align="left" width="83">
+                            <input id="keyword" name="keyword" size="12" style="width:100" type="text"
+                                   value="<?php echo $keyword?>"></td>
+                        <td width="80">&nbsp;创建人：</td>
+                        <td width="87"><input id="username" name="username" size="12" style="width:100" type="text"
+                                              value="<?php echo $username?>"/></td>
+                        <td align="center" width="59">类目：</td>
+                        <td align="left" width="161"><select id="store" name="store">
+                            <option value="0">所有</option>
+                            <?php echo $option?>
+                        </select></td>
+                        <td align="center" width="81"><input class="np coolbg" name="imageField" type="submit"
+                                                             value="搜索"/></td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle"
+       style="margin-top:10px;background:#CFCFCF;" width="98%">
+    <tr>
+        <td background="images/tbg.gif" bgcolor="#EDF9D5" colspan="7" height="24">
+            <table border="0" cellpadding="0" cellspacing="0" width="99%">
+                <tr>
+                    <td width="29%">&nbsp;&nbsp;<strong>圈子管理>>圈子列表</strong></td>
+                    <td align="right" width="71%">&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#FDFEE9" height="26">
+        <td align="center" width="10%">图标</td>
+        <td align="center" width="20%">[ID]名称/时间</td>
+        <td align="center" width="5%">官方?</td>
+        <td align="center" width="10%">创建人</td>
+        <td align="center" width="30%">说明</td>
+        <td align="center" width="10%">管理员</td>
+        <td align="center" width="15%">操作</td>
+    </tr>
+    <!--分页-->
+    {dede:datalist}
+    <?php
+$row = $fields;
+$icon = $row['groupimg'];
+if(!$icon) $icon = "images/dfpic.gif";
+$issystem = $row['issystem'];
+if($issystem) $issystem = "<font color='red'>官方</font>";
+    else $issystem = "普通";
+    if($row['ishidden'])
+    {
+    $ishidden = "<font color='red'>关闭</font>";
+    $opstauts = "开放";
+    $opstautsdo = "open";
+    }
+    else
+    {
+    $ishidden = "<font color='green'>开放</font>";
+    $opstauts = "关闭";
+    $opstautsdo = "close";
+    }
+    ?>
+    <tr align="center" bgcolor="#FFFFFF" height="26" onMouseMove="javascript:this.bgColor='#FCFDEE';"
+        onMouseOut="javascript:this.bgColor='#FFFFFF';">
+        <td><img align="absmiddle" onload='javascript:MyImage(this);' src="<?php echo $icon?>"/></td>
+        <td align="left" valign="middle">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td height="26">[<?php echo $row['groupid']?>] <?php if($row['isindex']) echo "[<font color='red'>
+                        荐</font>]";?><u><a
+                                href="group_edit.php?id=<?php echo $row['groupid']?>"><?php echo $row['groupname']?></a></u>/<?php echo GetDateMk($row['stime'])?>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="26">状态：<?php echo $ishidden?>;类目：<?php echo GetGroupstore($row['storeid']);?></td>
+                </tr>
+            </table>
+        </td>
+        <td><?php echo $issystem?></td>
+        <td><?php echo $row['creater']?></td>
+        <td title="title"><?php echo HtmlReplace($row['des'],-1);?></td>
+        <td><?php echo $row['ismaster']?></td>
+        <td>
+            <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                <tr>
+                    <td align="left" height="25"><a
+                            href="group_main.php?action=<?php echo $opstautsdo?>&id=<?php echo $row['groupid']?>"><?php echo $opstauts?></a>
+                        | <a href="group_edit.php?id=<?php echo $row['groupid']?>">编辑</a> | <a
+                                href="group_main.php?action=del&id=<?php echo $row['groupid']?>"
+                                onClick="return(confirm('删除后无法恢复,您确定删除吗?'))">删除</a> |<br/><a
+                                href="group_guestbook.php?gid=<?php echo $row['groupid']?>">留言</a> | <a
+                                href="group_threads.php?gid=<?php echo $row['groupid']?>">列表</a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    {/dede:datalist}
+    <!--分页-->
+    <tr>
+        <td bgcolor="#F9FCEF" colspan="7" height="28">&nbsp;&nbsp;{dede:pagelist
+            listitem="info,index,end,pre,next,pageno" listsize="5"/}
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

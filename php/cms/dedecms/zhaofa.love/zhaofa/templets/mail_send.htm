@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>发送邮件</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        .rb {
+            border-right: 1px solid #98CAEF
+        }
+
+        .tb {
+            border-top: 1px solid #98CAEF
+        }
+
+        .current {
+            border: 1px solid #dbe4cd;
+            padding: 5px;
+            background: #FFFEF4;
+            color: #FF0000;
+        }
+    </style>
+    <script language="javascript">
+        function ShowMore(formitem, one, more, group) {
+            if (formitem.checked) {
+                document.getElementById(one).style.display = '';
+                document.getElementById(more).style.display = 'none';
+                document.getElementById(group).style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt" style="padding-left:10px;">邮件订阅</div>
+</div>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#cfcfcf;"
+       width="98%">
+    <tr>
+        <td background="images/tbg.gif" bgcolor="#EDF9D5" colspan="9" height="25" style="padding-left:10px;">发送邮件</td>
+    </tr>
+    <tr bgcolor="#ffffff" height="26">
+        <td align="left" colspan="7">
+            <form action="mail_send.php" method="post">
+                <input name="action" type="hidden" value="post"/>
+                <table bgcolor="#ffffff" border="0" cellpadding="1" cellspacing="1" width="100%">
+                    <tr>
+                        <td align="right" height="30" width="15%">发送到：</td>
+                        <td colspan="2" height="25">
+                            <input checked id="radio" name="mode" onClick="ShowMore(this,'one','more','group');"
+                                   type="radio" value="one"/>单人
+                            <input id="radio" name="mode" onClick="ShowMore(this,'more','one','group');" type="radio"
+                                   value="more"/>多人
+                            <input id="radio" name="mode" onClick="ShowMore(this,'group','one','more');" type="radio"
+                                   value="group"/>邮件群发
+                        </td>
+                    </tr>
+                    <tr id="one">
+                        <td align="right" height="30">E-Mail地址：</td>
+                        <td colspan="2" height="25"><input class="text" maxlength="40" name="address" size="28"
+                                                           style="width:250px;margin-top:5px;margin-left:10px;"
+                                                           type="text" value="@"/>
+                            填写用户的E-Mail地址
+                        </td>
+                    </tr>
+                    <tr id="more" style="display:none">
+                        <td align="right" height="30">E-Mail地址：</td>
+                        <td colspan="2" height="25"><textarea class="text" cols="28" name="address2" rows="4"
+                                                              style="width:250px;margin-top:5px;margin-left:10px;">@,@</textarea>
+                            不同的E-Mail地址之间用,号隔开
+                        </td>
+                    </tr>
+                    <tr id="group" style="display:none">
+                        <td align="right" height="30">邮件列表：</td>
+                        <td colspan="2" height="25">
+                            <select id="mailfile" name="mailfile" style="margin-left: 10px;">
+                                <?php
+        foreach($mailfiles as $i=>$mailfile)
+                                {
+
+                                $selected = ($mailfile==$filename) ? " selected " : "";
+                                ?>
+                                <option value="<?php echo $mailfile; ?>"
+                                <?php echo $selected; ?> ><?php echo $mailfile; ?></option>
+                                <?php
+        }
+        ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" height="30">邮件标题：</td>
+                        <td colspan="2" height="25"><input class="company_manage_form_label" id="title" name="title"
+                                                           style="width:250px;margin-top:5px;margin-left:10px;"
+                                                           type="text"/>
+                            标题少于70个字符内
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" height="12" style="padding-top:5px;" valign="top"><label for="pm_textarea">邮件内容：</label>
+                        </td>
+                        <td height="120" style="padding-left: 12px;" width="568">
+                            <div style="width:568px;"><?php GetEditor("message","",450,"MemberLit"); ?></div>
+                        </td>
+                        <td width="314">&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <td align="right" height="28" valign="top">&nbsp;</td>
+                        <td colspan="2" height="30"><input class="button01" type="submit" value="提交"/></td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+    <tr bgcolor="#F8FBFB">
+        <td align="center" bgcolor="#F9FCEF" colspan="9" height="26">&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>

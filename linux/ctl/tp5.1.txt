@@ -1,0 +1,140 @@
+tp5.1&phpword
+
+
+composer create-project topthink/think
+
+composer require phpoffice/phpword
+
+composer require phpmailer/phpmailer
+
+
+生成控制器
+
+php think make:controller admin/Phpword001 --plain
+php think make:controller index/Jwt --plain
+
+php think make:controller index/Api --plain
+
+php think make:controller admin/Login --plain
+php think make:controller admin/Register --plain
+php think make:controller admin/Test --plain
+
+php think make:controller admin/Dataarticle --plain
+
+、生成模型
+php think make:model admin/Usre
+http://swoole.ebh311.com:88/admin/Login/data
+
+php think make:model admin/Article
+
+
+
+
+清除缓存文件
+
+php think clear
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 0871 - 63602669
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1、启动内置服务器：php think run  （http://127.0.0.1:8000/浏览器访问）
+
+
+2、快速生成模块：php think build --module home(模块名：home)；
+
+3、生成定义的模块：
+   (1)、将bulid.php移动到application中，且定义要生成的模块；
+   (2)、定义好后，使用命令行：php think build
+
+4、生成控制器
+   (1)、生成资源控制器：php think make:controller admin/Index
+   (2)、生成空的控制器：php think make:controller admin/Index --plain
+   (3)、生成多级资源控制器：php think make:controller admin/test/Index 
+   (4)、生成多级空的控制器：php think make:controller admin/test/Index --plain
+   (5)、生成带后缀的控制器：php think make:controller admin/IndexController
+
+5、生成模型：
+  (1)、生成模型：php think make:model admin/Index
+  (2)、生成带后缀的模型：php think make:model admin/IndexModel
+
+6、生成中间件：php think make:middleware 中间件名
+
+7、创建验证器类：php think make:validate admin/Index
+
+8、生成类库映射文件：php think optimize:autoload
+
+9、清除文件：
+   (1)、清除缓存文件：php think clear
+   (2)、清除指定文件：php think clear --path d:\phpStudy\WWW\yopdo\runtime\log\
+   (3)、清除日志目录：php think clear --log
+   (4)、清除日志目录并删除空目录：php think clear --log --dir
+   (5)、清除数据缓存目录：php think clear --cache
+   (6)、清除数据缓存目录并删除空目录：php think clear --cache --dir
+   (7)、清除路由缓存：php think clear --route
+
+
+
+
+
+
+
+
+
+https://blog.csdn.net/qq_28761593/article/details/86639896

@@ -1,0 +1,64 @@
+{dede:config.pagesize value="20"/}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>管理员帐号</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="2" cellspacing="1" width="98%">
+    <tr>
+        <td background="images/tbg.gif" bgcolor="#E7E7E7" colspan="5" height="27">
+            <table border="0" cellpadding="1" cellspacing="1" width="96%">
+                <tr>
+                    <td style="padding-left:10px;" width="24%"><b>管理员帐号</b></td>
+                    <td align="right" width="76%"><b>
+                        <a href="sys_admin_user_tj.php"><u>编辑绩效统计</u></a>
+                        |
+                        <a href="sys_admin_user_add.php"><u>增加管理员</u></a>
+                        |
+                        <a href="sys_group.php"><u>用户组管理</u></a>
+                    </b>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#FFFFFF">
+        <td colspan="5" height="24">　§为了防止错误操作，系统不允许在管理界面删除超级管理员，如果确实要删除，请自行在数据表dede_admin中删除。</td>
+    </tr>
+    <tr bgcolor="#FBFCE2">
+        <td align="center" height="24" width="18%">登录ID</td>
+        <td align="center" width="13%">笔名</td>
+        <td align="center" width="22%">级别</td>
+        <td align="center" width="22%">频道</td>
+        <td align="center" width="23%">管理项</td>
+    </tr>
+    {dede:datalist}
+    <tr align="center" bgcolor="#FFFFFF">
+        <td rowspan="2">{dede:field.userid /}</td>
+        <td rowspan="2">{dede:field.uname /}<br></td>
+        <td>{dede:field.usertype function="GetUserType(@me)"/}</td>
+        <td>{dede:field.typename function="GetChannel(@me)"/}</td>
+        <td rowspan="2">
+            <a href='sys_admin_user_edit.php?id={dede:field.id/}&dopost=edit'><u>更改</u></a> |
+            <a href='sys_admin_user_edit.php?id={dede:field.id/}&userid={dede:field.userid/}&dopost=delete'><u>删除</u></a>
+            |
+            <a href='content_list.php?mid={dede:field.id/}'><u>文档</u></a>　
+        </td>
+    </tr>
+    <tr>
+        <td align="center" bgcolor="#FFFFFF" colspan="2">
+            登录时间：{dede:field.logintime function="GetDateTimeMk(@me)" /}　登录IP：{dede:field.loginip/}
+        </td>
+    </tr>
+    {/dede:datalist}
+    <tr bgcolor="#F9FCEF">
+        <td align="center" colspan="5" height="24" valign="top">
+            {dede:pagelist listsize='7' /}
+        </td>
+    </tr>
+</table>
+</body>
+</html>

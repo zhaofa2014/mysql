@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>问答分类</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        <!--
+        .STYLE1 {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        -->
+    </style>
+</head>
+<body background='img/allbg.gif' leftmargin='8' topmargin='8'>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt"><a href='../ask' target='_blank'><b>问答模块</b></a> -- 问答栏目管理</div>
+</div>
+<?php
+if(empty($action))
+{
+?>
+<form action="ask_type.php" method="post" name="form2">
+    <table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle"
+           style="background:#CFCFCF;margin-bottom:6px;" width="98%">
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#EDF9D5" colspan="2"><strong>&nbsp;添加分类</strong>
+                <input name="action" type="hidden" value="add"/></td>
+        </tr>
+        <tr>
+            <td align="right" bgcolor="#FFFFFF" height="20" width="150">分类名称：</td>
+            <td bgcolor="#FFFFFF" height="20"><input name="name" type="text" value=""/>(分类名称长度最好不要超过10个字符，也就是5个汉字)</td>
+        </tr>
+        <tr>
+            <td align="right" bgcolor="#FFFFFF" height="20">
+                隶属大类：
+            </td>
+            <td bgcolor="#FFFFFF" height="20">
+                <select name="reid" style="width:150px;">
+                    <option value="0">无(作为一级分类)</option>
+                    <?php echo $sectorscache; ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="35">&nbsp;</td>
+            <td bgcolor="#FFFFFF" height="20"><input class="np coolbg" name="submit2" type="submit" value="提交"/></td>
+        </tr>
+    </table>
+
+</form>
+<form action="ask_type.php" method="post" name="merge">
+    <input name="action" type="hidden" value="merge"/>
+    <table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle"
+           style="background:#CFCFCF;margin-bottom:6px;" width="98%">
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#EDF9D5" colspan="2"><strong>&nbsp;问答分类合并</strong></td>
+        </tr>
+        <tr>
+            <td align="right" bgcolor="#FFFFFF" height="20" width="150">源分类：</td>
+            <td bgcolor="#FFFFFF"><select name="sourcetype">
+                <?php
+foreach($sectors as $sector)
+{
+	if($sector['reid'] == 0)
+	{
+		echo "<option value='$sector[id]'>$sector[name]</option>";
+                }else
+                {
+                echo "
+                <option value='$sector[id]'>|-- $sector[name]</option>
+                ";
+
+                }
+                }
+                ?>
+            </select>
+                (源分类不能有下级分类，否则不能合并；合并后源分类将被删除且不可恢复，请谨慎操作)
+            </td>
+        </tr>
+        <tr>
+            <td align="right" bgcolor="#FFFFFF" height="20">目标分类：</td>
+            <td bgcolor="#FFFFFF"><select name="targettype">
+                <?php
+foreach($sectors as $sector)
+{
+	if($sector['reid'] == 0)
+	{
+		echo "<option value='$sector[id]'>$sector[name]</option>";
+                }else
+                {
+                echo "
+                <option value='$sector[id]'>|-- $sector[name]</option>
+                ";
+
+                }
+                }
+                ?>
+            </select></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="20">&nbsp;</td>
+            <td bgcolor="#FFFFFF"><input class="np coolbg" name="submit2" type="submit" value="提交"/></td>
+        </tr>
+    </table>
+</form>
+<form action="ask_type.php" method="post" name="form3">
+    <table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+           width="98%">
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#EDF9D5" colspan="4"><strong>&nbsp;编辑分类</strong>
+                <input name="action" type="hidden" value="update"/></td>
+        </tr>
+        <tr bgcolor="#FBFCE2" height="25">
+            <td align="center">id</td>
+            <td>分类名称</td>
+            <td>排序</td>
+            <td align="center">管理操作</td>
+        </tr>
+        <?php
+foreach($sectors as $sector)
+{
+	if($sector['reid'] == 0)
+	{
+		echo "<tr bgcolor='#ffffff'>
+        <td align='center'>$sector[id]</td>
+        <td><input name=\"names[$sector[id]]\" type=\"text\" value=\"$sector[name]\"/></td>
+        <td><input name=\"disorders[$sector[id]]\" type=\"text\" value=\"$sector[disorder]\"/></td>
+        <td align='center'><a href=\"ask_type.php?action=edit&amp;id=$sector[id]\">修改</a> <a
+                href=\"ask_type.php?action=delete&amp;id=$sector[id]\">删除</a></td>
+        </tr>";
+        }else
+        {
+        echo "
+        <tr bgcolor='#ffffff'>
+            <td align='center'>$sector[id]</td>
+            <td>|- <input name=\"names[$sector[id]]\" type=\"text\" value=\"$sector[name]\"/></td>
+            <td><input name=\"disorders[$sector[id]]\" type=\"text\" value=\"$sector[disorder]\"/></td>
+            <td align='center'><a href=\"ask_type.php?action=edit&amp;id=$sector[id]\">修改</a> <a
+                    href=\"ask_type.php?action=delete&amp;id=$sector[id]\">删除</a></td>
+        </tr>
+        ";
+
+        }
+        }
+        ?>
+        <tr>
+            <td align="center" bgcolor="#F9FCEF" colspan="4" height="35"><input class="np coolbg" name="submit3"
+                                                                                type="submit" value="提交"/></td>
+        </tr>
+    </table>
+</form>
+<?php
+}elseif($action == 'edit')
+{
+?>
+<form action="ask_type.php" method="post" name="form4">
+    <table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+           width="98%">
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#EDF9D5" colspan="2"><strong>&nbsp;修改</strong>
+                <input name=action type=hidden value=edit/>
+                <input name=step type=hidden value=2/>
+                <input $id; ? echo name=id type=hidden value=<?php> />
+            </td>
+        </tr>
+        <tr>
+            <td align="right" bgcolor="#FFFFFF" width="150">所属分类：</td>
+            <td bgcolor="#FFFFFF"><select name="reid">
+                <?php echo $sectorscache; ?>
+            </select></td>
+        </tr>
+        <tr>
+            <td align="right" bgcolor="#FFFFFF">分类名称：</td>
+            <td bgcolor="#FFFFFF"><input $sector[ echo name=name type=text value=<?php'name']; ?> /></td>
+        </tr>
+        <tr>
+            <td align="right" bgcolor="#FFFFFF">顺序：</td>
+            <td bgcolor="#FFFFFF"><input $sector[ echo name=disorder type=text value=<?php'disorder']; ?> /></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="35">&nbsp;</td>
+            <td bgcolor="#FFFFFF"><input class="np coolbg" name="submit4" type="submit" value="提交"/></td>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+</form>
+<?php
+}elseif($action == 'delete')
+{
+?>
+<form action=ask_type.php method=post name=form5>
+    <table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#E2F5BC;"
+           width="98%">
+        <tr>
+            <td background="img/wbg.gif" bgcolor="#EDF9D5" height="20">
+                <strong>&nbsp;删除分类确认</strong>
+                <input name=action type=hidden value=delete/>
+                <input name=step type=hidden value=2/>
+                <input $id; ? echo name=id type=hidden value=<?php> />
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="60">
+                <span class="STYLE1">删除分类时将删除该行业的所有下级分类，且不能恢复操作，请确认删除！</span>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="35">
+                <input class="np coolbg" name="submit5" type="submit" value="确认删除"/>
+                <input class="np coolbg" onclick='javascript:history.go(-1);' type='button' value='返 回 继 续 操 作'/>
+            </td>
+        </tr>
+    </table>
+</form>
+<?php
+}
+?>
+</body>
+</html>

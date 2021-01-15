@@ -1,0 +1,40 @@
+ceph-deploy osd create --data /dev/sdb k8s-master
+ceph-deploy osd create --data /dev/sdb k8s-node1
+ceph-deploy osd create --data /dev/sdb k8s-node2
+
+
+ceph-deploy admin k8s-master k8s-node1 k8s-node2
+
+ ceph-deploy --overwrite-conf admin k8s-master k8s-node1 k8s-node2
+
+
+
+ceph config set mgr mgr/dashboard/jwt_token_ttl 288000
+ceph config set mgr mgr/dashboard/ssl false
+ceph config set mgr mgr/dashboard/server_addr 192.168.0.116
+ceph config set mgr mgr/dashboard/server_port 8001
+ceph config set mgr mgr/dashboard/node1/server_addr 192.168.0.116
+ceph config set mgr mgr/dashboard/node1/server_port 8001
+
+
+ceph dashboard ac-user-create admin 123456 administrator
+admin ???û???
+123456 ??????
+
+
+
+
+ "user": "root",
+            "access_key": "R5CO60WB8HZE763G0VMV",
+            "secret_key": "jgkD8fjSLU9BgWMi6mr6MtCGbuZl0GxQXcJLN66T"
+
+??????????????key??secret
+
+
+ceph dashboard set-rgw-api-access-key WQDFBK0WE2966CWK0T8N
+ceph dashboard set-rgw-api-secret-key kzk2MZRDxzQTpGwUv3wY7hezYRx5zkMMQ2xm8PtG
+ceph dashboard set-rgw-api-host 192.168.0.116
+ceph dashboard set-rgw-api-port 7480
+ceph dashboard set-rgw-api-scheme http
+ceph dashboard set-rgw-api-user-id root
+ceph dashboard set-rgw-api-ssl-verify False

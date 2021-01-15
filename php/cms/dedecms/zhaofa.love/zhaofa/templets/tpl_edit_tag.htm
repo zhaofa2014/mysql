@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>标签源码碎片管理</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <link href="css/codemirror.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .selbt {
+            width: 80px;
+            float: left;
+            margin: 2px 0px 2px 3px;
+            text-align: center;
+        }
+
+        .helpdiv {
+            display: none;
+            border: 2px solid #000000;
+            background: #fff;
+            width: 500px;
+            padding: 4px;
+            position: absolute;
+        }
+    </style>
+    <script language="javascript">
+        function Post() {
+            if (document.form1.filename.value == "") {
+                alert("文件名不能为空。");
+                document.form1.filename.focus();
+                return false;
+            }
+        }
+    </script>
+    <script src="js/codemirror.js" type="text/javascript"></script>
+    <script src="js/mode/xml/xml.js" type="text/javascript"></script>
+    <script src="js/mode/javascript/javascript.js" type="text/javascript"></script>
+    <script src="js/mode/css/css.js" type="text/javascript"></script>
+    <script src="js/mode/php/php.js" type="text/javascript"></script>
+    <script src="js/mode/clike/clike.js" type="text/javascript"></script>
+    <script src="js/mode/htmlmixed/htmlmixed.js" type="text/javascript"></script>
+</head>
+<body bgcolor="#F2F4F3" leftmargin="8" topmargin="8">
+<table align="center" bgcolor="#ECFAD3" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:8px;"
+       width="98%">
+    <tr>
+        <td background="images/wbg.gif" height="28" style="border:1px dotted #BFD67C">&nbsp;&nbsp;◇<a
+                href='templets_tagsource.php'><b>标签源码碎片管理</b></a> &gt;&gt; <b><?php echo $title; ?></b>
+        </td>
+    </tr>
+</table>
+<form action="tpl.php" method="POST" name=form1 onSubmit="return Post()">
+    <input name="actiondo" type="hidden" value="<?php echo $action; ?>"/>
+    <input name="action" type="hidden" value="savetagfile"/>
+    <input name="<?php echo $_csrf['name'];?>" type="hidden" value="<?php echo $_csrf['hash'];?>"/>
+    <table align="center" bgcolor='#cfcfcf' border='0' cellpadding='3' cellspacing='1' width='98%'>
+        <tr bgcolor='#EEF4EA'>
+            <td background='images/wbg.gif' colspan='2' height='26' style="padding-left:10px;">
+                <font color='#666600'><b><?php echo $title; ?></b>(修改源码如果出现语法错误，可能导致标签无法使用，请修改前先作好数据备份)</font>
+            </td>
+        </tr>
+        <tr bgcolor='#FFFFFF'>
+            <td>文件名称</td>
+            <td>
+                <input class="alltxt" name=filename size=40 value="<?php echo $filename; ?>"/>
+                （不允许用 “..” 形式的路径）
+            </td>
+        </tr>
+        <tr bgcolor='#FFFFFF'>
+            <td> 标签格式说明</td>
+            <td>
+                标签文件名为：标签名.lib.php <br/>
+                接口函数定义为：function lib_标签名(&$ctag,&$refObj)，返回值是结果字符串<br/>
+                修改标签时为了防止出错，您也可以修改它的名称(同时修改文件名和函数名)，这样等同继承了原来标签的代码建立一个新的标签。
+            </td>
+        </tr>
+        <tr bgcolor='#FFFFFF'>
+            <td colspan='2'>
+                <textarea cols="150" id="content" name="content" rows="24"
+                          style="width:99%;height:450px"><?php echo $democode; ?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#F9FCEF" colspan='2' height="42">
+                <input class="coolbg np" name='B1' type="submit" value="  保 存  "/>
+                &nbsp;
+                <input class="coolbg np" name='B2' type="reset" value="取消修改"/>
+                &nbsp;
+                <input class="coolbg np" name='B4' onClick="javascript:history.go(-1);" type="button" value="不理返回"/>
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+    var editor = CodeMirror.fromTextArea(document.getElementById('content'), {
+        lineNumbers: true,
+        lineWrapping: true,
+        mode: 'text/x-php'
+    });
+</script>
+</body>
+</html>

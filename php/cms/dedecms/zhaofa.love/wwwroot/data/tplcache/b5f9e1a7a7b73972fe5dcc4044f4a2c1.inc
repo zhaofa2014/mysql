@@ -1,0 +1,1 @@
+document.write("·<a href='[field:arcurl/]'>[field:title function="dede_htmlspecialchars('@me')"/]</a><br>");

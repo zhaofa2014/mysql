@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>文件编辑</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <script>
+        function Post() {
+            if (document.form1.filename.value == "") {
+                alert("文件名不能为空。");
+                document.form1.filename.focus();
+                return false;
+            }
+        }
+    </script>
+</head>
+<body bgcolor="#F2F4F3" leftmargin="15" topmargin="10">
+<table border=0 bordercolor=#111111 cellpadding=0 cellspacing=0 style="border-collapse: collapse" width=98%>
+    <form action="tpl.php" method="POST" name=form1 onSubmit="return Post()">
+        <input name="action" type="hidden" value="savenewfile"/>
+        <tr>
+            <td valign="top" width=78%>
+                <table border=0 cellpadding=0 cellspacing=0 style="border-collapse: collapse" width=100%>
+                    <tr>
+                        <td height="25" width=16%>工作目录：</td>
+                        <td width="84%"> &nbsp;&nbsp;&nbsp; <input name="path" size=40 value="<?php echo $path;?>">
+                            （空白表示根目录 ，不允许用 “..” 形式的路径）
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="25" width=16%>文件名称：</td>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                            <input name="filename" size="40" value="newfile.htm"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="25" width=16%>文件内容：</td>
+                        <td>&nbsp;&nbsp;&nbsp;
+                            <textarea cols="150" name="content" rows="20" style="width:99%;"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br/>
+                <input class="coolbg np" name='B1' type="submit" value="  保 存  "/>
+                &nbsp;
+                <input class="coolbg np" name='B2' type="reset" value="取消修改"/>
+                &nbsp;
+                <input class="coolbg np" name='B4' onClick="javascript:history.go(-1);" type="button" value="不理返回"/>
+                <br/> <br/>
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

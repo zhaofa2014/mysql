@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title><?php echo $oid;?></title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+<body>
+<table align="center" bgcolor="#CCCCCC" border="0" cellpadding="1" cellspacing="1" width="50%">
+    <tr>
+        <td align="center" bgcolor="#F0F0F0" colspan="2" height="25">订单信息</td>
+    </tr>
+    {dede:datalist}
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25" width="29%">订单号:</td>
+        <td bgcolor="#FFFFFF" width="71%">&nbsp;{dede:field.oid/}</td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">商品名称:</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;{dede:field.title/}</td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">单价(元/单位):</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;{dede:field.uprice/}</td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">数量:</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;{dede:field.cartcount/}</td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">支付方式:</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;<?php echo GetSta($fields['state'],$oid)?></td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">配送:</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;{dede:field.dname/} 费用:{dede:field.dprice/}元</td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">购买时间:</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;{dede:field.stime function=GetDateTimeMk(@me)/}</td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">收货人:</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;<?php echo $row['consignee']?></td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">地址:</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;<?php echo $row['address']?></td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">邮编:</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;<?php echo $row['zip']?></td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">联系电话:</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;<?php echo $row['tel']?></td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">邮箱:</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;<?php echo $row['email']?></td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">留言:</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;<?php echo $row['des']?></td>
+    </tr>
+    <tr>
+        <td align="right" bgcolor="#FFFFFF" height="25">合计(元):</td>
+        <td bgcolor="#FFFFFF" height="25">&nbsp;{dede:field.priceCount/}元</td>
+    </tr>
+    {/dede:datalist}
+    <tr>
+        <td align="right" bgcolor="#F0F0F0" colspan="2" height="25" style="padding-right:6px;padding-left:6px;">
+            <div style="float:left;">
+                <input class='inputbut' name="ss12" onClick="window.close();" style="width:90px" type="button"
+                       value="关闭窗口">
+            </div>
+
+            <div style="float:right;">
+                <span style="font-weight:bold;">订单总计:</span> <span style="color:red;">{dede:field.priceCount/}</span>元,
+                {dede:pagelist listsize=3/}
+                <div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!-- //begin icon -->
+<div class="box" id="side_icon">
+    <h2>公司资料</h2>
+    <div class="profile">
+        <div class="text">
+            <div class="profile-pic">
+                <span id="msg"></span>
+                <div>
+                    {dede:if $_vars['face']=='' }
+                    <img alt="nopic" src="images/nopic.gif"/>
+                    {else}
+                    <img alt="{dede:var.uname/}" src="{dede:var.face/}"/>
+                    {/dede:if}
+                </div>
+            </div>
+            <div style="height:30px;text-align:center">{dede:var.msg /}</div>
+            <dl class="profile">
+                <dd class="tac" style="word-break:keep-all">
+                    <img align="absmiddle" src="space/company/images/talk.gif"/><a
+                        href="index.php?action=guestbook&uid={dede:var.userid/}">留言</a>
+                    <img align="absmiddle" src="space/company/images/message.gif"/><a
+                        href="pm.php?dopost=send&uid={dede:var.userid/}">短消息</a>
+                    <img align="absmiddle" src="space/company/images/team.gif"/><a
+                        href="index.php?action=newfriend&uid={dede:var.userid/}">加好友</a>
+                </dd>
+                <dd>&nbsp;最后登录：{dede:var.logintime function="MyDate('y-m-d h:i',@me)" /}</dd>
+                <dd>&nbsp;会员等级：{dede:var.membername/}</dd>
+                <dd>&nbsp;空间访问：{dede:var.homecount/} 次</dd>
+                <dd>&nbsp;联系人：{dede:var.linkman/}</dd>
+                <dd>&nbsp;电话：{dede:var.tel/}</dd>
+                <dd>&nbsp;传真：{dede:var.fax/}</dd>
+                <dd>&nbsp;网址: {dede:var.url/}</dd>
+                <dd>&nbsp;Email: {dede:var.email/}</dd>
+                <dd>&nbsp;地址：{dede:var.address/}</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<!-- //end icon -->
+
+

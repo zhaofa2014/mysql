@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>友情链接管理</title>
+    <script language='javascript'>
+        function CheckSubmit() {
+            if (document.form1.url.value == "http://" || document.form1.url.value == "") {
+                document.form1.url.focus();
+                alert("网址不能为空！");
+                return false;
+            }
+            if (document.form1.webname.value == "") {
+                document.form1.webname.focus();
+                alert("网站名称不能为空！");
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <tr>
+        <td background="images/tbg.gif" height="28" style="padding-left:10px;"><b><a href="friendlink_main.php"><u>友情链接管理</u></a></b>&gt;&gt;增加链接
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#FFFFFF" height="200" valign="top">
+            <form ; action="friendlink_add.php" enctype="multipart/form-data" method="post" name="form1"
+                  onSubmit="return CheckSubmit();">
+                <input name="dopost" type="hidden" value="add"/>
+                <table border="0" cellpadding="3" cellspacing="1" width="80%">
+                    <tr>
+                        <td height="25" width="19%">网址：</td>
+                        <td width="81%">
+                            <input class='pubinputs' id="url" name="url" size="30" type="text" value="http://"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="25">网站名称：</td>
+                        <td>
+                            <input class='pubinputs' id="webname" name="webname" size="30" type="text"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="25" width="19%">排列位置：</td>
+                        <td width="81%">
+                            <input class='pubinputs' id="sortrank" name="sortrank" size="10" style='width:60px'
+                                   type="text" value="1"/>
+                            (由小到大排列)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="25">网站Logo：</td>
+                        <td>
+                            <input class='pubinputs' id="logo" name="logo" size="30" type="text"/>
+                            (88*31 gif或jpg)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="25">上传Logo：</td>
+                        <td>
+                            <input class='pubinputs' id="logoimg" name="logoimg" size="30" type="file"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="25">网站简况：</td>
+                        <td><textarea cols="50" id="msg" name="msg" rows="4"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td height="25">站长Email：</td>
+                        <td>
+                            <input class='pubinputs' id="email" name="email" size="30" type="text"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="25">网站类型：</td>
+                        <td>
+                            <select id="typeid" name="typeid">
+                                <?php
+        $dsql->SetQuery("select * from #@__flinktype");
+                                $dsql->Execute();
+                                while($row=$dsql->GetObject())
+                                {
+                                echo "
+                                <option value='".$row->id."'>".$row->typename."</option>
+                                \r\n";
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="25">链接位置：</td>
+                        <td>
+                            <input checked='1' name='ischeck' type='radio' value="1"/> 内页
+                            <input name='ischeck' type='radio' value="2"/> 首页
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="51">&nbsp;</td>
+                        <td>
+                            <input class="coolbg np" name="Submit" type="submit" value=" 提 交 "/>　 　
+                            <input class="coolbg np" name="Submit" type="reset" value=" 重 置 "/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

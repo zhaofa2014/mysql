@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type"/>
+    <title><?php echo $cfg_webname;?>_申请友情链接</title>
+    <link href="<?php echo $cfg_templets_skin; ?>/style/dedecms.css" media="screen" rel="stylesheet" type="text/css"/>
+</head>
+<body class="flinkpage">
+
+<div class="header">
+    <div class="top w960 center">
+        <div class="title">
+            <h1><a href="<?php echo $cfg_basehost;?>" title="<?php echo $cfg_webname;?>"><img alt=""
+                                                                                              src="<?php echo $cfg_templets_skin; ?>/images/logo.gif"/></a>
+            </h1>
+        </div><!-- /title -->
+
+    </div><!-- /top -->
+</div><!-- /header -->
+
+<div class="w960 clear center mt1 cmt-box">
+    <div class="sp-title">
+        <h2>申请链接</h2>
+        <span class="more">
+			<a $cfg_phpurlhref="<?php echo "/flink.php"; ?>">查看链接</a>
+		</span>
+    </div>
+    <div class="formbox">
+        <form action="flink.php" method="post" name="form1">
+            <input name='dopost' type='hidden' value='save'>
+            <table border="0" cellpadding="3" cellspacing="1" width="100%">
+
+
+                <tr>
+                    <td height="25">网址：</td>
+                    <td><input class="ipt-txt" id="url" name="url" size="30" type="text" value="http://"></td>
+                </tr>
+                <tr>
+                    <td height="25">网站名称：</td>
+                    <td><input class="ipt-txt" id="webname" name="webname" size="30" type="text"></td>
+                </tr>
+                <tr>
+                    <td height="25">网站Logo：</td>
+                    <td><input class="ipt-txt" id="logo" name="logo" size="30" type="text">
+                        (88*31 gif或jpg)
+                    </td>
+                </tr>
+                <tr>
+                    <td height="25">网站简况：</td>
+                    <td><textarea class="ipt-txt" cols="40" id="msg" name="msg" rows="4"></textarea></td>
+                </tr>
+                <tr>
+                    <td height="25">站长Email：</td>
+                    <td><input class="ipt-txt" id="email" name="email" size="30" type="text"></td>
+                </tr>
+                <tr>
+                    <td height="25">网站类型：</td>
+                    <td><select id="typeid" name="typeid">
+                        <?php
+        
+        $dsql->SetQuery("select * from #@__flinktype");
+                        $dsql->Execute();
+                        while($row=$dsql->GetObject())
+                        {
+                        echo "
+                        <option value='".$row->id."'>".$row->typename."</option>
+                        \r\n";
+                        }
+                        ?>
+                    </select></td>
+                </tr>
+                <tr>
+                    <td height="25">验证码：</td>
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0" width="200">
+                            <tr>
+                                <td width="84"><input class="ipt-txt" id="vdcode2" name="validate" size="10"
+                                                      style="text-transform: uppercase;" type="text"></td>
+                                <td width="116"><img alt="点击我更换图片" onclick="this.src=this.src+'?'"
+                                                     src='../include/vdimgck.php' style="cursor:pointer"
+                                                     title="点击我更换图片"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td height="51">&nbsp;</td>
+                    <td><input class="btn-2" name="Submit" type="submit" value=" 提 交 ">
+                        　 　
+                        <input class="btn-2" name="Submit" type="reset" value=" 重 置 "></td>
+                </tr>
+            </table>
+        </form>
+
+
+    </div>
+
+</div>
+
+<!-- //底部模板 -->
+<div class="footer w960 center mt1 clear">
+    <!--
+        为了支持织梦团队的发展,请您保留织梦内容管理系统的链接信息.
+        我们对支持织梦团队发展的朋友表示真心的感谢!织梦因您更精彩!
+    -->
+    <div class="footer_left"></div>
+    <div class="footer_body">
+        <p class="powered">
+            Powered by <a href="http://www.dedecms.com" target="_blank"
+                          title="织梦内容管理系统(DedeCms)--国内最专业的PHP网站管理系统，轻松建站的首选利器。"><strong>DedeCMS<?php echo $cfg_version; ?></strong></a>
+            &copy; 2004-2017 <a href="http://www.desdev.cn/" target="_blank">DesDev</a> Inc.<br/>
+        <div class="copyright"><?php echo $cfg_powerby; ?>&nbsp;&nbsp;<?php echo $cfg_beian; ?></div>
+        </p>
+        <!-- /powered -->
+    </div>
+    <div class="footer_right"></div>
+</div>
+
+</body>
+</html>

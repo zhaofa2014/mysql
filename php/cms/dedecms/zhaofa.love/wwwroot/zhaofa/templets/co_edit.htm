@@ -1,0 +1,736 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>修改采集节点</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="js/main.js"></script>
+    <script language="javascript" src="js/co.js" type="text/javascript"></script>
+    <style type="text/css">
+        <!--
+        .STYLE2 {
+            color: #666666
+        }
+
+        tr {
+            display: compact
+        }
+
+        /*chrome调整*/
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+            tr {
+                display: table-row
+            }
+        }
+
+        -->
+    </style>
+</head>
+<body>
+<div class="bodytitle" style="width:98%">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt" style="padding-left:10px;"><b>修改采集节点</b></div>
+    <div style='float:right;padding-right:6px;padding-top:3px'>
+        <input class="coolbg np" name="aaa" onclick="location.href='co_gather_start.php?nid=<?php echo $nid; ?>';"
+               style="width:80px;height:20px;" type="button" value="开始采集"/>
+        <input class="coolbg np" name="bbb" onclick="location.href='co_main.php';" style="width:110px;height:20px;"
+               type="button" value="返回节点管理页"/>
+    </div>
+</div>
+<form action="co_edit.php" method="post" name="form1">
+    <input name='nid' type='hidden' value='<?php echo $nid; ?>'/>
+    <input name='channelid' type='hidden' value='<?php echo $channelid; ?>'/>
+    <input name='dopost' type='hidden' value='saveandtest'/>
+    <input name='donext' type='hidden' value='text'/>
+    <table align="center" border="0" cellpadding="0" cellspacing="0" id="head1" width="98%">
+        <tr>
+            <td colspan="2">
+                <table border="0" cellpadding="0" cellspacing="0" height="24">
+                    <tr>
+                        <td align="center" background="images/itemnote1.gif" width="84">网址索引</td>
+                        <td align="center" background="images/itemnote2.gif" width="84"><a href="#"
+                                                                                           onClick="showItem2()"><u>内容配置</u></a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table align="center" border="0" cellpadding="0" cellspacing="0" id="head2" style="display:none" width="98%">
+        <tr>
+            <td colspan="2">
+                <table border="0" cellpadding="0" cellspacing="0" height="24">
+                    <tr>
+                        <td align="center" background="images/itemnote2.gif" width="84"><a href="#"
+                                                                                           onClick="showItem1()"><u>网址索引</u></a>
+                        </td>
+                        <td align="center" background="images/itemnote1.gif" width="84">内容配置</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" id="needset" width="98%">
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#F2F6E5">
+                <table border="0" cellpadding="0" cellspacing="0" width="400">
+                    <tr class="top" onClick="showHide('sitem');" style="cursor:pointer">
+                        <td align="center" width="26"><img height="8" src="images/file_tt.gif" width="7"></td>
+                        <td width="374">节点基本信息<a name="d1"></a></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="sitem">
+            <td bgcolor="#FFFFFF">
+                <table border="0" width="100%">
+                    <tr>
+                        <td height="24" width="18%">节点名称：</td>
+                        <td width="32%">
+                            <input id="notename" name="notename" style="width:250px" type="text"
+                                   value="<?php echo $notename; ?>"/>
+                        </td>
+                        <td width="18%">目标页面编码：</td>
+                        <td width="32%">
+                            <input class="np" id='language1' name="sourcelang" type="radio"
+                                   value="gb2312"<?php if($noteinfo->GetAtt('sourcelang')=='gb2312') echo "
+                            checked='1'"; ?>/>
+                            GB2312
+                            <input class="np" id='language2' name="sourcelang" type="radio"
+                                   value="utf-8"<?php if($noteinfo->GetAtt('sourcelang')=='utf-8') echo " checked='1'";
+                            ?>/>
+                            UTF8
+                            <input class="np" id='language3' name="sourcelang" type="radio"
+                                   value="big5"<?php if($noteinfo->GetAtt('sourcelang')=='big5') echo " checked='1'";
+                            ?>/>
+                            BIG5
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="24">区域匹配模式：</td>
+                        <td>
+                            <input class="np" name="macthtype" type="radio" value="regex"<?php if($noteinfo->
+                            GetAtt('macthtype')=='regex') echo " checked='1'"; ?>/>
+                            正则表达式
+                            <input class="np" name="macthtype" type="radio" value="string"<?php if($noteinfo->
+                            GetAtt('macthtype')=='string') echo " checked='1'"; ?>/>
+                            字符串
+                        </td>
+                        <td>内容导入顺序：</td>
+                        <td>
+                            <input class='np' id="cosort1" name="cosort" type="radio" value="asc"<?php if($noteinfo->
+                            GetAtt('cosort')=='asc') echo " checked='1'"; ?>/>
+                            与目标站一致
+                            <input class='np' id="cosort2" name="cosort" type="radio" value="desc"<?php if($noteinfo->
+                            GetAtt('cosort')=='desc') echo " checked='1'"; ?>/>
+                            与目标站相反
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#F9FCEF" colspan="4" height="24"><img height="8" src="images/file_tt.gif"
+                                                                           width="7"/>以下选项仅在开启防盗链模式才需设定，如果目标网站没有防盗链功能请不要开启，否则会降低采集速度。
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="24">防盗链模式：</td>
+                        <td>
+                            <input class="np" name="isref" type="radio" value="no"<?php if($noteinfo->
+                            GetAtt('isref')=='no') echo " checked='1'"; ?>/>
+                            不开启
+                            <input class="np" name="isref" type="radio" value="yes"<?php if($noteinfo->
+                            GetAtt('isref')=='yes') echo " checked='1'"; ?>/>
+                            开启
+                        </td>
+                        <td>资源下载超时时间：</td>
+                        <td>
+                            <input id="exptime" name="exptime" size="3" type="text"
+                                   value="<?php echo $noteinfo->GetAtt('exptime'); ?>"/>秒
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="24">引用网址：</td>
+                        <td colspan="3">
+                            <input id="refurl" name="refurl" size="30" style='width:250px' type="text"
+                                   value="<?php echo $noteinfo->GetAtt('refurl'); ?>"/>
+                            （一般为目标网站其中一个文章页的网址）
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#F2F6E5">
+                <table border="0" cellpadding="0" cellspacing="0" width="400">
+                    <tr class="top" onClick="showHide('slist');" style="cursor:pointer">
+                        <td align="center" width="26"><img height="8" src="images/file_tt.gif" width="7"></td>
+                        <td width="374">列表网址获取规则</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="slist">
+            <td bgcolor="#FFFFFF">
+                <table border="0" width="100%">
+                    <tr>
+                        <td height="24" width="18%">来源属性：</td>
+                        <td>
+                            <input class='np' id="source1" name="sourcetype" onclick="selSourceSet()" type="radio"
+                                   value="batch"<?php if($listrule->GetAtt('sourcetype')=='batch') echo "
+                            checked='checked'"; ?>/>
+                            批量生成列表网址
+                            <input class='np' id="source2" name="sourcetype" onclick="selSourceSet()" type="radio"
+                                   value="hand"<?php if($listrule->GetAtt('sourcetype')=='hand') echo "
+                            checked='checked'"; ?>/>
+                            手工指定列表网址
+                            <input class='np' id="source3" name="sourcetype" onclick="selSourceSet()" type="radio"
+                                   value="rss"<?php if($listrule->GetAtt('sourcetype')=='rss') echo "
+                            checked='checked'"; ?>/>
+                            从RSS中获取
+                        </td>
+                    </tr>
+                    <tr bgcolor="#F9FCEF" id="rssset" style="display:none">
+                        <td height="24">RSS网址：</td>
+                        <td>
+                            <input id="rssurl" name="rssurl" style="width:350px" type="text"
+                                   value="<?php echo $listrule->GetAtt('rssurl'); ?>"/>
+                            <input id="btv2" name="btv2" onclick="testRss()" type="button" value="测试"/>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#F9FCEF" id="batchset">
+                        <td height="77">批量生成地址设置：</td>
+                        <td>
+                            <table width="90%">
+                                <tr>
+                                    <td colspan="2" width="100%">
+                                        匹配网址：
+                                        <input id="regxurl" name="regxurl" style="width:350px" type="text"
+                                               value="<?php echo $listrule->GetAtt('regxurl'); ?>"/>
+                                        <input id="btv1" name="btv1" onclick="testRegx()" type="button" value="测试"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="STYLE2">(如：http://www.dedecms.com/html/test/list_(*).html，如果不能匹配所有网址，可以在手工指定网址的地方输入要追加的网址) </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        (*)从
+                                        <input id="startid" name="startid" style="width:30px" type="text"
+                                               value="<?php echo $listrule->GetAtt('startid'); ?>"/>
+                                        到
+                                        <input id="endid" name="endid" style="width:30px" type="text"
+                                               value="<?php echo $listrule->GetAtt('endid'); ?>"/>
+                                        (填写页码或规律递增数字)&nbsp;
+                                        每页递增：
+                                        <input id="addv" name="addv" style="width:30px" type="text"
+                                               value="<?php echo $listrule->GetAtt('addv'); ?>"/>
+                                        <input class="np" id="usemore" name="usemore" onClick="testMore()"
+                                               type="checkbox" value="1"<?php if($usemore==1) echo " checked='1' "; ?>/>
+                                        启用多栏目通配(#)
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr display:none id='handset' style='<?php if($usemore==1) echo '
+                    '; ?>'>
+                    <td height="171">手工指定网址：<br/>
+                        <span class="STYLE2">在指定了通配规则后有些不能匹配的网址也可以在这里指定。</span><br/></td>
+                    <td>
+                        <textarea cols="45" id="addurls" name="addurls" rows="5"
+                                  style="width:80%;height:160px"><?php echo $addurls->GetInnerText(); ?></textarea>
+                    </td>
+                    </tr>
+                    <tr display:none id='usemoretr' style='<?php if($usemore==0) echo '
+                    '; ?>'>
+                    <td height="171">多栏目通配规则：<br/>
+                        <span class="STYLE2">
+            如果目标网站使用单一模板，可以在匹配网址中用"(#)"表示近似网址的差异，然后在通配规则中设定集合，并且可以指定导出栏目。
+            </span>
+                        <br/>
+                    </td>
+                    <td>
+                        <textarea cols="45" id="batchrule" name="batchrule" rows="5"
+                                  style="width:80%;height:160px"><?php echo (is_object($batchrule) ? trim($batchrule->
+                            GetInnerText()) : ''); ?></textarea>
+                        <br/><span style='color:#666666'>示例格式：[(#)=>labs/list_3; (*)=>1-25; typeid=>7] 匹配网址：http://www.aaa.com/(#)_(*).html</span>
+                    </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#F2F6E5">
+                <table border="0" cellpadding="0" cellspacing="0" width="400">
+                    <tr class="top" onClick="showHide('arturl');" style="cursor:pointer">
+                        <td align="center" width="26"><img height="8" src="images/file_tt.gif" width="7"></td>
+                        <td width="374">文章网址匹配规则</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="arturl">
+            <td bgcolor="#FFFFFF" height="76" valign="top" width="100%">
+                <table width="100%">
+
+                    <!-- //使用与正则匹配链接模式不大稳定，也不适合初级用户，暂时作为保留项  -->
+                    <tr style='display:none'>
+                        <td width="18%">内容网址匹配模式：</td>
+                        <td width="82%">
+                            <input class="np" id="urlrule1" name="urlrule" onclick="selUrlRuleSet()" type="radio"
+                                   value="area" <?php if($listrule->GetAtt('urlrule')=='area') echo " checked='1'"; ?>/>
+                            指定包含有文章网址的区域(可以获取区域的网址、标题、图片等信息)
+                            <input class="np" id="urlrule2" name="urlrule" onclick="selUrlRuleSet()" type="radio"
+                                   value="regx"<?php if($listrule->GetAtt('urlrule')=='regx') echo " checked='1'"; ?>/>
+                            指定网址正则表达式(仅能获得网址信息)
+                        </td>
+                    </tr>
+                    <!--tr id="regxruletr" style="<?php if($listrule->GetAtt('urlrule')=='area') echo "display:none"; ?>"-->
+                    <tr id="regxruletr" style="display:none">
+                        <td height="84">网址的正则表达式：</td>
+                        <td>
+                            <textarea cols="45" id="regxrule" name="regxrule" rows="5"
+                                      style="width:80%;height:60px"><?php echo $regxrule->GetInnerText(); ?></textarea>
+                        </td>
+                    </tr>
+
+                    <tr id="arearuletr">
+                        <td height="84" width="18%">包含有文章网址的区域设置：</td>
+                        <td width="82%">
+                            <table width="90%">
+                                <tr>
+                                    <td align="center" width="22%">区域开始的HTML：</td>
+                                    <td width="78%">
+                                        <textarea cols="45" id="areastart" name="areastart" rows="5"
+                                                  style="width:80%;height:60px"><?php echo $areastart->GetInnerText(); ?></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">区域结束的HTML：</td>
+                                    <td>
+                                        <textarea cols="45" id="areaend" name="areaend" rows="5"
+                                                  style="width:80%;height:60px"><?php echo $areaend->
+                                            GetInnerText(); ?></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">如果链接中含有图片：</td>
+                                    <td>
+                                        <input class='np' id="listpic1" name="listpic" type="radio"
+                                               value="0"<?php if($listrule->GetAtt('listpic')=='0') echo " checked='1'";
+                                        ?>/>
+                                        不处理
+                                        <input class='np' id="listpic2" name="listpic" type="radio"
+                                               value="1"<?php if($listrule->GetAtt('listpic')=='1') echo " checked='1'";
+                                        ?>/>
+                                        采集为缩略图
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" rowspan="2">对区域网址进行再次筛选：<br/>
+                                        (使用正则表达式)
+                                    </td>
+                                    <td>必须包含：
+                                        <input id="musthas" name="musthas" style="width:280px" type="text"
+                                               value="<?php echo $listrule->GetAtt('musthas'); ?>"/>
+                                        (优先级高于后者)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>不能包含：
+                                        <input id="nothas" name="nothas" style="width:280px" type="text"
+                                               value="<?php echo $listrule->GetAtt('nothas'); ?>"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="94">&nbsp;
+                <script language='javascript'>
+                    selSourceSet();
+                </script>
+                &nbsp;
+                <input class="coolbg np" name="b12" style="width:120px" type="submit" value="保存并测试"/>
+                <input class="coolbg np" name="b" onclick="form.donext.value='save';" style="width:80px" type="submit"
+                       value="仅保存"/></td>
+        </tr>
+    </table>
+
+    <table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" id="adset" style="display:none"
+           width="98%">
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#F2F6E5">
+                <table border="0" cellpadding="0" cellspacing="0" width="400">
+                    <tr class="top" onClick="showHide('sart');" style="cursor:pointer">
+                        <td align="center" width="26"><img height="8" src="images/file_tt.gif" width="7"></td>
+                        <td width="374">网页内容获取规则</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr id="sart">
+            <td bgcolor="#FFFFFF" height="113" valign="top">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr id='achelp' style="display:none">
+                        <td colspan="3" height="60">１、匹配规则：在匹配区域规则中，规则一般为“<font color="#FF0000">起始无重复HTML</font><span
+                                class="STYLE1">[内容]</span><font color="#FF0000">结尾无重复HTML</font>”(普通匹配，非正则)。<br/>
+                            ２、字段值：如果指定的字段没有指定区域匹配规则，用这个值作为默认值。<br/>
+                            ３、过滤规则：如果有多个规则，用<br/><font color='#6B7360'>
+                                {dede:trim replace=&quot;&quot;}规则一{/dede:trim}<br/>
+                                {dede:trim replace=&quot;&quot;}规则二{/dede:trim}<br/>
+                                ...</font>表示，如果要替换成指定的值，在 replace=&quot;&quot;里设置即可
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="35"><a href="#" onclick="showHide('achelp')"><img height="16" src="images/help.gif"
+                                                                                      width="16"/></a>预览网址：
+                        </td>
+                        <td>
+                            <input id="previewurl" name="previewurl" style="width:90%" type="text"
+                                   value="<?php echo $previewurl; ?>"/>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td height="60" width="18%">内容分页导航所在的区域匹配规则：<br/></td>
+                        <td><textarea id="sppage" name="sppage" rows="3" style="width:90%"><?php echo trim($sppage->
+                            GetInnerText()); ?></textarea></td>
+                        <td width="37%">
+                            <input class="np" name="sptype" type="radio" value="full"<?php if($sppage->
+                            GetAtt('sptype')=='full') echo " checked='1'"; ?>/>
+                            全部列出的分页列表<br/>
+                            <input class="np" name="sptype" type="radio" value="next"<?php if($sppage->
+                            GetAtt('sptype')=='next') echo " checked='1'"; ?>/>
+                            上下页形式或不完整的分页列表<br/>
+
+                            <input class="np" name="sptype" type="radio" value="diyrule"<?php if($sppage->
+                            GetAtt('sptype')=='diyrule') echo " checked='1'"; ?>/>
+                            分页列表规则 开始:
+                            <input name="srul" size="4" type="text" value="1"/>
+                            结束:
+                            <input name="erul" size="4" type="text" value="5"/></td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#FBFCE2" colspan="3" height="35" id="dyrule">
+                            如果设定分页列表规则.可采用地址规则(正则),其中{p}是递增变量,从1开始每次增加1,例如:{path}{file}_{p}{ext}<br/>
+                            <strong>规则说明：{path}</strong>地址+目录 <strong>{file}</strong>文件 <strong>{ext}</strong>文件扩展名
+                            <strong>{p}</strong>分页列表数
+                        </td>
+                    </tr>
+                    <tr>
+                        <td bgcolor="#F9FCEF" colspan="3" height="24">
+                            &nbsp;<strong>以下为固定的采集项目：</strong>(项目点击可展开/隐藏，内容摘要、关键字、缩略图系统会用正则进行自动匹配)
+                        </td>
+                    </tr>
+                </table>
+
+                <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                    <tr>
+                        <td valign="top" width="50%">
+                            <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                                <tr>
+                                    <td height="24">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td height="80" width="18%">关键字过滤内容：</td>
+                                                <td colspan="2" height="20">
+                                                    <textarea id="keywordtrim" name="keywordtrim" rows="4"
+                                                              style="width:90%"><?php echo $notes['keywordtrim']; ?></textarea>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td valign="top">
+                            <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                                <tr>
+                                    <td height="24">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td height="80" width="18%">摘要过滤内容：</td>
+                                                <td colspan="2" height="20">
+                                                    <textarea id="descriptiontrim" name="descriptiontrim" rows="4"
+                                                              style="width:90%"><?php echo $notes['descriptiontrim']; ?></textarea>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" width="50%">
+                            <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                                <tr bgcolor="#F9FCEF">
+                                    <td class="adline" height="24">&nbsp;<a href="#" onclick="showHide('ttitle')"><b><u>文章标题</u></b></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="24" id="ttitle">
+                                        <input checked='1' name='fields[]' style='display:none' type='checkbox'
+                                               value='title'/>
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td height="80" width="18%">匹配规则：</td>
+                                                <td colspan="2" height="20">
+                                                    <textarea id="match_title" name="match_title" rows="4"
+                                                              style="width:90%"><?php echo $notes['title']['match']; ?></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="63">过滤规则：</td>
+                                                <td height="63" width="53%">
+                                                    <textarea cols="20" id="trim_title" name="trim_title" rows="3"
+                                                              style="width:90%"><?php echo $notes['title']['trim']; ?></textarea>
+                                                </td>
+                                                <td height="63">
+                                                    <input id="button" name="button" onclick="selTrim('trim_title')"
+                                                           type="button" value="常用规则"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td valign="top">
+                            <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                                <tr bgcolor="#F9FCEF">
+                                    <td class="adline" height="24">&nbsp;<a href="#"
+                                                                            onclick="showHide('twriter')"><b><u>文章作者</u></b></a>
+                                    </td>
+                                </tr>
+                                <tr id="twriter">
+                                    <td height="24">
+                                        <input checked='1' name='fields[]' style='display:none' type='checkbox'
+                                               value='writer'/>
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td height="80" width="18%">匹配规则：</td>
+                                                <td colspan="2" height="20">
+                                                    <textarea id="match_writer" name="match_writer" rows="4"
+                                                              style="width:90%"><?php echo $notes['writer']['match']; ?></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="63">过滤规则：</td>
+                                                <td height="63" width="53%">
+                                                    <textarea cols="20" id="trim_writer" name="trim_writer" rows="3"
+                                                              style="width:90%"><?php echo $notes['writer']['trim']; ?></textarea>
+                                                </td>
+                                                <td height="63" width="29%">
+                                                    <input id="button2" name="button2" onclick="selTrim('trim_writer')"
+                                                           type="button" value="常用规则"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                                <tr bgcolor="#F9FCEF">
+                                    <td class="adline" height="24">&nbsp;<a href="#"
+                                                                            onclick="showHide('tsource')"><b><u>文章来源</u></b></a>
+                                    </td>
+                                </tr>
+                                <tr id="tsource">
+                                    <td height="24">
+                                        <input checked='1' name='fields[]' style='display:none' type='checkbox'
+                                               value='source'/>
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td height="80" width="18%">匹配规则：</td>
+                                                <td colspan="2" height="20">
+                                                    <textarea id="match_source" name="match_source" rows="4"
+                                                              style="width:90%"><?php echo $notes['source']['match']; ?></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="63">过滤规则：</td>
+                                                <td height="63" width="53%">
+                                                    <textarea cols="20" id="trim_source" name="trim_source" rows="3"
+                                                              style="width:90%"><?php echo $notes['source']['trim']; ?></textarea>
+                                                </td>
+                                                <td height="63">
+                                                    <input id="button4" name="button4" onclick="selTrim('trim_source')"
+                                                           type="button" value="常用规则"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td valign="top">
+                            <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                                <tr bgcolor="#F9FCEF">
+                                    <td class="adline" height="24">&nbsp;<a href="#"
+                                                                            onclick="showHide('tpubdate')"><b><u>发布时间</u></b></a>
+                                    </td>
+                                </tr>
+                                <tr id="tpubdate">
+                                    <td height="24">
+                                        <input checked='1' name='fields[]' style='display:none' type='checkbox'
+                                               value='pubdate'/>
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td height="80" width="18%">匹配规则：</td>
+                                                <td colspan="2" height="20">
+                                                    <textarea id="match_pubdate" name="match_pubdate" rows="4"
+                                                              style="width:90%"><?php echo $notes['pubdate']['match']; ?></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td height="63">过滤规则：</td>
+                                                <td height="63" width="53%">
+                                                    <textarea cols="20" id="trim_pubdate" name="trim_pubdate" rows="3"
+                                                              style="width:90%"><?php echo $notes['pubdate']['trim']; ?></textarea>
+                                                </td>
+                                                <td height="63" width="29%">
+                                                    <input id="button3" name="button3" onclick="selTrim('trim_pubdate')"
+                                                           type="button" value="常用规则"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <!-- 固定项目结束，下面为自动项目 -->
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td bgcolor="#FBFCE2" colspan="3" height="24" width="55%">
+                            &nbsp;<strong>以下是针对模型设置的采集项目：</strong>
+                        </td>
+                    </tr>
+                </table>
+                <?php
+     $row = $dsql->GetOne("Select * From `#@__channeltype` where id='{$channelid}' ");
+                $dtp = new DedeTagParse();
+                $dtp->SetNameSpace('field','<','>');
+                $dtp->LoadString($row['fieldset']);
+                foreach($dtp->CTags as $ctag)
+                {
+
+                //采集禁用的字段
+                $notsend = $ctag->GetAtt('notsend');
+                if($notsend==1) continue;
+
+                $fieldtype = $ctag->GetAtt('type');
+                $tname = $ctag->GetTagName();
+                $iname = $ctag->GetAtt('itemname');
+
+                if(isset($notes[$tname]['item']))
+                {
+                $tvalue = $notes[$tname]['item']->GetAtt('value');
+                $tisunit = $notes[$tname]['item']->GetAtt('isunit');
+                $tisdown = $notes[$tname]['item']->GetAtt('isdown');
+                $tmatch = $notes[$tname]['match'];
+                $ttrim = $notes[$tname]['trim'];
+                $tfunction = $notes[$tname]['function'];
+                }else {
+                $tvalue = $tisunit = $tisdown = $tmatch = $ttrim = $tfunction = '';
+                }
+
+                ?>
+                <input checked='1' name='fields[]' style='display:none' type='checkbox' value='<?php echo $tname; ?>'/>
+                <table border="0" cellpadding="0" cellspacing="0" class='autotb' style="margin-top:2px" width="99%">
+                    <tr bgcolor="#EBEFD1">
+                        <td bgcolor="#F0F7D9" class="adline" height="24" width="18%">
+                            &nbsp;<a href="#"
+                                     onclick="showHide('t<?php echo $tname; ?>')"><b><u><?php echo $iname; ?></u></b></a>
+                        </td>
+                        <td bgcolor="#F0F7D9" class="adline" width="12%">&nbsp;</td>
+                        <td bgcolor="#F0F7D9" class="adline" width="10%"><strong>字段值：</strong></td>
+                        <td bgcolor="#F0F7D9" class="adline">
+                            <input name="value_<?php echo $tname; ?>" size="25" style="width:250px" type="text"
+                                   value="<?php echo $tvalue; ?>"/>
+                        </td>
+                    </tr>
+                    <tr id="t<?php echo $tname; ?>">
+                        <td colspan="4" height="24">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td height="80" width="16%">匹配规则：</td>
+                                    <td height="20">
+                                        <textarea name="match_<?php echo $tname; ?>" rows="4"
+                                                  style="width:90%"><?php echo $tmatch; ?></textarea>
+                                    </td>
+                                    <td height="20">
+                                        <input class="np" name="isunit_<?php echo $tname; ?>" type="checkbox"
+                                               value="1"<?php if($tisunit=='1') echo " checked='checked'"; ?>/>
+                                        分页内容字段（规则中只允许单一的该类型字段）<br/>
+                                        <input class="np" name="isdown_<?php echo $tname; ?>" type="checkbox"
+                                               value="1"<?php if($tisdown=='1') echo " checked='checked'"; ?>/>
+                                        下载字段里的多媒体资源
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="63">过滤规则：</td>
+                                    <td height="63">
+                                        <textarea cols="20" id="trim_<?php echo $tname; ?>"
+                                                  name="trim_<?php echo $tname; ?>" rows="3"
+                                                  style="width:90%"><?php echo $ttrim; ?></textarea>
+                                    </td>
+                                    <td height="63">
+                                        <input id="button<?php echo $tname; ?>" name="button<?php echo $tname; ?>"
+                                               onclick="selTrim('trim_<?php echo $tname; ?>')" type="button"
+                                               value="常用规则"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="60" width="18%">自定义处理接口：</td>
+                                    <td height="20" width="52%">
+                                        <textarea cols="20" name="function_<?php echo $tname; ?>" rows="3"
+                                                  style="width:90%"><?php echo $tfunction; ?></textarea>
+                                    </td>
+                                    <td height="20" width="30%">
+                                        <?php
+         	if($fieldtype=='htmltext' || $fieldtype=='img')
+     	    {
+     	    ?>
+                                        函数或程序的变量<br/>
+                                        @body 表示原始网页 @litpic 缩略图<br/>
+                                        @me 表示当前标记值和最终结果
+                                        <?php
+          }
+          ?>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <?php } ?>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" height="52">
+                <input class="coolbg np" name="b13" onclick="form.donext.value='save';" style="width:80px" type="submit"
+                       value="仅保存"/>
+                &nbsp;
+                <input class="coolbg np" name="b12" style="width:120px" type="submit" value="保存并测试"/>
+            </td>
+        </tr>
+    </table>
+
+</form>
+</body>
+</html>

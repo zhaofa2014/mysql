@@ -1,0 +1,7 @@
+evn
+
+mysql -uroot -proot
+
+ show databases
+
+   grant select,insert,update,delete on *.* to [email=zhaofa@¡±%]zhaofa@¡±%[/email]¡± Identified by ¡°root¡±;

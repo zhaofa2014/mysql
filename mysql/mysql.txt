@@ -1,0 +1,21 @@
+update qchs_goods set store_nums =0;
+
+
+mysql -uroot -p123456
+1、建立商品销售系统数据库sale。（5分）
+CREATE DATABASE sale;
+2、用命令打开上题所建的数据库。（5分）
+show databases;
+use sale;
+3、用T_sql命令建立数据表。（每小题8分，共24分）
+（1）商店(shop)信息表:数据列包括:商店编号(主键),商店名(不允许为空，且名称唯一)，地址，电话；
+（2）顾客(customer)信息表:数据列包括:顾客编号（主键），顾客姓名，地址，年龄，性别。
+（3）消费(consume)信息表:数据列包括:商店编号，顾客编号，消费金额（数据类型精确到2位小数），消费日期。
+
+CREATE TABLE runoob_tbl(
+   -> runoob_id INT NOT NULL AUTO_INCREMENT,
+   -> runoob_title VARCHAR(100) NOT NULL,
+   -> runoob_author VARCHAR(40) NOT NULL,
+   -> submission_date DATE,
+   -> PRIMARY KEY ( runoob_id )
+   -> )ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -1,0 +1,53 @@
+body {
+    font: 16px arial, 'Microsoft Yahei', 'Hiragino Sans GB', sans-serif;
+    /*background-color: rgb(68, 63, 122);*/
+    background-image: url(bg_flower.gif), url(bg_flower_2.gif);
+}
+
+h1 {
+    margin: 0;
+    color: 68, 63, 122;
+    font-size: 26px;
+}
+
+.content {
+    width: 45%;
+    margin: 0 auto;
+
+}
+
+.content > div {
+    margin-top: 200px;
+    padding: 20px;
+    background: #d9edf7;
+    border-radius: 12px;
+}
+
+.content dl {
+    color: #2d6a88;
+    line-height: 40px;
+}
+
+.content div div {
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+
+/*专题页*/
+/*.head {
+    margin: auto;
+    width: 50%;
+
+}
+
+.activity {
+    margin: auto;
+    width: 50%;
+}
+
+.Commodity {
+    margin: auto;
+    width: 50%;
+}*/
+

@@ -1,0 +1,313 @@
+﻿#?? Copyright (c) 1993-2009 Microsoft Corp.
+#
+# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
+#
+# This file contains the mappings of IP addresses to host names. Each
+# entry should be kept on an individual line. The IP address should
+# be placed in the first column followed by the corresponding host name.
+# The IP address and the host name should be separated by at least one
+# space.
+#
+# Additionally, comments (such as these) may be inserted on individual
+# lines or following the machine name denoted by a '#' symbol.
+#
+# For example:
+#
+# 102.54.94.97 rhino.acme.com # source server
+# 38.25.63.10 x.acme.com # x client host
+
+#localhost name resolution is handled within DNS itself.
+127.0.0.1 localhost
+::1 localhost
+#############################################################
+#192.168.0.119 www.zhaofa.lov
+#192.168.0.119 www.zhaofa.cc
+#192.168.0.119 clone.zhaofa.lov
+#192.168.0.119 mysql.zhaofa.lov
+#192.168.0.119 yzncms.zhaofa.lov
+#192.168.0.119 fangan.zhaofa.lov
+#192.168.0.119 swoole.zhaofa.lov
+#192.168.0.119 php.zhaofa.lov
+#192.168.0.119 demo.zhaofa.lov
+#192.168.0.119 tp5.zhaofa.lov
+#192.168.0.119 demo.zhaofa.lov
+#192.168.0.119 php.zhaofa.lov
+#192.168.0.119 swoole.zhaofa.lov
+#192.168.0.119 grjl.zhaofa.lov
+#192.168.0.119 web.zhaofa.lov
+#192.168.0.119 xyhcms.zhaofa.lov
+#192.168.0.119 xqlgyl.zhaofa.lov
+#192.168.0.119 99admin.zhaofa.lov
+#192.168.0.119 xqlgyl.com
+#192.168.0.119 new.xyhcms.com
+#192.168.0.119 test.io
+#192.168.0.119 tp5.io
+#192.168.0.119 xyhcms.io
+#192.168.0.119 vue.io
+#192.168.0.119 ly.zhaofa.lov
+#192.168.0.119 xyhcms00.io
+#192.168.0.119 dedecms04.io
+#192.168.0.119 xyhcms04.io
+#192.168.0.119 yy311.io
+#192.168.0.119 tp5.io
+#192.168.0.119 tp6.io
+#192.168.0.119 sgpc.311wgk.io
+#192.168.0.119 sgpc.311ebh.io
+#192.168.0.119 smpc.311wgk.io
+#192.168.0.119 smpc.311ebh.io
+#192.168.0.119 www.311ebh.io
+#192.168.0.119 ghw.311ebh.io
+#192.168.0.119 sm3g.311ebh.io
+#192.168.0.119 mysql.me
+#192.168.0.119 www.311ebh.io
+#192.168.0.119 www.zhaofa.lov
+#192.168.0.119 clone.zhaofa.lov
+#192.168.0.119 mysql.zhaofa.lov
+#192.168.0.119 yzncms.zhaofa.lov
+#192.168.0.119 fangan.zhaofa.lov
+#192.168.0.119 swoole.zhaofa.lov
+#192.168.0.119 php.zhaofa.lov
+#192.168.0.119 demo.zhaofa.lov
+#192.168.0.119 tp5.zhaofa.lov
+#192.168.0.119 demo.zhaofa.lov
+#192.168.0.119 php.zhaofa.lov
+#192.168.0.119 swoole.zhaofa.lov
+#192.168.0.119 grjl.zhaofa.lov
+#192.168.0.119 web.zhaofa.lov
+#192.168.0.119 xyhcms.zhaofa.lov
+#192.168.0.119 xqlgyl.zhaofa.lov
+#192.168.0.119 99admin.zhaofa.lov
+#192.168.0.119 xqlgyl.com
+#192.168.0.119 new.xyhcms.com
+#192.168.0.119 test.io
+#192.168.0.119 tp5.io
+#192.168.0.119 xyhcms.io
+#192.168.0.119 vue.io
+#192.168.0.119 ly.zhaofa.lov
+#192.168.0.119 xyhcms00.io
+#192.168.0.119 dedecms04.io
+#192.168.0.119 xyhcms04.io
+#192.168.0.119 311.io
+#192.168.0.119 tp5.io
+#192.168.0.119 jmk.me
+#192.168.0.119 zh.io
+#192.168.0.119 web.me
+#192.168.0.116 ghw.311ebh.me
+#192.168.0.119 gh.311ebh.me
+#192.168.0.119 sgpc.311ebh.me
+#192.168.0.119 xiazai.me
+#192.168.0.119 wap.km311wgk.me
+#192.168.0.119 www.311ebh.me
+#192.168.0.119 sg3g.311ebh.me
+#192.168.0.119 sm3g.311ebh.me
+#192.168.0.119 smpc.311ebh.me
+#192.168.0.119 sm3g.311wgk.me
+#192.168.0.119 smpc.311wgk.me
+#192.168.0.119 sg3g.311wgk.me
+#192.168.0.119 sgpc.311wgk.me
+#192.168.0.119 wap.311ebh.me
+#192.168.0.119 wap.311wgk.me
+#192.168.0.119 km311wgk.me
+#192.168.0.119 km311ebh.me
+#192.168.0.119 yy.311ebh.me
+#192.168.0.119 311wgk.me
+#192.168.0.119 xyhcms001.me
+#192.168.0.119 xyhcms002.me
+#192.168.0.119 xyhcms003.me
+#192.168.0.119 xyhcms004.me
+#192.168.0.119 xyhcms005.me
+#192.168.0.119 yunnanjiqiren.me
+#192.168.0.119 huahuijiaoyuhh.me
+#192.168.0.119 web.zhaofa.me
+#192.168.0.119 grjl.zhaofa.me
+#192.168.0.119 fangan.zhaofa.me
+#192.168.0.114 zhaofa.me
+#192.168.0.119 xyhcms.me
+#192.168.0.119 ghw.311ebh.io
+#192.168.0.119 001tp5.io
+#192.168.0.119 swoole.me
+#192.168.0.119 002tp5.io
+#192.168.0.119 tp6.me
+#192.168.0.119 shb.sddljyy.me
+#192.168.0.119 shb.0858nk.me
+#192.168.0.119 yzncms.me
+#192.168.0.119 study.me
+#192.168.0.119 siyucms.me
+#192.168.0.119 app001.me
+#192.168.0.119 app002.me
+#192.168.0.119 app003.me
+#192.168.0.119 app004.me
+#192.168.0.119 app005.me
+#192.168.0.119 app006.me
+#192.168.0.119 app007.me
+#192.168.0.119 app008.me
+#192.168.0.119 app009.me
+#192.168.0.119 app010.me
+#192.168.0.119 app011.me
+#192.168.0.119 app012.me
+#192.168.0.119 app013.me
+#192.168.0.119 app014.me
+#192.168.0.119 app015.me
+#192.168.0.119 app016.me
+#192.168.0.119 app017.me
+#192.168.0.119 app018.me
+#192.168.0.119 app019.me
+#192.168.0.119 app020.me
+#192.168.0.119 avbook.me
+#192.168.0.119 kuboard.yourclustername.yourdomain.com
+#192.168.0.119 zhaofa.me
+#192.168.0.119 www.yhcl888.me
+#192.168.0.119 www.yhcl888.io
+#192.168.0.119 www.yhcl888.love
+#192.168.0.119 5592.me
+#192.168.0.119 5592.love
+#192.168.0.119 bt.cn
+#192.168.0.119 www.yhcl888.name
+#192.168.0.119 311shb.me
+#192.168.0.119 app015.me
+#192.168.0.119 zhaofak8s.me
+#192.168.0.116 tp6.io
+#192.168.0.119 tp6.io
+#192.168.0.114 tp6.io
+#192.168.0.119 zhaofak8s1.me
+#192.168.0.114 zhaofak8s2.me1
+#192.168.0.114 zhaofak8s.io
+#192.168.0.114 ebh311centos.me
+#192.168.0.119 311ebh.me
+#192.168.0.116 www.311wgk.me
+
+
+#####################################################311医院网站本地test
+
+
+192.168.0.115 app001.311ebh.com
+192.168.0.115 app002.311ebh.com
+192.168.0.115 app003.311ebh.com
+192.168.0.115 app004.311ebh.com
+192.168.0.115 app005.311ebh.com
+192.168.0.115 app006.311ebh.com
+192.168.0.115 app007.311ebh.com
+192.168.0.115 app008.311ebh.com
+192.168.0.115 app009.311ebh.com
+192.168.0.115 app010.311ebh.com
+192.168.0.115 app011.311ebh.com
+192.168.0.115 app012.311ebh.com
+192.168.0.115 app013.311ebh.com
+192.168.0.115 app014.311ebh.com
+192.168.0.115 app015.311ebh.com
+192.168.0.115 app016.311ebh.com
+192.168.0.115 app017.311ebh.com
+192.168.0.115 app018.311ebh.com
+192.168.0.115 app019.311ebh.com
+192.168.0.115 app020.311ebh.com
+192.168.0.115 app021.311ebh.com
+192.168.0.115 app022.311ebh.com
+192.168.0.115 app023.311ebh.com
+192.168.0.115 app024.311ebh.com
+192.168.0.115 app025.311ebh.com
+192.168.0.115 app026.311ebh.com
+192.168.0.115 app027.311ebh.com
+192.168.0.115 app028.311ebh.com
+192.168.0.115 app029.311ebh.com
+192.168.0.115 app030.311ebh.com
+192.168.0.115 app031.311ebh.com
+192.168.0.115 app032.311ebh.com
+
+###手里项目###
+#192.168.0.115 www.yhcl888.com
+192.168.0.114 zhaofagitlab.io
+192.168.0.115 zhaofabt.io
+192.168.0.115 zhaofk8s.io
+192.168.0.114 zhaofajenkins.io
+192.168.0.115 zhaofanginx.io
+192.168.0.115 tp5.zhaofa.lov
+#103.140.151 62 www.yr3000.com
+106.15.73.60 yaxuejiaoyuyx.com
+106.15.73.60 qsadwasdasd.com
+
+###升话宝项目###
+#192.168.0.115 swt.311ebh.com
+#192.168.0.115 shb.311ebh.com
+#106.15.73.60  zhaofa.love
+
+
+#####工作一小时 休息10分钟 每天进步一点点###
+192.168.0.114	laravel.zhaofa.love
+192.168.0.114	shop.zhaofa.love
+192.168.0.114	redis.zhaofa.love
+192.168.0.114	swoole.zhaofa.love
+192.168.0.114	web.zhaofa.love
+192.168.0.114	mysql.zhaofa.love
+192.168.0.114	tp6.zhaofa.love
+192.168.0.114	tp5.zhaofa.love
+#192.168.0.114	zhaofa.love
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 屏蔽Adobe激活服务器??
+#0.0.0.0 activate.adobe.com
+#0.0.0.0 practivate.adobe.com
+#0.0.0.0 ereg.adobe.com
+#0.0.0.0 activate.wip3.adobe.com
+#0.0.0.0 wip3.adobe.com
+#0.0.0.0 3dns-3.adobe.com
+#0.0.0.0 3dns-2.adobe.com
+#0.0.0.0 adobe-dns.adobe.com
+#0.0.0.0 adobe-dns-2.adobe.com
+#0.0.0.0 adobe-dns-3.adobe.com
+#0.0.0.0 ereg.wip3.adobe.com
+#0.0.0.0 activate-sea.adobe.com
+#0.0.0.0 wwis-dubc1-vip60.adobe.com
+#0.0.0.0 activate-sjc0.adobe.com
+# CorelDRAW ????????
+#127.0.0.1 apps.corel.com
+#127.0.0.1 mc.corel.com
+#127.0.0.1 origin-mc.corel.com
+#127.0.0.1 ipm.corel.com
+#127.0.0.1 iws.corel.com
+
+#0.0.0.0 account.jetbrains.comom
+
+#0.0.0.0 account.jetbrains.com
+#0.0.0.0 www.jetbrains.com
+#127.0.0.1 avbook.test #laragon magic!
+
+# Added by Docker for Windows
+#192.168.0.166 host.docker.internal
+#192.168.0.166 gateway.docker.internal
+# End of section
+
+

@@ -1,0 +1,1 @@
+<a href="[field:typelink /]" class="more wow" data-wow-delay=".5s">MORE<i class="fa fa-angle-right"></i></a>

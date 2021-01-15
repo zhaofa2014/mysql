@@ -1,0 +1,48 @@
+昆明三一一医院
+
+
+npm install -g browser-sync
+
+
+cd 项目目录 browser-sync start --server --files "**/*.css, **/*.html"
+
+
+// 主机名可以是ip或域名
+browser-sync start --proxy "主机名""**/*.css, **/*.html"
+
+
+
+//动态
+
+
+
+cd F:\root\www\wwwroot\sg3g.311wgk.com   
+
+
+browser-sync start --proxy "http://002tp5.io" "css/*.css, *.html"
+
+
+
+
+
+
+
+ghw.311ebh.com
+gh.311ebh.com
+sgpc.311ebh.com
+xiazai.com
+wap.km311wgk.com
+www.311ebh.com
+sg3g.311ebh.com
+sm3g.311ebh.com
+smpc.311ebh.com
+sm3g.311wgk.com
+smpc.311wgk.com
+sg3g.311wgk.com
+sgpc.311wgk.com
+wap.311ebh.com
+wap.311wgk.com
+km311wgk.com
+km311ebh.com
+yy.311ebh.com
+311wgk.com

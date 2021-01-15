@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>新增连载内容</title>
+    <link href='css/base.css' rel='stylesheet' type='text/css'>
+    <script language="javascript" src="js/main.js"></script>
+    <script language="javascript" src="../include/js/dedeajax2.js"></script>
+    <script language="javascript" src="js/story.js"></script>
+    <style type="text/css">
+        <!--
+        #addCatalog {
+            position: absolute;
+            left: 455px;
+            top: 64px;
+            width: 325px;
+            height: 238px;
+            z-index: 2;
+            background-color: #F2FDDB;
+            border: 1px solid #889D8F;
+            padding: 6px;
+            display: none
+        }
+
+        #editCatalog {
+            position: absolute;
+            left: 455px;
+            top: 64px;
+            width: 325px;
+            height: 238px;
+            z-index: 1;
+            background-color: #F2FDDB;
+            border: 1px solid #889D8F;
+            padding: 6px;
+            display: none
+        }
+
+        -->
+    </style>
+
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt">小说管理</div>
+</div>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+       width="98%">
+    <tr>
+        <td bgcolor="#EDF9D5" class="tbtitletxt">
+            <table border="0" cellpadding='0' cellspacing='0' width='96%'>
+                <tr>
+                    <td class="tbtitletxt" width='30%'><strong>内容(小说类)&gt;&gt;增加章节内容</strong></td>
+                    <td align='right'>
+                        [<a href="story_list_content.php?bookid=<?php echo $bookid; ?>"><u>本图书内容列表</u></a>]
+                        &nbsp;
+                        [<a href="story_books.php"><u>所有图书</u></a>]
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<form action='story_add_content_action.php' method='post' name='form1' onSubmit="return checkSubmitAddCt();">
+    <input name='bookid' type='hidden' value='<?php echo $bookid; ?>'/>
+    <input name='catid' type='hidden' value='<?php echo $catid; ?>'/>
+    <input name='bookname' type='hidden' value='<?php echo str_replace("'","`",$bookname); ?>' />
+    <input name='booktype' type='hidden' value='<?php echo $booktype; ?>'/>
+    <table align="center" border="0" cellpadding="5" cellspacing="1"
+           style=" border:1px solid #CFCFCF;line-height:31px;margin:auto;" width="98%">
+        <tr>
+            <td style="background:#F9FFE6;padding:7px 6px 6px 10px;">
+                <font color='red'><?php echo $msg; ?></font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="116" style="padding:0px 6px 6px 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                    <tr>
+                        <td class="bline" height="32">小节标题：</td>
+                        <td class="bline"><input class='alltxt' id="title" name="title" size="35" type="text"/></td>
+                    </tr>
+                    <tr>
+                        <td class="bline" style="width:120px">隶属图书名称：</td>
+                        <td class="bline">
+                            <?php echo $bookname; ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bline" height="32">
+                            隶属章节：<br/>
+                            <input id="addchapter" name="addchapter" onClick="ShowHideSelChapter('selchap','newchap')"
+                                   type="checkbox" value="1"
+                            <?php echo(count($chapters)>0 ? "" : " checked='1'"); ?> class='np' />
+                            添加新章节
+                        </td>
+                        <td class="bline" style="padding-top:5px;padding-bottom:5px">
+                            <span display:block id='selchap' style="<?php echo(count($chapters)>0 ? "" :
+                            "display:none"); ?>">
+                            <select id="chapterid" name="chapterid" size="5" style="width:250px">
+                                <?php
+    	$ok = false;
+    	foreach($chapters as $k=>$v){
+                                if(!$ok){ $ok=true; echo "
+                                <option selected value='$k'>第{$chapnums[$k]}章 $v</option>
+                                \r\n"; }
+                                else echo "
+                                <option value='$k'>第{$chapnums[$k]}章 $v</option>
+                                \r\n";
+                                }
+                                ?>
+                            </select>
+                            </span>
+                            <span display:none id="newchap" style="<?php echo(count($chapters)>0 ? "" :
+                            "display:block"); ?>">
+                            新章节名称：
+                            <input class='alltxt' id="chapternew" name="chapternew" size="30" type="text" value="默认章节"/>
+                            <br/>
+                            （如果没有可选章节或已有章节已经结束，请填写新章节名称，名称上不需加“第X章”这样的字样）
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bline" height="32">章节内容：</td>
+                        <td class="bline">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" height="82">
+                            <?php
+	GetEditor("body","",300,"Diy");
+	?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="70">&nbsp;</td>
+                        <td><input class='np coolbg' name="Submit" type="submit" value="保 存"/>　　
+                            <input class='np coolbg' name="Submit2" type="reset" value="重 置"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</form>
+</div>
+</body>
+</html>

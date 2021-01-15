@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="fi" xml:lang="fi" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>Black Admin v2</title>
+    <style type="text/css">/*<![CDATA[*/
+    @import "css/login.css";
+    /*]]>*/</style>
+</head>
+<body>
+<div id="container">
+    <h1>Admin</h1>
+    <div id="box">
+        <form action="login.php" method="post" name="form1">
+            <input name="gotopage" type="hidden" value="<?php if(!empty($gotopage)) echo RemoveXSS($gotopage);?>"/>
+            <input name="dopost" type="hidden" value="login"/>
+            <input name='adminstyle' type='hidden' value='newdedecms'/>
+            <p class="main">
+                <label>用户: </label>
+                <input name="userid" value=""/>
+                <label>密码: </label>
+                <input name="pwd" type="password" value="">
+                <label>验证码: </label>
+                <input id="vdcode" name="validate" style="text-transform:uppercase; width:100px;" type="text"> <img
+                    align="absmiddle" alt="看不清？点击更换" id="vdimgck" onClick="this.src=this.src+'?'"
+                    src="../include/vdimgck.php" style="cursor: pointer;"/>
+            </p>
+            <p class="space">
+                <input class="login" type="submit" value="登陆"/>
+            </p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

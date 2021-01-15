@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>更改字段</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript">
+        function GetFields() {
+
+            var theform = document.form1;
+            var itemname = theform.itemname.value;
+            var fieldname = theform.fname.value;
+            var dtype = theform.dtype.value;
+            var vdefault = theform.vdefault.value;
+            var maxlength = theform.maxlength.value;
+            var vinnertext = theform.vinnertext.value;
+
+            var issearch = (theform.issearch[0].checked ? theform.issearch[0].value : theform.issearch[1].value);
+            var isshow = (theform.isshow[0].checked ? theform.isshow[0].value : theform.isshow[1].value);
+            var state = (theform.state[0].checked ? theform.state[0].value : theform.state[1].value);
+
+            if (itemname == "") {
+                alert("表单提示名称不能为空！");
+                theform.itemname.focus();
+                return false;
+            }
+
+            if ((dtype == "radio" || dtype == "select" || dtype == "checkbox") && vdefault == "") {
+                alert("你选择的select或radio、checkbox类型，必须默认值设置选择的项目（用逗号[,]分开）！");
+                return false;
+            }
+            revalue = "<field:" + fieldname + " itemname=\"" + itemname + "\" autofield=\"1\" type=\"" + dtype + "\"";
+            revalue += " default=\"" + vdefault + "\" ";
+            revalue += " maxlength=\"" + maxlength + "\" issearch=\"" + issearch + "\" isshow=\"" + isshow + "\" state=\"" + state + "\">\r\n" + vinnertext + "</field:" + fieldname + ">\r\n";
+
+            document.form1.fieldstring.value = revalue;
+
+            return true;
+
+        }
+    </script>
+    <style type="text/css">
+        <!--
+        td {
+            padding: 2px;
+            padding-left: 6px;
+        }
+
+        .STYLE1 {
+            color: #FF3300
+        }
+
+        .STYLE2 {
+            color: #666666
+        }
+
+        .nw {
+            float: left;
+            width: 150px;
+        }
+
+        .cls {
+            clear: both;
+        }
+
+        -->
+    </style>
+</head>
+<body topmargin=8>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+       width="98%">
+    <form action="member_model_field_edit.php" method="post" name="form1" onSubmit="return GetFields();">
+        <input name='action' type='hidden' value='save'>
+        <input name='id' type='hidden' value='<?php echo $id?>'>
+        <input name='fname' type='hidden' value='<?php echo $fname?>'>
+        <input name='fieldstring' type='hidden' value=''>
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#EDF9D5" colspan="2" height="20">
+                <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                    <tr>
+                        <td width="30%">&nbsp;<b><a href="member_model_main.php">会员模型管理</a> &gt;&gt; 修改字段：</b></td>
+                        <td align="right" style="padding-top:6px;"><input class="nbt" name="ss1"
+                                                                          onClick="location='member_model_edit.php?id=<?php echo $id; ?>&dopost=edit';"
+                                                                          type="button" value="当前会员模型"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>会员模型管理：</strong><br>
+                <span class="STYLE2">字段提示文字提示文字</span></td>
+            <td bgcolor="#FFFFFF"><input class="pubinputs" id="itemname" name="itemname" type="text"
+                                         value="<?php echo $ctag->GetAtt('itemname')?>">
+                *（发布内容时显示的项名字）
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" width="28%"><strong>字段名称：</strong><br>
+                <span class="STYLE2">只能用英文字母或数字，数据表的真实字段名</span></td>
+            <td bgcolor="#FFFFFF" style="table-layout:fixed;word-break:break-all" width="72%"><?php echo $fname?></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>数据类型：</strong></td>
+            <td bgcolor="#FFFFFF"><select id="type" name="dtype" style="width:200px">
+                <?php
+          $dtype = $ctag->GetAtt('type');
+                if($dtype!='' && isset($fieldtypes[$dtype]))
+                {
+                echo "
+                <option value='{$dtype}'>{$fieldtypes[$dtype]}</option>
+                \r\n";
+                $canchange = true;
+                }
+                else
+                {
+                echo "
+                <option value='{$dtype}'>系统专用类型</option>
+                \r\n";
+                $canchange = false;
+                }
+                if($canchange)
+                {
+                ?>
+                <option value="text">单行文本(varchar)</option>
+                <option value="textchar">单行文本(char)</option>
+                <option value="multitext">多行文本</option>
+                <option value="htmltext">HTML文本</option>
+                <option value="int">整数类型</option>
+                <option value="float">小数类型</option>
+                <option value="datetime">时间类型</option>
+                <option value="img">图片</option>
+                <option value="addon">附件类型</option>
+                <option value="select">使用option下拉框</option>
+                <option value="radio">使用radio选项卡</option>
+                <option value="checkbox">Checkbox多选框</option>
+                <?php
+           }
+          ?>
+            </select>
+                <!--
+                //取消的类型
+                option value="textdata">文本保存HTML数据</option>
+                <option value="imgfile">图片(仅网址)</option>
+                <option value="media">多媒体文件</option>
+                <option value="stepselect">联动类型</option--></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>默认值：</strong><br>
+                <span class="STYLE2"> 如果定义数据类型为select、radio、checkbox时，此处填写被选择的项目(用“,”分开，如“男,女,人妖”)，如果为联动选框，这里填写联动选框项目名称。</span>
+            </td>
+            <td bgcolor="#FFFFFF"><textarea id="vdefault" name="vdefault" style="width:70%;height:60px"
+                                            type="text"><?php echo $ctag->GetAtt('default'); ?></textarea></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>最大长度：</strong><br>
+                <span class="STYLE2"> 文本数据必须填写，大于255为text类型 </span></td>
+            <td bgcolor="#FFFFFF"><input id="maxlength" name="maxlength" style="width:80px;height:24px;padding-top:3px;"
+                                         type="text" value="<?php echo $ctag->GetAtt('maxlength')?>"></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>会员模型表单HTML：</strong></td>
+            <td bgcolor="#FFFFFF"> ◆自定义表单HTML用~name~表示提示文字，~form~表示表单元素<br></td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF"><br></td>
+            <td bgcolor="#FFFFFF"><textarea cols="45" id="vinnertext" name="vinnertext" rows="5"
+                                            style="width:70%; height:120px;"><?php echo $ctag->
+                GetInnerText(); ?></textarea></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>作为搜索条件：</strong></td>
+            <td bgcolor="#FFFFFF"><input name="issearch" type="radio" value="1"<?php  if($ctag->GetAtt('issearch')=='1')
+                echo " checked='1' "; ?> class='np' />
+                是 &nbsp;
+                <input name="issearch" type="radio" value="0"<?php  if($ctag->GetAtt('issearch')=='0') echo "
+                checked='1' "; ?> class='np' />
+                否
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>是否在前台会员相关页面中显示：</strong></td>
+            <td bgcolor="#FFFFFF"><input name="isshow" type="radio" value="1"<?php  if($ctag->GetAtt('isshow')=='1')
+                echo " checked='1' "; ?> class='np' />
+                是 &nbsp;
+                <input name="isshow" type="radio" value="0"<?php  if($ctag->GetAtt('isshow')=='0') echo " checked='1' ";
+                ?> class='np' />
+                否
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>字段状态：</strong></td>
+            <td bgcolor="#FFFFFF"><input name="state" type="radio" value="1"<?php  if($ctag->GetAtt('state')=='1') echo
+                " checked='1' "; ?> class='np' />
+                启用 &nbsp;
+                <input name="state" type="radio" value="0"<?php  if($ctag->GetAtt('state')=='0') echo " checked='1' ";
+                ?> class='np' />
+                禁用
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#F9FDF0" colspan="2" height="28">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td height="45" width="26%">&nbsp;</td>
+                        <td width="10%"><input class="coolbg np" id="button1" name="button1" type="submit" value="确定"/>
+                        </td>
+                        <td><input class="coolbg np" id="button3" name="button3" type="reset" value="重置"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>新增自由列表</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <script language="javascript" src="js/main.js"></script>
+    <script language="JavaScript">
+        function ChangeListStyle() {
+            var itxt = document.getElementById("myinnertext");
+            var myems = document.getElementsByName("liststyle");
+            if (myems[0].checked) itxt.value = document.getElementById("list1").innerHTML;
+            else if (myems[1].checked) itxt.value = document.getElementById("list2").innerHTML;
+            else if (myems[2].checked) itxt.value = document.getElementById("list3").innerHTML;
+            else if (myems[3].checked) itxt.value = document.getElementById("list4").innerHTML;
+            itxt.value = itxt.value.replace("<BR>", "<BR/>");
+            itxt.value = itxt.value.toLowerCase();
+        }
+
+        function ShowHide(objname) {
+            var obj = document.getElementById(objname);
+            if (obj.style.display == "block" || obj.style.display == "")
+                obj.style.display = "none";
+            else
+                obj.style.display = "block";
+        }
+
+        function SelectTemplets(fname) {
+            if (document.all) {
+                var posLeft = window.event.clientY - 200;
+                var posTop = window.event.clientX - 300;
+            } else {
+                var posLeft = 100;
+                var posTop = 100;
+            }
+            window.open("/include/dialog/select_templets.php?&activepath=<?php echo urlencode($cfg_templets_dir)?>&f=" + fname, "poptempWin", "scrollbars=yes,resizable=yes,statebar=no,width=600,height=400,left=" + posLeft + ", top=" + posTop);
+        }
+
+        function CheckSubmit() {
+            if (document.form1.title.value == "") {
+                alert("自由列表标题标题不能为空！");
+                document.form1.title.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt" style="padding-left:10px;">频道管理</div>
+</div>
+<center>
+    <div id="list1" style="display:none">
+        <li>[field:textlink/]</li>
+    </div>
+
+    <div id="list2" style="display:none">
+        <li>[[field:typelink/]][field:textlink/]</li>
+    </div>
+
+    <div id="list3" style="display:none">
+        <table border='0' cellpadding='0' cellspacing='2' width='98%'>
+            <tr>
+                <td align='center'>[field:imglink/]</td>
+            </tr>
+            <tr>
+                <td align='center'>[field:textlink/]</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="list4" style="display:none">
+        <li>
+            [field:imglink/]
+            [field:textlink/]
+            <span class="info">
+        <small>日期：</small>[field:pubdate function="GetDateMK(@me)"/]
+        <small>点击：</small>[field:click/]
+        <small>好评：</small>[field:scores/]
+    </span>
+            <p class="intro"> [field:description/]...</p>
+        </li>
+    </div>
+    <table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle"
+           style="border:1px solid #CFCFCF;border-bottom:none;" width="98%">
+        <tr>
+            <td align="left" background="images/tbg.gif" bgcolor="#EDF9D5" style="padding-left:10px;">
+                <a href="freelist_main.php"><strong><u>自自由列表管理</u></strong></a>
+                <strong> &gt;&gt; 增加一个列表：</strong>
+            </td>
+            <td align="right" background="images/tbg.gif" bgcolor="#EDF9D5"></td>
+        </tr>
+    </table>
+    <table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+           width="98%">
+        <form action="freelist_add.php" method="post" name="form1" onSubmit="return CheckSubmit();">
+            <input name="dopost" type="hidden" value="save">
+            <tr>
+                <td bgcolor="#FFFFFF" height="265" valign="top">
+                    <table align="center" border="0" cellpadding="0" cellspacing="1" width="99%">
+                        <tr>
+                            <td height="56">
+                                <table border="0" cellpadding="0" cellspacing="1" width="100%">
+                                    <tr>
+                                        <td align="left" colspan="2" height="28"><img height="16" src="images/help.gif"
+                                                                                      width="16">自由列表标记的说明：自由列表标记(freelist)的功能基本等同于arclist标记，区别是freelist标记支持分页，这让生成Google
+                                            Map、生成按自定义排序规则的文章列表（如按标题拼音部首排序等）等轻松的实现统一化管理，并且自由列是独立编译的，不与其它模板混在一起，这样不会影响系统生成HTML或访问速度。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" height="28" width="16%">自由列表标题：</td>
+                                        <td align="left" width="84%"><input id="title" name="title" style="width:35%"
+                                                                            type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" height="28">列表HTML存放目录：</td>
+                                        <td align="left"><input id="listdir" name="listdir" style="width:35%"
+                                                                type="text" value="{cmspath}/freelist/">
+                                            {listdir}变量的值
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" height="28">目录默认页名称：</td>
+                                        <td align="left"><input id="defaultpage" name="defaultpage" style="width:35%"
+                                                                type="text" value="index.html">
+                                            <input id="nodefault" name="nodefault" type="checkbox" value="1">
+                                            不使用目录默认主页
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" height="28">命名规则：</td>
+                                        <td align="left"><input id="namerule" name="namerule" style="width:35%"
+                                                                type="text"
+                                                                value="{listdir}/index_{listid}_{page}.html"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" height="30">列表模板：</td>
+                                        <td align="left"><input id="templet" name="templet" style="width:300px"
+                                                                type="text" value="{style}/list_free.htm">
+                                            <input class="inputbut" name="set4"
+                                                   onClick="SelectTemplets('form1.templet');" style="width:60px"
+                                                   type="button" value="浏览..."/></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" height="30">最大列出页数：</td>
+                                        <td align="left">
+                                            <input id="maxpage" name="maxpage" style="width:100px" type="text"
+                                                   value="100">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" height="28">&nbsp;</td>
+                                        <td align="left">以下选项用于模板里的 &lt;meta name=&quot;keywords|description&quot;
+                                            content=&quot;&quot;&gt; 描述
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" height="28">关键字：</td>
+                                        <td align="left"><input id="keywords" name="keywords" style="width:60%"
+                                                                type="text"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" height="28">列表描述：</td>
+                                        <td align="left"><textarea id="description" name="description"
+                                                                   style="width:60%;height:50px"></textarea></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="26" style="background:#FBFCE2;"><img height="8"
+                                                                                          src="images/file_tt.gif"
+                                                                                          style="margin-left:6px;margin-right:6px;"
+                                                                                          width="7">列表样式：（这里是定义自由列表模板里的{dede:freelist
+                                /}标记的样式和属性）
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="72">
+                                <table border="0" cellpadding="0" cellspacing="0" width="99%">
+                                    <tr>
+                                        <td height="126" width="25%"><img height="100" src="images/g_t2.gif"
+                                                                          width="130">
+                                            <input name="liststyle" onClick="ChangeListStyle()" type="radio" value="1">
+                                        </td>
+                                        <td width="25%"><img height="110" src="images/g_t1.gif" width="130">
+                                            <input name="liststyle" onClick="ChangeListStyle()" type="radio" value="2">
+                                        </td>
+                                        <td width="25%"><img height="110" src="images/g_t3.gif" width="130">
+                                            <input name="liststyle" onClick="ChangeListStyle()" type="radio" value="3">
+                                        </td>
+                                        <td><img height="110" src="images/g_t4.gif" width="130"> <input checked
+                                                                                                        name="liststyle"
+                                                                                                        onClick="ChangeListStyle()"
+                                                                                                        type="radio"
+                                                                                                        value="4"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="28"> 限定栏目：
+                                <?php
+                 echo "<select name='typeid' style='width:100'>\r\n";
+                                echo "
+                                <option value='0'>不限栏目...</option>
+                                \r\n";
+                                $dsql->SetQuery("Select ID,typename, channeltype From #@__arctype");
+                                $dsql->Execute();
+                                while($lrow = $dsql->GetObject()){
+                                $disable = '';
+                                if($lrow->channeltype < -1)
+                                {
+                                $disable = 'disabled';
+                                }
+                                echo "
+                                <option $disable value='{$lrow->ID}'>{$lrow->typename}</option>
+                                \r\n";
+                                }
+                                echo "</select>";
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="28"> 限定频道：
+                                <?php
+       echo "<select name='channel' style='width:100'>\r\n";
+                                echo "
+                                <option selected value='0'>不限...</option>
+                                \r\n";
+                                $dsql->SetQuery("Select ID,typename From #@__channeltype where ID>0");
+                                $dsql->Execute();
+                                while($row = $dsql->GetObject())
+                                {
+                                echo "
+                                <option value='{$row->ID}'>{$row->typename}</option>
+                                \r\n";
+                                }
+                                echo "</select>";
+                                ?>
+                                　(如果限定了频道内容模型，则允许使用附加表指定的列表字段作为底层变量)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="28">附加属性：
+                                <?php
+       echo "<select name='att' style='width:100'>\r\n";
+                                echo "
+                                <option selected value='0'>不限...</option>
+                                \r\n";
+                                $dsql->SetQuery("Select * From #@__arcatt");
+                                $dsql->Execute();
+                                while($row = $dsql->GetObject())
+                                {
+                                echo "
+                                <option value='{$row->att}'>{$row->attname}</option>
+                                \r\n";
+                                }
+                                echo "</select>";
+                                ?>
+                                文档发布时间：
+                                <input id="subday2" name="subday" size="6" type="text" value="0">
+                                天以内 （0 表示不限）
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="28">每页记录数：
+                                <input id="pagesize" name="pagesize" size="4" type="text" value="30">
+                                　显示列数：
+                                <input id="col3" name="col" size="4" type="text" value="1">
+                                标题长度：
+                                <input id="titlelen" name="titlelen" size="4" type="text" value="60">
+                                （1 字节 = 0.5个中文字）
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="28"> 高级筛选：
+                                <input id="type1" name="types[]" type="checkbox" value="image">
+                                带缩略图
+                                <input id="type2" name="types[]" type="checkbox" value="commend">
+                                推荐
+                                <input id="type3" name="types[]" type="checkbox" value="spec">
+                                专题　关键字：
+                                <input id="keywordarc" name="keywordarc" type="text">
+                                （&quot;,&quot;逗号分开）
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="28">排列顺序：
+                                <select id="orderby" name="orderby" style="width:120">
+                                    <option value="sortrank">置顶权限值</option>
+                                    <option selected value="pubdate">发布时间</option>
+                                    <option value="senddate">录入时间</option>
+                                    <option value="click">点击量</option>
+                                    <option value="id">文档ＩＤ</option>
+                                    <option value="lastpost">最后评论时间</option>
+                                    <option value="postnum">评论总数</option>
+                                </select>
+                                　
+                                <input checked name="order" type="radio" value="desc">
+                                由高到低
+                                <input name="order" type="radio" value="asc">
+                                由低到高
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="28">循环内的单行记录样式(InnerText)：[<a
+                                    href='javascript:ShowHide("innervar");'><img border="0" height="16"
+                                                                                 src="images/help.gif" width="16">底层变量field参考</a>]
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="99"><textarea cols="80" id="myinnertext" name="innertext" rows="6"
+                                                                   style="width:80%;height:120px"></textarea>
+                                <script language="javascript">document.form1.innertext.value = document.getElementById("list4").innerHTML.toLowerCase();</script>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="80" id='innervar' style="display:none"><font color="#CC6600"><img
+                                    height="16" src="images/help.gif" width="16">支持字段(底层变量[field:varname/])：id,title,color,typeid,ismake,description,pubdate,senddate,arcrank,click,litpic,typedir,typename,arcurl,typeurl,<br>
+                                stime(pubdate 的&quot;0000-00-00&quot;格式),textlink,typelink,imglink,image
+                                普通字段直接用[field:字段名/]表示。<br>
+                                ·Pubdate发布时间的调用参数 [field:pubdate function=MyDate('Y-m-d H:i:s',@me)/]</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" height="50"> &nbsp; <input class="coolbg" id="Submit2" name="Submit2"
+                                                                        type="submit" value="保存一个列表"/>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </form>
+        <tr>
+            <td bgcolor="#F9FCEF" valign="top">&nbsp;</td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>

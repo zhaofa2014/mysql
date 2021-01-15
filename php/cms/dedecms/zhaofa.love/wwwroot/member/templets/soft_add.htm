@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type"/>
+    <title>上传<?php echo $cInfos['typename']; ?> - 会员中心 - <?php echo $cfg_webname; ?></title>
+    <link href="templets/style/base.css" rel="stylesheet" type="text/css"/>
+    <script src="templets/js/j.js" type="text/javascript"></script>
+    <script language='javascript' src="templets/js/main.js" type="text/javascript"></script>
+    <script src="templets/js/load.js" type="text/javascript"></script>
+    <script src="templets/js/leftmenu.js" type="text/javascript"></script>
+    <script src="templets/js/checkSubmit.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        var startNum = 2;
+
+        function MakeUpload() {
+            var upfield = document.getElementById("uploadfield");
+            var morelinkobj = document.getElementById("morelink");
+            var endNum = parseInt(document.addcontent.picnum.value) + startNum - 1;
+            morelinkobj.style.display = "block";
+            if (endNum > 12) endNum = 12;
+            for (startNum; startNum <= endNum; startNum++) {
+
+                upfield.innerHTML += "<label>软件地址" + startNum + "：</label><input type='text' name='softurl" + startNum + "' value='http://' maxlength='100' class='intxt' style='width:250px'> ";
+                upfield.innerHTML += " ";
+                upfield.innerHTML += "服务器名称：<input type='text' name='servermsg" + startNum + "' class='intxt' style='width:150px'>\r\n";
+
+            }
+        }
+
+        function ShowHideAddr() {
+            document.getElementById('morelink').style.display = (document.getElementById('morelink').style.display == 'block' ? 'none' : 'block');
+            document.getElementById('btsh3').value = (document.getElementById('morelink').style.display == 'block' ? '隐藏地址' : '显示地址');
+        }
+
+        -- >
+    </script>
+</head>
+<body>
+<div id="main">
+    <?php include(DEDEMEMBER."/templets/head.htm"); ?>
+    <div class="w960 clearfix" id="content">
+        <?php include(DEDEMEMBER."/templets/menu.php"); ?>
+        <div id="mcpmain">
+            <div id="appTab">
+                <ul>
+                    <li class="thisTab"><a href="#"><span>上传<?php echo $cInfos['typename']; ?></span></a></li>
+                </ul>
+                <div class="tabOther">
+
+                </div>
+            </div>
+            <form action="soft_add.php" class="mTB10 mR10 mL10" enctype="multipart/form-data" method="post"
+                  name="addcontent" onsubmit="return checkSubmit();">
+                <input name="dopost" type="hidden" value="save"/>
+                <input name="channelid" type="hidden" value="<?php echo $channelid; ?>"/>
+                <div id="mainCp">
+                    <h3 class="meTitle"><strong>上传软件</strong></h3>
+                    <div class="postForm">
+                        <p class="cellBg">
+                            <label><?php echo $cInfos['typename']; ?>名称：</label>
+                            <input class="intxt" id="title" maxlength="100" name="title" type="text"/>
+                        </p>
+                        <p>
+                            <label>标签TAG：</label>
+                            <input class="intxt" id="tags" maxlength="100" name="tags" type="text"/>
+                        </p>
+                        <p class="cellBg">
+                            <label>作者：</label>
+                            <input class="intxt" id="writer" maxlength="100" name="writer" style="width:95px;"
+                                   type="text" value="<?php echo $cfg_ml->M_UserName?>">
+                        </p>
+                        <p>
+            <span class="colLeft">
+              <label>文件类型：</label>
+              <select id="filetype" name="filetype" style="width:100px">
+                    <option selected="selected" value=".exe">.exe</option>
+                    <option value=".zip">.zip</option>
+                    <option value=".rar">.rar</option>
+                    <option value=".iso">.iso</option>
+                    <option value=".gz">.gz</option>
+                    <option value="其它">其它</option>
+               </select>
+            </span>
+                            <span class="colRight">
+              <label>界面语言：</label>
+              <select id="language" name="language" style="width:100px">
+                    <option selected="selected" value="简体中文">简体中文</option>
+                    <option value="英文软件">英文软件</option>
+                    <option value="繁体中文">繁体中文</option>
+                    <option value="其它类型">其它类型</option>
+              </select>
+            </span>
+                        </p>
+                        <p class="cellBg">
+            <span class="colLeft">
+              <label>软件类型：</label>
+              <select id="softtype" name="softtype" style="width:100px">
+                <option selected="selected" value="国产软件">国产软件</option>
+                <option value="国外软件">国外软件</option>
+                <option value="汉化补丁">汉化补丁</option>
+              </select>
+            </span>
+                            <span class="colRight">
+              <label>授权方式：</label>
+              <select id="accredit" name="accredit" style="width:100px">
+                    <option selected="selected" value="共享软件">共享软件</option>
+                    <option value="免费软件">免费软件</option>
+                    <option value="开源软件">开源软件</option>
+                    <option value="商业软件">商业软件</option>
+                    <option value="破解软件">破解软件</option>
+                    <option value="游戏外挂">游戏外挂</option>
+              </select>
+            </span>
+                        </p>
+                        <p>
+            <span class="colLeft">
+              <label>运行环境：</label>
+              <input class="intxt" maxlength="100" name='os' style="width:160px" type='text'
+                     value='Win2003,WinXP,Win2000,Win9X'/>
+            </span>
+                            <span class="colRight">
+              <label>软件等级：</label>
+              <select id="softrank" name="softrank" style="width:100px">
+                <option value="1">一星</option>
+                <option value="2">二星</option>
+                <option selected="selected" value="3">三星 </option>
+                <option value="4">四星</option>
+                <option value="5">五星</option>
+              </select>
+            </span>
+                        </p>
+                        <p class="cellBg">
+            <span class="colLeft">
+              <label>官方网址：</label>
+              <input class="intxt" id="officialDemo" maxlength="100" name="officialDemo" style="width:160px"
+                     type="text"/>
+            </span>
+                            <span class="colRight">
+              <label>程序演示：</label>
+              <input class="intxt" id="officialUrl" maxlength="100" name="officialUrl" style="width:160px" type="text"
+                     value="http://"/>
+            </span>
+                        </p>
+                        <p>
+            <span class="colLeft">
+              <label>软件大小：</label>
+              <input class="intxt" id="softsize" maxlength="100" name="softsize" style="width:95px" type="text"/>
+              <select id="unit" name="unit">
+                    <option selected="selected" value="MB">MB</option>
+                    <option value="KB">KB</option>
+                    <option value="GB">GB</option>
+              </select>
+            </span>
+                            <span class="colRight">
+              <label>软件来源：</label>
+              <input class="intxt" id="source" maxlength="100" name="source" style="width:160px" type="text"/>
+            </span>
+                        </p>
+                        <p class="cellBg">
+            <span class="colLeft">
+              <label>隶属栏目：</label>
+                <?php
+    			$typeOptions = GetOptionList(0,$channelid);
+    			echo "<select name='typeid' size='1'>\r\n";
+   				echo "<option selected value='0'>请选择栏目...</option>\r\n";
+   				echo $typeOptions;
+    			echo "</select>";
+			?>
+                <span style="color:#F00">*</span>
+            </span>
+                            <span class="colRight">
+              <label>需要金币：</label>
+              <input class="intxt" id="needmoney" maxlength="100" name="needmoney" style="width:80px" type="text"
+                     value="0"/>(最大允许100个)
+            </span>
+                        </p>
+                        <p>
+                            <label>缩略图：</label>
+                            <input class="intxt" id="litpic" maxlength="100" name="litpic"
+                                   onchange="SeePicNew('divpicview',this);" type="file"/>
+                        </p>
+                        <?php
+      //自定义字段
+      PrintAutoFieldsAdd($cInfos['fieldset'],'autofield');
+      ?>
+                    </div>
+                    <h3 class="meTitle"><strong>软件详情</strong></h3>
+                    <div class="contentShow postForm">
+                        <p>
+                            <label>文字介绍：</label><?php GetEditor("body","",200,"Member"); ?>
+                        </p>
+                        <p class="cellBg">
+                            <label>本地地址：</label>
+                            <input class="intxt" id="softurl1" name="softurl1" style="width:230px" type="text"/>
+                            <button class="bt3" id="sel1" name="sel1" onclick="SelectSoft('addcontent.softurl1')"
+                                    type="button">选取
+                            </button>
+                            服务器名称：
+                            <input class="intxt" id="servermsg1" name="servermsg1" style="width:150px" type="text"
+                                   value="本地下载"/>
+                        </p>
+                        <p>
+                            <label>其它地址：</label>
+                            <input class="intxt" id="picnum" name="picnum" size="8" style="width:230px" type="text"
+                                   value="5"/>
+                            <button class="bt2" id='kkkup2' name='kkkup' onclick="MakeUpload();" type='button'>增加地址
+                            </button>
+                            <button class="bt2" id="btsh3" name="Submit3" onclick="ShowHideAddr();" type="button">隐藏地址
+                            </button>
+                            (最多为12个链接)
+                        </p>
+                        <div id="morelink" style="display:none">
+                            <p><?php echo "<span id='uploadfield' style='line-height: 32px;'></span>"; ?></p></div>
+
+                        <?php
+      if($safe_faq_send == '1'){
+      	$faqkey = array_rand($safefaqs);
+      ?>
+                        <p class="cellBg">
+                            <label>验证问题：</label>
+                            <?php echo $safefaqs[$faqkey]['question'];?> (答案:<?php echo $safefaqs[$faqkey]['answer'];?>)<input
+                                class="intxt" id="safeanswer" name="safeanswer" size="25" style='width:250px;'
+                                type="text"/>
+                            <input name="faqkey" type="hidden" value="<?php echo $faqkey;?>"/>
+                        </p>
+                        <?php
+   		 }
+      	//游客强制加验证码，会员则判断后台开关
+      	if(preg_match("/3/",$safe_gdopen)){
+      ?>
+                        <p class="cellBg">
+                            <label>验证码：</label>
+                            <input class="intxt" id="vdcode" maxlength="100" name="vdcode"
+                                   style='width:50px;text-transform:uppercase;' type="text"/>
+                            <img align="absmiddle" alt="看不清？点击更换" onclick="this.src=this.src+'?'"
+                                 src="../include/vdimgck.php" style="cursor:pointer"/></p>
+                        <?php  }?>
+                        <p>
+                            <button class="button2" type="submit">提交</button>
+                            <button class="button2 ml10" onclick="location.reload();" type="reset">重置</button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <?php include(DEDEMEMBER."/templets/foot.htm"); ?>
+</div>
+</body>
+</html>

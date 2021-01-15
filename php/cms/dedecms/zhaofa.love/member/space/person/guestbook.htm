@@ -1,0 +1,68 @@
+{dede:include file='header.htm'/}
+<div class="wrapper mT10">
+    <div class="west">
+        {dede:include file='side_icon.htm' /}
+        {dede:include file='side_news.htm' /}
+        {dede:include file='side_visitor.htm' /}
+    </div>
+    <div class="east">
+        <dl class="border">
+            <dt class="caption"><strong>留言</strong></dt>
+            <dd class="body pB10"> {dede:datalist}
+                <div class="allList pTB10 dashed">
+                    <div class="img"><a href="index.php?uid={dede:field.uname/}&action=infos" target="_blank"
+                                        title="{dede:field.uname/}">
+                        <?php if($fields['face']==''){
+	         $face=($fields['sex']=='女')? 'templets/images/dfgirl.png' : 'templets/images/dfboy.png';
+            echo  '<img src="'.$face.'" width="50" height="50"/>';
+                        }else{
+                        echo '<img alt="'.$fields['uname'].'的头像" height="50" src="'.$fields['face'].'" width="50"/>';
+                        } ?> </a></div>
+                    <div class="txt">
+                        <p class="p1 mB5">
+                        <h5 class="fLeft"><a href='index.php?uid={dede:field.uname/}'>{dede:field.uname/}</a>：</h5>
+                        <?php
+            	if($_vars['userid']==$cfg_ml->M_LoginID){
+                        echo "<span style='float:right'><a aidhref='index.php?action=guestbookdel&aid=".$fields['']."&uid=".$_vars['userid']."&mid=".$fields['mid']."'>删除</a></span>";
+                        }
+                        ?>
+                        <span class="aGray fRight">{dede:field.dtime function="MyDate('Y-m-d H:i',@me)" /}</span>
+                        </p>
+                        <p class="p2 lh22 f14 aBlack clear">{dede:field.msg function="Text2Html(@me)" /}</p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                {/dede:datalist}
+                <div class="fRight mTB10 pd10">{dede:pagelist/}</div>
+                <div class="clearfix"></div>
+            </dd>
+        </dl>
+        <dl class="border mT10">
+            <dt class="caption"><strong>给我留言</strong></dt>
+            <dd class="body pB10">
+                <form action="index.php" class="f14" method="post" name="form1">
+                    <input name="action" type="hidden" value="guestbooksave"/>
+                    <input name="uidnum" type="hidden" value="{dede:var.mid/}"/>
+                    <input name="uid" type="hidden" value="{dede:var.userid/}"/>
+                    <label>标题：</label>
+                    <input class="ip" id="title" name="title" style="width:250px;height:15px;" type="text"/>
+                    <textarea class="clear mB10 text" id="msg" name="msg" style="width:98%; height:120px;"></textarea>
+                    <button class="fRight button buttonBlue2" type="submit">提交</button>
+                    <label>昵称：</label>
+                    <input class="text" id="uname" name="uname" style="width:100px;" type="text"
+                           value="<?php if(isset($cfg_ml->M_LoginID) && $cfg_ml->M_LoginID!='') echo $cfg_ml->M_LoginID; ?>"/>
+                    <label>验证码：</label>
+                    <input class="text" id="vdcode" name="vdcode" style="width:50px;text-transform:uppercase;"
+                           type="text"/>
+                    <img align="absmiddle" height='20' src='../include/vdimgck.php' width='50'/><a class="mL10 mR5"
+                                                                                                   href="resetpassword.php">找回密码</a><a
+                        href="../member/index_do.php?fmdo=user&dopost=regnew" title="注册">注册</a>
+                </form>
+                <p class="mp10 textCenter aGray">以上网友发言只代表其个人观点，不代表本站的观点或立场。</p>
+            </dd>
+        </dl>
+    </div>
+</div>
+{dede:include file='footer.htm'/}
+</body>
+</html>

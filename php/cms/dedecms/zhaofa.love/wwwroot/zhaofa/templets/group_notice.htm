@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content='text/html; charset=<?php echo $cfg_soft_lang; ?>' http-equiv='Content-Type'>
+    <title>圈子管理>留言管理</title>
+    <script language='javascript' src='js/main.js'></script>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        .rb {
+            border-right: 1px solid #98CAEF
+        }
+
+        .tb {
+            border-top: 1px solid #98CAEF
+        }
+
+        a.current {
+            border-left: 1px solid #cfcfcf;
+            border-right: 1px solid #cfcfcf;
+            background: #ffffff;
+            color: #FF0000;
+            font-weight: bold;
+        }
+    </style>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt">圈子管理</div>
+</div>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+       width="98%">
+    <tr>
+        <td align="center" bgcolor="#ffffff" height="30">
+            <form action="group_notice.php" method="get" name="form1">
+                <input name="gid" type="hidden" value="<?php echo $gid?>"/>
+                <table border="0" cellpadding="0" cellspacing="0" width="425">
+                    <tr>
+                        <td width="70">&nbsp;关键字：</td>
+                        <td align="left" width="101">
+                            <input id="keyword" name="keyword" size="12" style="width:100" type="text"
+                                   value="<?php echo $keyword?>"></td>
+                        <td width="52">&nbsp;用户：</td>
+                        <td width="103"><input id="username" name="username" size="12" style="width:100" type="text"
+                                               value="<?php echo $username?>"/></td>
+                        <td align="center" width="101"><input class="np coolbg" name="imageField" type="submit"
+                                                              value="搜索"/></td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+<table align="center" border="0" cellpadding="0" cellspacing="0" style="margin-top:10px;" width="98%">
+    <tr>
+        <td height="24" width="100%">
+            <table border="0" cellpadding="0" cellspacing="0" class="gtab"
+                   style="border:1px solid #CFCFCF;border-bottom:none;" width="99%">
+                <tr>
+                    <td background="images/tbg.gif" height="26">
+                        <a href="group_main.php">圈子列表</a>
+                        <a href="group_edit.php?id=<?php echo $gid?>"><span id="cate_1">基本资料</span></a>
+                        <a href="group_user.php?gid=<?php echo $gid?>"><span id="cate_2">成员管理</span></a>
+                        <a href="group_guestbook.php?gid=<?php echo $gid?>"><span id="cate_3">留言管理</span></a>
+                        <a class="current" id="cate_4">公告管理</a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" bgcolor="#FFFFFF" height="26">
+            <!--成员管理-->
+            <div id="cate_info_2">
+                <table bgcolor="#CFCFCF" border="0" cellpadding="1" cellspacing="1" width="100%">
+                    <tr bgcolor="#FBFCE2">
+                        <td align="center" height="28" width="39%">标题</td>
+                        <td align="center" height="28" width="14%">发布人</td>
+                        <td align="center" height="28" width="19%">时间</td>
+                        <td align="center" height="28" width="28%">操作</td>
+                    </tr>
+                    {dede:datalist}
+                    <?php
+$rs = $fields;
+?>
+                    <tr bgcolor="#FFFFFF" height="28" onMouseMove="javascript:this.bgColor='#EDF7D0';"
+                        onMouseOut="javascript:this.bgColor='#FFFFFF';">
+                        <td align="center" height="28"><a href="/group/group_notice.php?id=<?php echo $rs['id']?>"
+                                                          target="_blank"><?php echo $rs['title']?></a></td>
+                        <td align="center" height="28"><a
+                                href="member_view.php?id=<?php echo $rs['userid']?>"><?php echo $rs['uname']?></a></td>
+                        <td align="center" height="28"><?php echo GetDateMk($rs['stime'])?></td>
+                        <td align="center" height="28"><a
+                                href="group_notice.php?action=edit&id=<?php echo $rs['id']?>&gid=<?php echo $gid?>">修改</a>
+                            | <a href="group_notice.php?action=del&id=<?php echo $rs['id']?>&gid=<?php echo $gid?>"
+                                 onClick="return(confirm('删除后无法恢复,您确定删除吗?'))">删除</a></td>
+                    </tr>
+                    {/dede:datalist}
+                    <tr>
+                        <td bgcolor="#EDF9D5" colspan="4" height="28">{dede:pagelist/}</td>
+                    </tr>
+
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<?php
+if($action=="edit"){
+?>
+<form action="group_notice.php" method="post">
+    <input name="gid" type="hidden" value="<?php echo $gid;?>"/>
+    <input name="id" type="hidden" value="<?php echo $id;?>"/>
+    <input name="action" type="hidden" value="save"/>
+    <table align="center" border="0" cellpadding="2" cellspacing="2" width="98%">
+        <tr>
+            <td align="left" height="30" width="8%"><strong>标题：</strong></td>
+            <td colspan="2"><input id="title" name="title" size="30" type="text" value="<?php echo $title;?>"/></td>
+        </tr>
+        <tr>
+            <td><strong>内容:</strong></td>
+            <td width="45%"><?php
+	GetEditor("notice",$notice,300,"Small");
+	?></td>
+            <td width="47%">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="3" height="30"><input class="np coolbg" id="button" name="button" type="submit" value="保 存"/>
+            </td>
+        </tr>
+    </table>
+</form>
+<?php
+}
+?>
+</body>
+</html>

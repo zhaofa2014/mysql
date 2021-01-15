@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>采集内容管理</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <script language="javascript">
+        //获得选中文件的文件名
+        function getCheckboxItem() {
+            var allSel = "";
+            if (document.form1.aids.value) return document.form1.aids.value;
+            for (i = 0; i < document.form1.aids.length; i++) {
+                if (document.form1.aids[i].checked) {
+                    if (allSel == "")
+                        allSel = document.form1.aids[i].value;
+                    else
+                        allSel = allSel + "," + document.form1.aids[i].value;
+                }
+            }
+            return allSel;
+        }
+
+        function ReSel() {
+            for (i = 0; i < document.form1.aids.length; i++) {
+                if (document.form1.aids[i].checked) document.form1.aids[i].checked = false;
+                else document.form1.aids[i].checked = true;
+            }
+        }
+
+        function DelSel() {
+            var nid = getCheckboxItem();
+            location.href = "co_do.php?dopost=clear&ids=" + nid;
+        }
+
+        function DelSel2() {
+            var nid = getCheckboxItem();
+            location.href = "co_do.php?dopost=clear&clshash=true&ids=" + nid;
+        }
+
+        function ClearCt() {
+            var nid = getCheckboxItem();
+            location.href = "co_do.php?dopost=clearct&ids=" + nid;
+        }
+    </script>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="2" cellspacing="1" width="98%">
+    <tr>
+        <td background='images/tbg.gif' colspan="8" height="28">
+            <table border="0" cellpadding="0" cellspacing="0" width="96%">
+                <tr>
+                    <td height="18" style="padding-left:10px;" width="20%"><strong>临时内容管理：</strong></td>
+                    <td align="right" width="80%">
+                        <?php echo $exportbt; ?>
+                        <input class="coolbg np" name="ba2" onClick="location.href='co_main.php';" style="width:80px"
+                               type="button" value="节点管理"/>
+                        <input class="coolbg np" name="ba1" onClick="location.href='co_do.php?dopost=clearall';"
+                               style="width:100px" type="button" value="清空下载内容"/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr align="center" bgcolor="#FBFCE2" height="26">
+        <td width="6%">选择</td>
+        <td width="30%">内容标题</td>
+        <td width="15%">所属节点</td>
+        <td width="10%">获取日期</td>
+        <td width="8%">下载</td>
+        <td width="8%">导出</td>
+        <td width="10%">预设栏目</td>
+        <td width="8%">来源网页</td>
+    </tr>
+    <form name="form1">
+        {dede:datalist}
+        <tr align="center" align="center" bgcolor="#FFFFFF" height="26" onMouseMove="javascript:this.bgColor='#FCFDEE';"
+            onMouseOut="javascript:this.bgColor='#FFFFFF';">
+            <td><input class='np' name='aids' type='checkbox' value='{dede:field.aid/}'></td>
+            <td><a href='co_view.php?aid={dede:field.aid/}'>{dede:field.title/}</a></td>
+            <td><a href='co_edit.php?nid={dede:field.nid/}'>{dede:field.notename/}</a></td>
+            <td>{dede:field.dtime function="GetDateMk(@me)" /}</td>
+            <td>{dede:field.isdown function="IsDownLoad(@me)" /}</td>
+            <td>{dede:field.isex function="IsExData(@me)" /}</td>
+            <td>{dede:field.typename /}</td>
+            <td><a href='{dede:field.url/}' target='_blank'>[源网址]</a></td>
+        </tr>
+        {/dede:datalist}
+    </form>
+    <tr>
+        <td bgcolor="#FCFDF7" colspan="8" height="30">&nbsp;
+            <input class="coolbg np" name="b11" onClick="ReSel();" style="width:40px" type="button" value="反选"/> 　
+            <input class="coolbg np" name="b12" onClick="DelSel();" style="width:80px" type="button" value="仅删除网址"/>
+            <input class="coolbg np" name="b13" onClick="ClearCt();" style="width:80px" type="button" value="仅清空内容"/>
+            <input class="coolbg np" name="b14" onClick="DelSel2();" style="width:120px" type="button"
+                   value="删除网址及历史记录"/>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" bgcolor="#F9FCEF" colspan="8" height="36">
+            {dede:pagelist listsize=5/}
+        </td>
+    </tr>
+</table>
+</body>
+</html>

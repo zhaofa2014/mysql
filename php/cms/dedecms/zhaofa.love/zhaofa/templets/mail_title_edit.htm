@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>发送邮件</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+        .rb {
+            border-right: 1px solid #98CAEF
+        }
+
+        .tb {
+            border-top: 1px solid #98CAEF
+        }
+
+        .current {
+            border: 1px solid #dbe4cd;
+            padding: 5px;
+            background: #FFFEF4;
+            color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt" style="padding-left:10px;">邮件订阅</div>
+</div>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#cfcfcf;"
+       width="98%">
+    <tr>
+        <td background="images/tbg.gif" bgcolor="#EDF9D5" height="30" style="padding-left:10px;">编辑期刊</td>
+    </tr>
+    <tr bgcolor="#ffffff" height="26">
+        <td align="left" colspan="7">
+            <form action="mail_title.php" method="post">
+                <input name="dopost" type="hidden" value="editsave"/>
+                <input name="id" type="hidden" value="<?php echo $row['id'] ?>"/>
+                <table bgcolor="#ffffff" border="0" cellpadding="1" cellspacing="1" width="100%">
+                    <tr>
+                        <td align="right" height="30" width="129">期刊号：</td>
+                        <td colspan="2" height="25">第<input class="text" name="period" size="28"
+                                                            style="width:40px;margin-top:5px;" type="text"
+                                                            value="<?php echo $row['period'] ?>"/>期
+                        </td>
+                    </tr>
+                    <tr id="one">
+                        <td align="right" height="30" width="129">订阅分类：</td>
+                        <td colspan="2" height="25">
+                            <select id="typeid" name="typeid">
+                                <?php
+            foreach($btypes as $k=>$v){
+                                if($row['typeid']==$k) echo "
+                                <option selected value='$k'>$v</option>
+                                ";
+                                else echo "
+                                <option value='$k'>$v</option>
+                                ";
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" height="30" width="129">邮件标题：</td>
+                        <td colspan="2" height="25"><input class="company_manage_form_label" id="title" name="title"
+                                                           style="width:250px;margin-top:5px" type="text"
+                                                           value="<?php echo $row['title'] ?>"/>
+                            标题少于70个字符内
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" bgcolor="#ffffff" height="12" style="padding-top:5px;" valign="top"><label
+                                for="pm_textarea">邮件内容：</label></td>
+                        <td bgcolor="#ffffff" height="120" width="568">
+                            <div style="width:568px;"><?php GetEditor("message",$row['content'],450,"MemberLit"); ?></div>
+                        </td>
+                        <td bgcolor="#F9FCEF" width="314">&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <td align="right" bgcolor="#ffffff" height="28" valign="top">&nbsp;</td>
+                        <td bgcolor="#ffffff" colspan="2" height="30"><input class="button01" type="submit" value="提交"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+    <tr bgcolor="#F8FBFB">
+        <td align="center" bgcolor="#F9FCEF" height="26">&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>

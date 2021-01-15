@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>生成HTML</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <script language="javascript">
+        function SelectTemplets(fname) {
+            if (document.all) {
+                var posLeft = window.event.clientY - 100;
+                var posTop = window.event.clientX - 400;
+            } else {
+                var posLeft = 100;
+                var posTop = 100;
+            }
+            window.open("../include/dialog/select_templets.php?&activepath=<?php echo urlencode($cfg_templets_dir.'/plus')?>&f=" + fname, "poptempWin", "scrollbars=yes,resizable=yes,statebar=no,width=600,height=400,left=" + posLeft + ", top=" + posTop);
+        }
+    </script>
+</head>
+<body background="images/allbg.gif" leftmargin="8" topmargin="8">
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <form action="makehtml_js_action.php" method="get" name="form1" target='stafrm'>
+        <tr>
+            <td background='images/tbg.gif' colspan="2" height="28">
+                <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                    <tr>
+                        <td height="18" style="padding-left:10px;" width="30%"><strong>获取栏目JS文件：</strong></td>
+                        <td align="right" width="70%"><a href="catalog_main.php"><u>栏目管理</u></a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" valign="top" width="108">选择栏目：</td>
+            <td bgcolor="#FFFFFF" valign="top" width="377">
+                <?php
+       if(empty($cid)) $cid="0";
+       $tl = new TypeLink($cid);
+       $typeOptions = $tl->GetOptionArray($cid,$admin_catalogs,0,1);
+                echo "<select name='typeid' style='width:300'>\r\n";
+                if($cid=="0") echo "
+                <option selected value='0'>所有栏目...</option>
+                \r\n";
+                echo $typeOptions;
+                echo "</select>";
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="40">JS文件：</td>
+            <td bgcolor="#FFFFFF" height="40">
+                <font color="#660000">
+                    <?php echo "&lt;script src='".$cfg_cmspath."/data/js/".$cid.".js' language='javascript'&gt;&lt;/script&gt;"; ?>
+                </font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="20" valign="top">模板文件：</td>
+            <td bgcolor="#FFFFFF" height="20" valign="top"><input id="templet" name="templet" style="width:300"
+                                                                  type="text" value="plus/js.htm">
+                <input name="set4" onClick="SelectTemplets('form1.templet');" style="width:60" type="button"
+                       value="浏览...">
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="20" valign="top">更新选项：</td>
+            <td bgcolor="#FFFFFF" height="20" valign="top">
+                <input class="np" name="uptype" type="radio" value="all">
+                更新所有栏目
+                <input checked class="np" name="uptype" type="radio" value="onlyme">
+                仅当前文件
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#ffffff" colspan="2" height="20">
+                <input class="coolbg np" name="b112" onClick="document.form1.submit();" style="width:120px"
+                       type="button" value="生成/更新JS文件">
+                <?php
+            if($cfg_remote_site=='Y')
+            {
+          ?> 　
+                <input id="isremote" name="isremote" type="checkbox" value="1">是否同步远程发发布
+                <?php GetFtp();?>
+                <?php }?>
+            </td>
+        </tr>
+    </form>
+    <tr bgcolor="#F9FCEF">
+        <td colspan="2" height="20">
+            <table width="100%">
+                <tr>
+                    <td width="74%">进行状态：</td>
+                    <td align="right" width="26%">
+                        <script language='javascript'>
+                            function ResizeDiv(obj, ty) {
+                                if (ty == "+") document.all[obj].style.pixelHeight += 50;
+                                else if (document.all[obj].style.pixelHeight > 80) document.all[obj].style.pixelHeight = document.all[obj].style.pixelHeight - 50;
+                            }
+                        </script>
+                        [<a href='#' onClick="ResizeDiv('mdv','+');">增大</a>] [<a href='#'
+                                                                                 onClick="ResizeDiv('mdv','-');">缩小</a>]
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#FFFFFF">
+        <td colspan="2" id="mtd">
+            <div id='mdv' style='width:100%;height:350px;'>
+                <iframe frameborder="0" height="100%" id="stafrm" name="stafrm" width="100%"></iframe>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

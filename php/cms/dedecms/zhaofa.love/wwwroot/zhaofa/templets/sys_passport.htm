@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>通行证设置</title>
+    <link href='css/base.css' rel='stylesheet' type='text/css'>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="2" cellspacing="1" width="98%">
+    <tr>
+        <td background="images/tbg.gif" height="23"> &nbsp;<b>通行证设置：</b></td>
+    </tr>
+    <tr>
+        <td bgcolor="#FFFFFF">
+            <table border="0" cellpadding="1" cellspacing="1" width="100%">
+                <form action="sys_passport.php" method="post" name="form1">
+                    <input name="dopost" type="hidden" value="save">
+                    <tr align="center" bgcolor="#E6F7CA" height="25">
+                        <td width="25%">参数说明</td>
+                        <td width="75%">参数值</td>
+                    </tr>
+                    <tr align="center" bgcolor="#F4FCDC" height="25">
+                        <td bgcolor="#FFFFFF"> 是否使用通行证：</td>
+                        <td align="left" bgcolor="#FFFFFF">
+                            <input class='np' name='edit___cfg_pp_need' type='radio'
+                                   value='Y'<?php if($cfg_pp_need=='Y') echo " checked";?>>
+                            是
+                            <input class='np' name='edit___cfg_pp_need' type='radio'
+                                   value='N'<?php if($cfg_pp_need=='N') echo " checked";?>>
+                            否
+                        </td>
+                    </tr>
+                    <tr align="center" bgcolor="#F4FCDC" height="25">
+                        <td> 通行证加密码：</td>
+                        <td align="left">
+                            <?php
+	if($cfg_pp_encode=='') $cfg_pp_encode = chr(mt_rand(ord('A'),ord('Z'))).chr(mt_rand(ord('a'),ord('z'))).chr(mt_rand(ord('A'),ord('Z'))).chr(mt_rand(ord('A'),ord('Z'))).chr(mt_rand(ord('a'),ord('z'))).mt_rand(1000,9999).chr(mt_rand(ord('A'),ord('Z')));
+	?>
+                            <input id='edit___cfg_pp_encode' name='edit___cfg_pp_encode' style='width:80%' type='text'
+                                   value='<?php echo $cfg_pp_encode?>'>
+                        </td>
+                    </tr>
+                    <tr align="center" bgcolor="#FFFFFF" height="25">
+                        <td> 登陆通行证网址：</td>
+                        <td align="left">
+                            <input id='edit___cfg_pp_login' name='edit___cfg_pp_login' style='width:80%' type='text'
+                                   value='<?php echo $cfg_pp_login?>'></td>
+                    </tr>
+                    <tr align="center" bgcolor="#F4FCDC" height="25">
+                        <td>退出通行证网址：</td>
+                        <td align="left"><input id="edit___cfg_pp_exit" name="edit___cfg_pp_exit" style='width:80%'
+                                                type='text' value='<?php echo $cfg_pp_exit?>'></td>
+                    </tr>
+                    <tr align="center" bgcolor="#FFFFFF" height="25">
+                        <td>注册通行证帐号网址：</td>
+                        <td align="left">
+                            <input id='edit___cfg_pp_reg' name='edit___cfg_pp_reg' style='width:80%' type='text'
+                                   value='<?php echo $cfg_pp_reg?>'>
+                        </td>
+                    </tr>
+                    <tr bgcolor="#F3FFDD">
+                        <td colspan="2" height="50">
+                            <table border="0" cellpadding="1" cellspacing="1" width="98%">
+                                <tr>
+                                    <td width="11%">&nbsp;</td>
+                                    <td width="11%"><input border="0" class="np" height="22" name="imageField"
+                                                           src="images/button_ok.gif" type="image" width="60"></td>
+                                    <td width="78%"><img height="22" onClick="document.form1.reset()"
+                                                         src="images/button_reset.gif" style="cursor:pointer"
+                                                         width="60"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </form>
+            </table>
+        </td>
+    </tr>
+</table>
+<center>
+</center>
+</body>
+</html>

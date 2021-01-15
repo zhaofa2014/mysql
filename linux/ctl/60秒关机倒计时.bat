@@ -1,0 +1,1 @@
+用shutdown -s -t 60

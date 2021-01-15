@@ -1,0 +1,116 @@
+
+
+
+
+
+
+
+qchs_user						用户表
+qchs_member					用户信息表
+qchs_order					订单表
+qchs_topic					专题
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+商城有政采云插件
+过程：通过政采云平台提供的App Key，App Secret：下载政采云所有分类    我们自己可以商城就按照这个分类来分
+如果我们商城的分类按照政采云分类 来分  是不是可以通过 政采云插件一键添如加商品到政采云
+结果：否认
+
+
+
+
+直播插件
+结果：待定
+
+
+
+
+客户资料导出（请求教一下                     结果：管理员权限
+物料信息导出（请求教一下）                   结果：管理员权限
+即时库存导出（问：可以在金蝶2个仓库同一个商品库存汇总吗） 结果：手动处理
+信用管理导出（会）
+
+
+
+
+以前商品的图片库   可不可以兼容现在的商品数据库    （我看以前的商品名称一样为依据）
+结果：否认
+
+
+
+
+
+商城  https://www.shelimai.com/
+测试商城 https://test.shelimai.com/
+
+
+采用数据表
+qchs_goods	1910	416 KB	utf8_general_ci	商品信息表                            brand_id                  	parent_id
+
+qchs_member	1178	208 KB	utf8_general_ci	用户信息表
+qchs_user	1448	208 KB	utf8_general_ci	用户表
+
+qchs_spec	1316	73 KB	utf8_general_ci	规格表
+
+qchs_brand	11	16 KB	utf8_general_ci	品牌表                                         
+qchs_category	493	64 KB	utf8_general_ci	产品分类表
+
+
+
+
+
+
+根据金碟物料代码来匹配商城商品/商品分类管理/本地分类列表
+
+
+
+
+
+
+
+
+
+
+
+
+

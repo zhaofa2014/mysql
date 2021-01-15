@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>智能标记向导</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <script language="JavaScript">
+        function ChangeListStyle() {
+            var itxt = document.getElementById("myinnertext");
+            var myems = document.getElementsByName("liststyle");
+            if (myems[0].checked) itxt.value = document.getElementById("list1").innerHTML;
+            else if (myems[1].checked) itxt.value = document.getElementById("list2").innerHTML;
+            else if (myems[2].checked) itxt.value = document.getElementById("list3").innerHTML;
+            else if (myems[3].checked) itxt.value = document.getElementById("list4").innerHTML;
+            itxt.value = itxt.value.replace("<BR>", "<BR/>");
+            itxt.value = itxt.value.toLowerCase();
+        }
+
+        function DoSubmit(j) {
+            document.form1.dopost.value = j;
+            document.form1.submit();
+        }
+
+        function SelectArcList(fname) {
+            var posLeft = 10;
+            var posTop = 10;
+            window.open("content_select_list.php?f=" + fname, "selArcList", "scrollbars=yes,resizable=yes,statebar=no,width=700,height=500,left=" + posLeft + ", top=" + posTop);
+        }
+    </script>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<center>
+<span id="list1" style="display:none">
+·[field:textlink/]([field:pubdate function=MyDate('m-d',@me)/])<br/>
+</span>
+    <span id="list2" style="display:none">
+·[field:typelink/] [field:textlink/]<br/>
+</span>
+    <span id="list3" style="display:none">
+<table border='0' cellpadding='0' cellspacing='2' width='98%'>
+   <tr><td align='center'>[field:imglink/]</td></tr>
+   <tr><td align='center'>[field:textlink/]</td></tr>
+</table>
+</span>
+    <span id="list4" style="display:none">
+<table border='0' cellpadding='2' cellspacing='2' width='100%'>
+  <tr> 
+    <td align='center' rowspan='2' width='30%'>[field:imglink/]</td>
+    <td width='70%'><a href='[field:filename/]'>[field:title/]</a></td>
+  </tr>
+  <tr><td>[field:info/]</td></tr>
+</table>
+</span>
+    <table align="center" bgcolor="#D6D6D6" border="0" cellpadding="2" cellspacing="1" width="98%">
+        <form action="mytag_tag_guide_ok.php" method="post" name="form1" target="stafrm">
+            <input name="dopost" type="hidden" value="gettag"/>
+            <tr>
+                <td align="left" background="images/tbg.gif" height="28" style="padding-left:10px;"><b><a align="left"
+                                                                                                          href="mytag_main.php"><u>自定义标记管理</u></a></b>
+                    &gt;&gt; 智能标记生成向导：
+                </td>
+            </tr>
+            <tr>
+                <td bgcolor="#FFFFFF" height="265" valign="top">
+                    <table align="right" border="0" cellpadding="0" cellspacing="0" style="text-align:left;"
+                           width="99%">
+                        <tr>
+                            <td height="28">列表样式：</td>
+                        </tr>
+                        <tr>
+                            <td height="72">
+                                <table border="0" cellpadding="0" cellspacing="0" width="99%">
+                                    <tr>
+                                        <td height="126" width="25%">
+                                            <img height="100" src="images/g_t2.gif" width="130"/>
+                                            <input checked='1' class="np" name="liststyle" onClick="ChangeListStyle()"
+                                                   type="radio" value="1"/></td>
+                                        <td width="25%">
+                                            <img height="110" src="images/g_t1.gif" width="130"/>
+                                            <input class="np" name="liststyle" onClick="ChangeListStyle()" type="radio"
+                                                   value="2"/></td>
+                                        <td width="25%">
+                                            <img height="110" src="images/g_t3.gif" width="130"/>
+                                            <input class="np" name="liststyle" onClick="ChangeListStyle()" type="radio"
+                                                   value="3"/></td>
+                                        <td>
+                                            <img height="110" src="images/g_t4.gif" width="130"/>
+                                            <input class="np" name="liststyle" onClick="ChangeListStyle()" type="radio"
+                                                   value="4"/></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="28">调用栏目：
+                                <?php
+       $tl = new TypeLink(0);
+       $typeOptions = $tl->GetOptionArray(0,$admin_catalogs,0,1);
+                                echo "<select name='typeid' style='width:284px'>\r\n";
+                                    echo "
+                                    <option selected value='0'>不限栏目...</option>
+                                    \r\n";
+                                    echo $typeOptions;
+                                    echo "</select>";
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="28"> 限定频道：
+                                <?php
+     echo "<select name='channel' style='width:100px'>\r\n";
+                                echo "
+                                <option selected value='0'>不限频道...</option>
+                                \r\n";
+                                $tl->dsql->SetQuery("Select id,typename From #@__channeltype where id>0");
+                                $tl->dsql->Execute();
+                                while($row = $tl->dsql->GetObject())
+                                {
+                                echo "
+                                <option value='{$row->id}'>{$row->typename}</option>
+                                \r\n";
+                                }
+                                echo "</select>";
+                                ?>
+                                附加属性：
+                                <?php
+       echo "<select name='att' style='width:100px'>\r\n";
+                                echo "
+                                <option selected value='0'>不限...</option>
+                                \r\n";
+                                $tl->dsql->SetQuery("Select * From #@__arcatt");
+                                $tl->dsql->Execute();
+                                while($row = $tl->dsql->GetObject())
+                                {
+                                echo "
+                                <option value='{$row->att}'>{$row->attname}</option>
+                                \r\n";
+                                }
+                                echo "</select>";
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="28">调用记录条数：
+                                <input id="row" name="row" size="4" type="text" value="10"/>
+                                　显示列数：
+                                <input id="col" name="col" size="4" type="text" value="1"/>
+                                　标题长度：
+                                <input id="titlelen" name="titlelen" size="4" type="text" value="24"/>
+                                （1 字节 = 0.5个中文字）
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="28"> 高级筛选：
+                                <input class="np" id="type[]" name="types[]" type="checkbox" value="image"/>
+                                带缩略图
+                                <input class="np" id="type[]" name="types[]" type="checkbox" value="commend"/>
+                                推荐
+                                <input class="np" id="type[]" name="types[]" type="checkbox" value="spec"/>
+                                专题　关键字：
+                                <input id="keyword" name="keyword" type="text"/>
+                                （&quot;,&quot;逗号分开）
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="28">排列顺序：
+                                <select id="orderby" name="orderby" style="width:120">
+                                    <option value="sortrank">置顶权限值</option>
+                                    <option selected value="pubdate">发布时间</option>
+                                    <option value="senddate">录入时间</option>
+                                    <option value="click">点击量</option>
+                                    <option value="id">文档ＩＤ</option>
+                                    <option value="lastpost">最后评论时间</option>
+                                    <option value="scores">评论积分</option>
+                                    <option value="rand">随机获取</option>
+                                </select>
+                                　
+                                <input checked='1' class="np" name="order" type="radio" value="desc"/>
+                                由高到低
+                                <input class="np" name="order" type="radio" value="asc"/>
+                                由低到高
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="28">文档发布时间：
+                                <input id="subday" name="subday" size="6" type="text" value="0"/>
+                                天以内 （0 表示不限）
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="28">提取特定文档： <input id="selarc" name="selarc"
+                                                           onClick="SelectArcList('form1.arcid');" style="width:100"
+                                                           type="button" value="选择节点文章">&nbsp;&nbsp;
+                                <textarea id="arcid" name="arcid" rows="3" style="width:90%"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="28">单条记录样式(InnerText)：</td>
+                        </tr>
+                        <tr>
+                            <td height="99"><textarea cols="80" id="myinnertext" name="innertext" rows="6">·[field:textlink/]([field:pubdate function=MyDate('m-d',@me)/])<br/></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="80">
+                                <font color="#CC6600">支持字段：id,title,color,typeid,ismake,description,pubdate,senddate,arcrank,click,litpic,typedir,typename,arcurl,typeurl,
+                                    <br/>
+                                    stime(pubdate 的&quot;0000-00-00&quot;格式),textlink,typelink,imglink,image
+                                    普通字段直接用[field:字段名/]表示。<br/>
+                                    ·Pubdate发布时间的调用参数 [field:pubdate function=MyDate('Y-m-d H:i:s',@me)/] </font></td>
+                        </tr>
+                        <tr>
+                            <td height="39">
+                                <input class="coolbg np" id="Submit1" name="Submit1" onClick="DoSubmit('gettag')"
+                                       type="button" value="生成模板调用标记"/>
+                                &nbsp;
+                                <input class="coolbg np" id="Submit2" name="Submit2" onClick="DoSubmit('savetag')"
+                                       type="button" value="保存为自定义标记"/></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </form>
+        <tr>
+            <td align="left" bgcolor="#F9FCEF" height="25" valign="top">输出结果：</td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="150" valign="top">
+                <div id='mdv' style='width:100%;height:130;'>
+                    <iframe frameborder="0" height="100%" id="stafrm" name="stafrm" width="100%"></iframe>
+                </div>
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>

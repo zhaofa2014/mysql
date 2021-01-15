@@ -1,0 +1,510 @@
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: default
+  name: cloud-centos-money
+  annotations:
+    k8s.kuboard.cn/workload: cloud-centos-money
+    k8s.kuboard.cn/displayName: centos-money
+    k8s.kuboard.cn/ingress: 'true'
+    k8s.kuboard.cn/service: NodePort
+  labels:
+    k8s.kuboard.cn/layer: cloud
+    k8s.kuboard.cn/name: cloud-centos-money
+spec:
+  selector:
+    matchLabels:
+      k8s.kuboard.cn/layer: cloud
+      k8s.kuboard.cn/name: cloud-centos-money
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        k8s.kuboard.cn/layer: cloud
+        k8s.kuboard.cn/name: cloud-centos-money
+    spec:
+      securityContext:
+        seLinuxOptions: {}
+      imagePullSecrets: []
+      restartPolicy: Always
+      initContainers: []
+      containers:
+        - image: '1872220587/study:money'
+          imagePullPolicy: IfNotPresent
+          name: centos-money
+          volumeMounts:
+            - name: node2
+              mountPath: /www/Recycle_bin
+              subPath: www/Recycle_bin
+            - name: node2
+              mountPath: /www/backup
+              subPath: www/backup
+            - name: node2
+              mountPath: /www/php_session
+              subPath: www/php_session
+            - name: node2
+              mountPath: /www/server/panel
+              subPath: www/server/panel
+            - name: node2
+              mountPath: /www/wwwlogs
+              subPath: www/wwwlogs
+            - name: node2
+              mountPath: /www/wwwroot
+              subPath: www/wwwroot
+            - name: node2
+              mountPath: /www/server/data/sql_18887142223_
+              subPath: www/server/data/sql_18887142223_
+            - name: node2
+              mountPath: /www/server/data/study_1888714222
+              subPath: www/server/data/study_1888714222
+            - name: node2
+              mountPath: /www/server/data/www_18887142223_
+              subPath: www/server/data/www_18887142223_
+          command:
+            - /bin/sh
+            - '-c'
+            - top -b
+          resources:
+            limits:
+            requests:
+          env: []
+          lifecycle: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      volumes:
+        - name: master
+          persistentVolumeClaim:
+            claimName: master
+        - name: node1
+          persistentVolumeClaim:
+            claimName: node1
+        - name: node2
+          persistentVolumeClaim:
+            claimName: node2
+      dnsPolicy: ClusterFirst
+      dnsConfig: {}
+      schedulerName: default-scheduler
+      nodeName: node1
+      terminationGracePeriodSeconds: 30
+  replicas: 1
+  volumeClaimTemplates: []
+  serviceName: cloud-centos-money
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: cloud-centos-money
+  annotations:
+    k8s.kuboard.cn/workload: cloud-centos-money
+    k8s.kuboard.cn/displayName: centos-money
+  labels:
+    k8s.kuboard.cn/layer: cloud
+    k8s.kuboard.cn/name: cloud-centos-money
+spec:
+  selector:
+    k8s.kuboard.cn/layer: cloud
+    k8s.kuboard.cn/name: cloud-centos-money
+  type: NodePort
+  ports:
+    - port: 8888
+      targetPort: 8888
+      protocol: TCP
+      name: bt
+      nodePort: 30530
+    - port: 3306
+      targetPort: 3306
+      protocol: TCP
+      name: mysql
+      nodePort: 30507
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+      nodePort: 30494
+    - port: 888
+      targetPort: 888
+      protocol: TCP
+      name: myadmin
+      nodePort: 31739
+    - port: 6789
+      targetPort: 6789
+      protocol: TCP
+      name: reids
+      nodePort: 30178
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+      name: https
+      nodePort: 31596
+    - port: 21
+      targetPort: 21
+      protocol: TCP
+      name: ftp
+      nodePort: 30512
+    - port: 9000
+      targetPort: 9000
+      protocol: TCP
+      name: php
+      nodePort: 30274
+  sessionAffinity: None
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  namespace: default
+  name: cloud-centos-money
+  annotations:
+    k8s.kuboard.cn/workload: cloud-centos-money
+    k8s.kuboard.cn/displayName: centos-money
+  labels:
+    k8s.kuboard.cn/layer: cloud
+    k8s.kuboard.cn/name: cloud-centos-money
+spec:
+  rules:
+    - host: bt.18887142223.cn
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: cloud-centos-money
+              servicePort: bt
+    - host: 18887142223.cn
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: cloud-centos-money
+              servicePort: http
+    - host: www.18887142223.cn
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: cloud-centos-money
+              servicePort: http
+    - host: study.18887142223.cn
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: cloud-centos-money
+              servicePort: http
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: default
+  name: db-redis
+  annotations:
+    k8s.kuboard.cn/workload: db-redis
+    k8s.kuboard.cn/displayName: redis
+    k8s.kuboard.cn/ingress: 'false'
+    k8s.kuboard.cn/service: NodePort
+  labels:
+    k8s.kuboard.cn/layer: db
+    k8s.kuboard.cn/name: db-redis
+spec:
+  selector:
+    matchLabels:
+      k8s.kuboard.cn/layer: db
+      k8s.kuboard.cn/name: db-redis
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        k8s.kuboard.cn/layer: db
+        k8s.kuboard.cn/name: db-redis
+    spec:
+      securityContext:
+        seLinuxOptions: {}
+      imagePullSecrets: []
+      restartPolicy: Always
+      initContainers: []
+      containers:
+        - image: 'redis:6.0'
+          imagePullPolicy: IfNotPresent
+          name: redis
+          volumeMounts: []
+          resources:
+            limits:
+            requests:
+          env: []
+          lifecycle: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      volumes: []
+      dnsPolicy: ClusterFirst
+      dnsConfig: {}
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+  replicas: 1
+  volumeClaimTemplates: []
+  serviceName: db-redis
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: db-redis
+  annotations:
+    k8s.kuboard.cn/workload: db-redis
+    k8s.kuboard.cn/displayName: redis
+  labels:
+    k8s.kuboard.cn/layer: db
+    k8s.kuboard.cn/name: db-redis
+spec:
+  selector:
+    k8s.kuboard.cn/layer: db
+    k8s.kuboard.cn/name: db-redis
+  type: NodePort
+  ports:
+    - port: 6379
+      targetPort: 6379
+      protocol: TCP
+      name: 7swecc
+      nodePort: 30599
+  sessionAffinity: None
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: default
+  name: mysql
+  annotations:
+    k8s.kuboard.cn/workload: mysql
+    k8s.kuboard.cn/displayName: mysql
+    k8s.kuboard.cn/ingress: 'false'
+    k8s.kuboard.cn/service: NodePort
+  labels:
+    k8s.kuboard.cn/layer: db
+    k8s.kuboard.cn/name: mysql
+spec:
+  selector:
+    matchLabels:
+      k8s.kuboard.cn/layer: db
+      k8s.kuboard.cn/name: mysql
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        k8s.kuboard.cn/layer: db
+        k8s.kuboard.cn/name: mysql
+    spec:
+      securityContext:
+        seLinuxOptions: {}
+      imagePullSecrets: []
+      restartPolicy: Always
+      initContainers: []
+      containers:
+        - image: 'mysql:5.7'
+          imagePullPolicy: IfNotPresent
+          name: mysql
+          volumeMounts: []
+          resources:
+            limits:
+            requests:
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+          lifecycle: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      volumes: []
+      dnsPolicy: ClusterFirst
+      dnsConfig: {}
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+  replicas: 1
+  volumeClaimTemplates: []
+  serviceName: mysql
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: mysql
+  annotations:
+    k8s.kuboard.cn/workload: mysql
+    k8s.kuboard.cn/displayName: mysql
+  labels:
+    k8s.kuboard.cn/layer: db
+    k8s.kuboard.cn/name: mysql
+spec:
+  selector:
+    k8s.kuboard.cn/layer: db
+    k8s.kuboard.cn/name: mysql
+  type: NodePort
+  ports:
+    - port: 3306
+      targetPort: 3306
+      protocol: TCP
+      name: kkyybm
+      nodePort: 31085
+  sessionAffinity: None
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: default
+  name: nginx
+  annotations:
+    k8s.kuboard.cn/workload: nginx
+    k8s.kuboard.cn/displayName: nginx
+    k8s.kuboard.cn/ingress: 'false'
+    k8s.kuboard.cn/service: NodePort
+  labels:
+    k8s.kuboard.cn/layer: svc
+    k8s.kuboard.cn/name: nginx
+spec:
+  selector:
+    matchLabels:
+      k8s.kuboard.cn/layer: svc
+      k8s.kuboard.cn/name: nginx
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        k8s.kuboard.cn/layer: svc
+        k8s.kuboard.cn/name: nginx
+    spec:
+      securityContext:
+        seLinuxOptions: {}
+      imagePullSecrets: []
+      restartPolicy: Always
+      initContainers: []
+      containers:
+        - image: 'nginx:1.18'
+          imagePullPolicy: IfNotPresent
+          name: nginx
+          volumeMounts: []
+          resources:
+            limits:
+            requests:
+          env: []
+          lifecycle: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      volumes:
+        - name: master
+          persistentVolumeClaim:
+            claimName: master
+      dnsPolicy: ClusterFirst
+      dnsConfig: {}
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+  replicas: 1
+  volumeClaimTemplates: []
+  serviceName: nginx
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: nginx
+  annotations:
+    k8s.kuboard.cn/workload: nginx
+    k8s.kuboard.cn/displayName: nginx
+  labels:
+    k8s.kuboard.cn/layer: svc
+    k8s.kuboard.cn/name: nginx
+spec:
+  selector:
+    k8s.kuboard.cn/layer: svc
+    k8s.kuboard.cn/name: nginx
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: 3hyk6z
+      nodePort: 32599
+  sessionAffinity: None
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: default
+  name: svc-php
+  annotations:
+    k8s.kuboard.cn/workload: svc-php
+    k8s.kuboard.cn/displayName: php
+    k8s.kuboard.cn/ingress: 'false'
+    k8s.kuboard.cn/service: NodePort
+  labels:
+    k8s.kuboard.cn/layer: svc
+    k8s.kuboard.cn/name: svc-php
+spec:
+  selector:
+    matchLabels:
+      k8s.kuboard.cn/layer: svc
+      k8s.kuboard.cn/name: svc-php
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        k8s.kuboard.cn/layer: svc
+        k8s.kuboard.cn/name: svc-php
+    spec:
+      securityContext:
+        seLinuxOptions: {}
+      imagePullSecrets: []
+      restartPolicy: Always
+      initContainers: []
+      containers:
+        - image: 'php:7.2-fpm'
+          imagePullPolicy: IfNotPresent
+          name: php
+          volumeMounts: []
+          resources:
+            limits:
+            requests:
+          env: []
+          lifecycle: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      volumes: []
+      dnsPolicy: ClusterFirst
+      dnsConfig: {}
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+  replicas: 1
+  volumeClaimTemplates: []
+  serviceName: svc-php
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: svc-php
+  annotations:
+    k8s.kuboard.cn/workload: svc-php
+    k8s.kuboard.cn/displayName: php
+  labels:
+    k8s.kuboard.cn/layer: svc
+    k8s.kuboard.cn/name: svc-php
+spec:
+  selector:
+    k8s.kuboard.cn/layer: svc
+    k8s.kuboard.cn/name: svc-php
+  type: NodePort
+  ports:
+    - port: 9000
+      targetPort: 9000
+      protocol: TCP
+      name: 3nkpxn
+      nodePort: 31011
+  sessionAffinity: None
+

@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>生成HTML</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background="images/allbg.gif">
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt" style="padding-left:10px;">HTML更新</div>
+</div>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+       width="98%">
+    <form action="makehtml_freelist_action.php" method="get" name="form1" target='stafrm'>
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#EDF9D5" colspan="2">
+                <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                    <tr>
+                        <td height="18" style="padding-left:10px;" width="30%"><strong>更新自由列表HTML：</strong></td>
+                        <td align="right" width="70%"><input class="inputbut" name="b113"
+                                                             onClick="location='freelist_main.php';" type="button"
+                                                             value="管理自由列表"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="20" width="108">&nbsp;&nbsp;起始ID：</td>
+            <td bgcolor="#FFFFFF" height="20" valign="top" width="377">
+                <strong>&nbsp;&nbsp;</strong>
+                <input id="startid" name="startid" size="10" type="text"<?php  if(!empty($aid)) echo " value='$aid'"; ?>
+                >
+                （空或0表示从头开始）
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="20" valign="top">&nbsp;&nbsp;结束ID：</td>
+            <td bgcolor="#FFFFFF" height="20" valign="top">
+                <strong>&nbsp;&nbsp;</strong>
+                <input id="endid" name="endid" size="10" type="text"<?php  if(!empty($aid)) echo " value='$aid'"; ?>>
+                （空或0表示直到结束ID）
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="20">&nbsp;&nbsp;每批生成：</td>
+            <td bgcolor="#FFFFFF" height="20"><strong>&nbsp;&nbsp;</strong>
+                <input id="pagesize" name="pagesize" size="8" type="text" value="100">
+                个文件
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#ffffff" colspan="2" height="35"><input class="inputbut" name="b112"
+                                                                                onClick="document.form1.submit();"
+                                                                                type="button" value="开始生成HTML"/>
+                &nbsp;
+            </td>
+        </tr>
+    </form>
+    <tr>
+        <td bgcolor="#F9FCEF" colspan="2" height="20">
+            <table width="100%">
+                <tr>
+                    <td width="74%">进行状态：</td>
+                    <td align="right" width="26%">
+                        <script language='javascript'>
+                            function ResizeDiv(obj, ty) {
+                                if (ty == "+") document.all[obj].style.pixelHeight += 50;
+                                else if (document.all[obj].style.pixelHeight > 80) document.all[obj].style.pixelHeight = document.all[obj].style.pixelHeight - 50;
+                            }
+                        </script>
+                        [<a href='#' onClick="ResizeDiv('mdv','+');">增大</a>] [<a href='#'
+                                                                                 onClick="ResizeDiv('mdv','-');">缩小</a>]
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#FFFFFF">
+        <td colspan="2" id="mtd">
+            <div id='mdv' style='width:100%;height:100;'>
+                <iframe frameborder="0" height="100%" id="stafrm" name="stafrm" width="100%"></iframe>
+            </div>
+            <script language="JavaScript">
+                document.all.mdv.style.pixelHeight = screen.height - 360;
+            </script>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

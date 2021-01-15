@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>发送邮件</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt" style="padding-left:10px;">邮件订阅</div>
+</div>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#cfcfcf;"
+       width="98%">
+    <tr>
+        <td bgcolor="#EDF9D5" colspan="9" height="30" style="padding-left:10px;">编辑分类</td>
+    </tr>
+    <tr bgcolor="#ffffff" height="26">
+        <td align="left" colspan="7">
+            <form action="mail_type.php" method="post">
+                <input name="dopost" type="hidden" value="editsave"/>
+                <input name="id" type="hidden" value="<?php echo $row['id'] ?>"/>
+                <table border="0" cellpadding="1" cellspacing="1" width="100%">
+                    <tr>
+                        <td align="right" bgcolor="#ffffff" height="31" width="129">分类名称：</td>
+                        <td bgcolor="#ffffff" colspan="2" height="31"><input class="company_manage_form_label"
+                                                                             id="typename" name="typename"
+                                                                             style="width:250px;height:16px;margin-top:5px;margin-left:10px;"
+                                                                             type="text"
+                                                                             value="<?php echo $row['typename'] ?>"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" bgcolor="#ffffff" height="12" style="padding-top:5px;" valign="top">分类描述：</td>
+                        <td bgcolor="#ffffff" height="120" style="padding-left: 12px;" width="568"><textarea cols="45"
+                                                                                                             id="description"
+                                                                                                             name="description"
+                                                                                                             style="width:260px;height:120px;"><?php echo $row['description'] ?></textarea>
+                        </td>
+                        <td bgcolor="#ffffff" width="314">&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <td align="right" bgcolor="#F9FCEF" height="28" valign="top">&nbsp;</td>
+                        <td bgcolor="#ffffff" colspan="2" height="30"><input class="button01" type="submit" value="提交"/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+    <tr bgcolor="#F9FCEF">
+        <td align="center" colspan="9" height="26">&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>

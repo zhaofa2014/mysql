@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>管理员帐号--更改帐号</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <tr>
+        <td background="images/tbg.gif" bgcolor="#E7E7E7" height="19">
+            <table border="0" cellpadding="1" cellspacing="1" width="96%">
+                <tr>
+                    <td style="padding-left:10px;" width="24%"><b><strong>更改帐号</strong></b></td>
+                    <td align="right" width="76%"><strong><a href="sys_admin_user.php"><u>管理帐号</u></a></strong></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" bgcolor="#FFFFFF" height="215" valign="top">
+            <form action="sys_admin_user_edit.php" method="post" name="form1">
+                <input name="dopost" type="hidden" value="saveedit"/>
+                <input name="id" type="hidden" value="<?php echo $row['id']?>"/>
+                <table border="0" cellpadding="1" cellspacing="1" width="98%">
+                    <tr>
+                        <td height="30" width="16%">用户登录ID：</td>
+                        <td style="text-align:left;" width="84%"><?php echo $row['userid']?></td>
+                    </tr>
+                    <tr>
+                        <td height="30">用户笔名：</td>
+                        <td style="text-align:left;">
+                            <input id="uname" name="uname" size="16" style="width:200px" type="text"
+                                   value="<?php echo $row['uname']?>"/> &nbsp;（发布文章后显示责任编辑的名字）
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30">用户密码：</td>
+                        <td style="text-align:left;">
+                            <input id="pwd" name="pwd" size="16" style="width:200px" type="text"/> &nbsp;（留空则不修改，只能用'0-9a-zA-Z.@_-!'以内范围的字符）
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30">用户类型：</td>
+                        <td style="text-align:left;">
+                            <select name='usertype' style='width:200px'>
+                                <?php
+			  	$dsql->SetQuery("Select * from #@__admintype order by rank asc");
+                                $dsql->Execute("ut");
+                                while($myrow = $dsql->GetObject("ut"))
+                                {
+                                if($row['usertype']==$myrow->rank) echo "
+                                <option selected='1' value='".$myrow->rank."'>".$myrow->typename."</option>
+                                \r\n";
+                                else echo "
+                                <option value='".$myrow->rank."'>".$myrow->typename."</option>
+                                \r\n";
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30">负责频道：</td>
+                        <td style="text-align:left;">
+                            <select id="typeid" multiple="true" name="typeids[]" size='10' style="width:200px">
+                                <option class='alltype' value="0">--所有频道--</option>
+                                <?php echo $typeOptions?>
+                            </select>(按 Ctrl 可以进行多选)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30">真实姓名：</td>
+                        <td style="text-align:left;"><input id="tname" name="tname" size="16" style="width:200px"
+                                                            type="text" value="<?php echo $row['tname']?>"/> &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30">电子邮箱：</td>
+                        <td style="text-align:left;"><input id="email" name="email" size="16" style="width:200px"
+                                                            type="text" value="<?php echo $row['email']?>"/> &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30">安全验证串：</td>
+                        <td style="text-align:left;">
+                            <input id="safecode" name="safecode" size="16" style="width:200px" type="text"/>
+                            <input name="randcode" type="hidden" value="<?php echo $randcode; ?>"/>
+                            &nbsp;
+                            (复制本代码： <font color='red'><?php echo $safecode;  ?></font> )
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="60">&nbsp;</td>
+                        <td>
+                            <input class="coolbg np" name="Submit" type="submit" value=" 保存用户 "/>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

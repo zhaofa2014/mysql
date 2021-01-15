@@ -1,0 +1,52 @@
+<div id="leftcontrol">
+    <ul id="nav">
+        <li>
+            <div class="fr btn hide" id="closelc">
+                <div class="lcbody">
+                    <div class="lcitem top">
+                        <div class="rect top"></div>
+                    </div>
+                    <div class="lcitem bottom">
+                        <div class="rect bottom"></div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="navitem active"><a class="transform" href="index.php"><span class="circle transform"></span>首页</a>
+        </li>
+
+        <li class="navitem ">{dede:type typeid='1'}<a class="hassub" href="javascript:;"><span
+                class="circle transform"></span>[field:typename /]<span class="more"><span class="h"></span><span
+                class="h v transform"></span></span> </a>{/dede:type}
+            <ul class="subnav transform" data-height="auto">
+                {dede:channel type='son' typeid='1'}
+                <li><a href="list.php?tid=[field:id/]">[field:typename/]</a></li>
+                {/dede:channel}
+            </ul>
+        </li>
+
+        <li class="navitem ">{dede:type typeid='5'}<a class="hassub" href="javascript:;"><span
+                class="circle transform"></span>[field:typename /]<span class="more"><span class="h"></span><span
+                class="h v transform"></span></span> </a>{/dede:type}
+            <ul class="subnav transform" data-height="auto">
+                {dede:channel type='son' typeid='5'}
+                <li><a href="list.php?tid=[field:id/]">[field:typename/]</a></li>
+                {/dede:channel}
+            </ul>
+        </li>
+
+        {dede:type typeid='8'}
+        <li class="navitem "><a class="hassub" href="list.php?tid=[field:id/]"><span class="circle transform"></span>[field:typename
+            /] </a></li>
+        {/dede:type}
+        {dede:type typeid='9'}
+        <li class="navitem "><a class="hassub" href="list.php?tid=[field:id/]"><span class="circle transform"></span>[field:typename
+            /] </a></li>
+        {/dede:type}
+        {dede:type typeid='11'}
+        <li class="navitem "><a class="hassub" href="list.php?tid=[field:id/]"><span class="circle transform"></span>[field:typename
+            /] </a></li>
+        {/dede:type}
+
+    </ul>
+</div>

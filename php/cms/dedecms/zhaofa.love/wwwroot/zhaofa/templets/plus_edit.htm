@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>修改插件</title>
+    <style type="text/css">
+        <!--
+        body {
+            background-image: url(images/allbg.gif);
+        }
+
+        -->
+    </style>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body topmargin="8">
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <form action="plus_edit.php" method="post" name="form1">
+        <input name='dopost' type='hidden' value='saveedit'>
+        <input name='aid' type='hidden' value='<?php echo $aid?>'>
+        <tr>
+            <td background="images/tbg.gif" colspan="2" height="20" style="padding-left:10px;"><b><a
+                    href="plus_main.php"><u>插件管理</u></a>
+                &gt; 修改插件：</b></td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" width="19%">插件名称</td>
+            <td bgcolor="#FFFFFF" width="81%">
+                <input name='plusname' plusname style='width:180px' type='text' value='<?php echo $row['']?>'>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF">作者</td>
+            <td bgcolor="#FFFFFF">
+                <?php echo $row['writer']?>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF">菜单配置</td>
+            <td bgcolor="#FFFFFF">
+                <textarea id="menustring" name="menustring" rows="6"
+                          style="width:80%"><?php echo $row['menustring']?></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF">文件列表</td>
+            <td bgcolor="#FFFFFF">文件用&quot;,&quot;分开，路径相对于管理目录（当前目录）<br>
+                <textarea id="filelist" name="filelist" rows="8"
+                          style="width:80%"><?php echo $row['filelist']?></textarea></td>
+        </tr>
+        <tr bgcolor="#F9FDF0">
+            <td colspan="2" height="28">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="26%">&nbsp;</td>
+                        <td width="15%"><input border="0" class="np" height="22" name="imageField"
+                                               src="images/button_ok.gif" type="image" width="60"></td>
+                        <td width="59%"><img height="22" onClick="location='plus_main.php';"
+                                             src="images/button_back.gif" style="cursor:pointer" width="60"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

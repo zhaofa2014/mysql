@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>增加字段</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript">
+        var notAllow = " <?php echo $f; ?> ";
+
+        function GetFields() {
+            var theform = document.form1;
+            var fieldname = theform.fieldname.value;
+            var itemname = theform.itemname.value;
+            var dtype = 'text';
+            var enums = document.getElementsByName('dtype');
+            for (i = 0; i < enums.length; i++) {
+                if (enums[i].checked) dtype = enums[i].value;
+            }
+            var isnull = theform.isnull.value;
+            var vdefault = theform.vdefault.value;
+            var maxlength = theform.maxlength.value;
+            var vinnertext = theform.vinnertext.value;
+            var spage = (theform.spage[0].checked ? theform.spage[0].value : theform.spage[1].value);
+            var sisnull = (isnull == 0 ? "false" : "true");
+
+            if (itemname == "") {
+                alert("表单提示名称不能为空！");
+                theform.itemname.focus();
+                return false;
+            }
+
+            if (fieldname == "") {
+                alert("字段名称不能为空！");
+                theform.fieldname.focus();
+                return false;
+            }
+
+            if (notAllow.indexOf(" " + fieldname + " ") > -1) {
+                alert("字段名称不合法，如下字段名已经存在，建议在名称后加上数字以区分：\n" + notAllow);
+                return false;
+            }
+
+            if ((dtype == "radio" || dtype == "select" || dtype == "checkbox") && vdefault == "") {
+                alert("你选择的select或radio、checkbox类型，必须默认值设置选择的项目（用逗号[,]分开）！");
+                return false;
+            }
+
+            if (spage == "no") spage = "";
+
+            revalue = "<field:" + fieldname + " itemname=\"" + itemname + "\" autofield=\"1\" type=\"" + dtype + "\" isnull=\"" + sisnull + "\" default=\"" + vdefault + "\" ";
+            revalue += " maxlength=\"" + maxlength + "\" page=\"" + spage + "\">\r\n" + vinnertext + "</field:" + fieldname + ">\r\n";
+            document.form1.fieldstring.value = revalue;
+
+            return true;
+
+        }
+    </script>
+    <style type="text/css">
+        <!--
+        td {
+            padding: 2px;
+            padding-left: 6px;
+            line-height: 150%;
+        }
+
+        .STYLE1 {
+            color: #FF3300
+        }
+
+        .STYLE2 {
+            color: #666666
+        }
+
+        .nw {
+            float: left;
+            width: 150px;
+        }
+
+        .cls {
+            clear: both;
+        }
+
+        -->
+    </style>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+       width="98%">
+    <form action="diy_field_add.php" method="post" name="form1" onSubmit="return GetFields();">
+        <input name='action' type='hidden' value='save'>
+        <input name='diyid' type='hidden' value='<?php echo $diyid?>'>
+        <input name='fieldstring' type='hidden' value=''>
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#EDF9D5" colspan="2" height="20">
+                <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                    <tr>
+                        <td width="30%">&nbsp;<b><a href="diy_main.php">自定义表单管理</a> &gt;&gt; 增加新字段：</b></td>
+                        <td align="right" style="padding-top:6px;">
+                            <input class="nbt" name="ss1"
+                                   onClick="location='diy_edit.php?diyid=<?php echo $diyid; ?>&dopost=edit';"
+                                   type="button" value="当前表单信息"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" colspan="2"><span
+                    class="STYLE1">所有填写的内容不允许包含双引号[<strong>&quot;</strong>]，否则配置将无法写入。</span></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>表单提示文字：</strong><br>
+                <span class="STYLE2">发布内容时显示的提示文字</span></td>
+            <td bgcolor="#FFFFFF">
+                <input class="pubinputs" id="itemname" name="itemname" type="text"/>
+                *
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" width="28%"><strong>字段名称：</strong><br>
+                <span class="STYLE2">
+      	只能用英文字母或数字，数据表的真实字段名，如果数据类型是联动类型，该项应该填写联动类型的<a href='stepselect_main.php' target='_blank'><u>[组名称]</u></a>。
+      </span>
+            </td>
+            <td bgcolor="#FFFFFF" width="72%">
+                <input class="pubinputs" id="fieldname" name="fieldname" type="text"/>
+                *
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF">
+                <strong>内容是否需要分页符：</strong><br/>
+                <span class="STYLE2">如果内容需要分页符，不论何种内容，都可以用#P#副标题#e#作为分页符号实现内容分页，但一个模型里仅允许一个这样的字段!</span>
+            </td>
+            <td bgcolor="#FFFFFF">
+                <input name="isnull" type="hidden" value="1"/>
+                <input class='np' name="spage" type="radio" value="split"/>
+                是
+                &nbsp;
+                <input checked='1' class='np' name="spage" type="radio" value="no"/>
+                否
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF">
+                <strong>数据类型：</strong>
+            </td>
+            <td bgcolor="#FFFFFF">
+                <div class='nw'><input checked='1' class='np' id='dtype1' name='dtype' type='radio' value="text">单行文本(varchar)
+                </div>
+                <div class='nw'><input class='np' id='dtype2' name='dtype' type='radio' value="textchar">单行文本(char)
+                </div>
+                <div class='nw'><input class='np' id='dtype3' name='dtype' type='radio' value="multitext">多行文本</div>
+                <div class='nw'><input class='np' id='dtype4' name='dtype' type='radio' value="htmltext">HTML文本</div>
+                <br class='cls'/>
+                <div class='nw'><input class='np' id='dtype6' name='dtype' type='radio' value="int">整数类型</div>
+                <div class='nw'><input class='np' id='dtype7' name='dtype' type='radio' value="float">小数类型</div>
+                <div class='nw'><input class='np' id='dtype8' name='dtype' type='radio' value="datetime">时间类型</div>
+                <div class='nw'><input class='np' id='dtype13' name='dtype' type='radio' value="select">使用option下拉框
+                </div>
+                <br class='cls'/>
+                <div class='nw'><input class='np' id='dtype14' name='dtype' type='radio' value="radio">使用radio选项卡</div>
+                <div class='nw'><input class='np' id='dtype15' name='dtype' type='radio' value="checkbox">Checkbox多选框
+                </div>
+                <div class='nw'><input class='np' id='dtype9' name='dtype' type='radio' value="img">图片</div>
+                <!--div class='nw'><input type='radio' class='np' name='dtype' id='dtype10' value="imgfile">图片(仅网址)</div-->
+                <!--div class='nw'><input type='radio' class='np' name='dtype' id='dtype11' value="media">多媒体文件</div-->
+                <div class='nw'><input class='np' id='dtype12' name='dtype' type='radio' value="addon">附件类型</div>
+                <!--div class='nw'><input type='radio' class='np' name='dtype' id='dtype16' value="stepselect">联动类型</div-->
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>默认值：</strong><br>
+                <span class="STYLE2">
+      如果定义数据类型为select、radio、checkbox时，此处填写被选择的项目(用“,”分开，如“男,女,人妖”)。
+      </span>
+            </td>
+            <td bgcolor="#FFFFFF">
+                <textarea id="vdefault" name="vdefault" style="width:70%;height:60px" type="text"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>最大长度：</strong><br>
+                <span class="STYLE2">
+      文本数据必须填写，大于255为text类型
+      </span>
+            </td>
+            <td bgcolor="#FFFFFF">
+                <input class="pubinputs" id="maxlength" name="maxlength" style="width:80px;" type="text" value="250"/>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><strong>自定义表单HTML：</strong></td>
+            <td bgcolor="#FFFFFF">
+                ◆自定义表单HTML模板中用~name~表示提示文字，~form~表示表单元素。
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF"></td>
+            <td bgcolor="#FFFFFF">
+                <textarea cols="45" id="vinnertext" name="vinnertext" rows="5"
+                          style="width:70%; height:120px;"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#F9FDF0" colspan="2" height="28">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td height="45" width="26%">&nbsp;</td>
+                        <td width="10%">
+                            <input class="coolbg np" id="button1" name="button1" type="submit" value="确定"/>
+                        </td>
+                        <td>
+                            <input class="coolbg np" id="button2" name="button2" type="reset" value="重置"/>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

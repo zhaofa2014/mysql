@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>采集节点</title>
+    <script language='javascript'>
+        function SubmitNew() {
+            document.form1.totalnum.value = "0";
+            document.form1.submit();
+        }
+    </script>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <tr>
+        <td background='images/tbg.gif' colspan="2" height="20">
+            <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                <form action='co_url.php' name='form2' target='stafrm'>
+                    <input name='small' type='hidden' value='1'>
+                    <input name='nid' type='hidden' value='<?php echo $nid; ?>'>
+                </form>
+                <tr>
+                    <td height="18" style="padding-left:10px;" width="30%">
+                        <strong><?php echo $ntitle; ?></strong>
+                    </td>
+                    <td align="right" width="70%">
+                        <input class="coolbg np" name="b11" onClick="document.form2.submit();" style="width:90px"
+                               type="button" value="查看已下载"/>
+                        <input class="coolbg np" name="b12" onClick="location.href='co_main.php';" style="width:90px"
+                               type="button" value="采集节点管理"/>
+                        <input class="coolbg np" name="b13"
+                               onClick="location.href='co_export.php?nid=<?php echo $nid; ?>';" style="width:90px"
+                               type="button" value="导出数据"/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#FFFFFF" valign="top" width="108">节点名称：</td>
+        <td bgcolor="#FFFFFF" valign="top" width="377">
+            <?php
+        if(!empty($nid)) echo $co->noteInfos['notename'];
+            else echo "所有节点";
+            ?>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#FFFFFF" height="20" valign="top">种子网址数：</td>
+        <td bgcolor="#FFFFFF" height="20" valign="top">
+            <?php echo $unum; ?>
+        </td>
+    </tr>
+    <form action="co_getsource_url_action.php" method="get" name="form1" target='stafrm'>
+        <input name='nid' type='hidden' value='<?php echo $nid; ?>'/>
+        <input dd name='totalnum' type='hidden' value='<?php echo $row['']; ?>' />
+        <input name='startdd' type='hidden' value='0'/>
+        <tr>
+            <td bgcolor="#FFFFFF" height="20">每页采集：</td>
+            <td bgcolor="#FFFFFF" height="20">
+                <input id="pagesize" name="pagesize" size="3" type="text" value="5"/>
+                条，
+                间隔时间：
+                <input id="sptime" name="sptime" size="3" type="text" value="0"/>
+                秒（防刷新的站点需设置）
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="20">特殊选项：</td>
+            <td bgcolor="#FFFFFF" height="20">
+                <input class="np" name="notckpic" type="checkbox"/>
+                不检测重复图片
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" height="20">附加选项：</td>
+            <td bgcolor="#FFFFFF" height="20">
+                <input class="np" name="islisten" type="radio" value="1" <?php if(empty($nid)) echo " checked='1' "; ?>
+                />
+                监控采集模式(检测当前或所有节点是否有新内容)
+                <?php
+        if(!empty($nid)) {
+        ?>
+                <br/>
+                <input ; checked='1' class="np" name="islisten" type="radio" value="-1"/>
+                重新下载全部内容
+                <br/>
+                <input class="np" name="islisten" type="radio" value="0"/>
+                下载种子网址的未下载内容
+                <br/>
+                <?php
+        }
+        ?>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#ffffff" colspan="2" height="28">
+                <input class="coolbg np" name="b112" onClick="document.form1.submit();" style="width:100px"
+                       type="button" value="开始采集网页"/>　
+                <input class="coolbg np" name="b113" onClick="document.form2.submit();" style="width:100px"
+                       type="button" value="查看种子网址"/>
+            </td>
+        </tr>
+    </form>
+    <tr bgcolor="#F9FCEF">
+        <td colspan="2" height="20">
+            <table width="100%">
+                <tr>
+                    <td width="74%">节点的种子网址：</td>
+                    <td align="right" width="26%">
+                        <script language='javascript'>
+                            function ResizeDiv(obj, ty) {
+                                if (ty == "+") document.all[obj].style.pixelHeight += 50;
+                                else if (document.all[obj].style.pixelHeight > 80) document.all[obj].style.pixelHeight = document.all[obj].style.pixelHeight - 50;
+                            }
+                        </script>
+                        [<a href='#' onClick="ResizeDiv('mdv','+');">增大</a>] [<a href='#'
+                                                                                 onClick="ResizeDiv('mdv','-');">缩小</a>]
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr bgcolor="#FFFFFF">
+        <td colspan="2" id="mtd">
+            <div id='mdv' style='width:100%;height:350px;'>
+                <iframe frameborder="0" height="100%" id="stafrm" name="stafrm" width="100%"
+                <?php if($row['dd']>0) echo " src=co_url.php?nid=$nid&small=1";?>></iframe>
+            </div>
+            <script language="JavaScript">
+                document.all.mdv.style.pixelHeight = screen.height - 360;
+            </script>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,107 @@
+﻿安装
+ yum install curl-devel expat-devel gettext-devel \
+  openssl-devel zlib-devel
+
+yum -y install git-core
+
+git --version
+
+
+#修改用户名
+	git config --global user.name "zhaofa"
+
+#修改邮箱
+	git config --global user.email "1872220587@qq.com"
+
+ssh-keygen -t rsa -C "1872220587@qq.com"
+
+cat ~/.ssh/id_rsa.pub
+
+创建仓库
+	git init
+
+添加文件到暂存区
+	git add index.php
+	git add *
+
+提交到本地仓库
+	git commit -m 'add index.php'
+	git commit -m 'composer自己的配置文件001'
+	git commit -m '第天进步一点点'
+
+提交到远程仓库
+	git push https://gitee.com/zhaofafa/tp6.zhaofa.love.git Study
+
+    git clone https://gitee.com/zhaofafa/php.git
+    git clone https://github.com/cuanboy/ScrapyProject.git ScrapyProject
+    git clone https://github.com/colinlet/PHP-Interview-QA.git
+    git clone -b theology https://gitee.com/zhaofafa/php.git study.economics #下载本项目 本地运行
+    git clone -b theology https://gitee.com/zhaofafa/php.git www.18887142223.cn #下载本项目 服务器运行
+    git clone -b L01_6.x https://github.com/summerblue/weibo.git L01_6.x
+
+查看状态
+	git status
+
+往本地仓库更新文件
+	git pull http://zzzzs.s.git
+
+登录远程仓库
+	git pull https://gitee.com/zhaofafa/tp6.zhaofa.love.git Study
+	git pull https://gitee.com/zhaofafa/tp5.zhaofa.love.git Study
+	git pull https://github.com/zhaofa2014/tp6.0.git Study
+	git pull https://github.com/zhaofa2014/tp5.1.git Study
+
+配置远程仓库地址
+	git remote add zyw http://zzzzs.s.git
+
+查看远程仓库地址
+	git remote -v
+
+删除远程仓库地址
+	git remote remove zyw
+
+克隆远程仓库到本地
+	git clone https://github.com/zhaofa2014/tp5.1.git
+
+查看改动日志
+	git log
+
+查看一条改动日志
+	git log --pretty=oneline
+
+版本切换
+	git reset --hard HEAD^^^
+	git reset --hard 2580d
+
+删除版本库中的最后一个提交
+	git reset --hard HEAD~1
+
+查看版本切换的日志
+	git reflog
+
+查看分支
+	git branch
+
+创建分支
+	git branch weichat            git branch 2019.6.20
+
+切换分支
+	git checkout weichat
+
+合并分支
+	git merge weichat
+
+删除分支
+	git branch -d weichat
+
+禁用自动转换
+	git config --global core.autocrlf false
+
+
+
+
+
+
+
+
+

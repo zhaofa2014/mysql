@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>点卡产品分类</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="	background:#cfcfcf;"
+       width="98%">
+    <form action="cards_type.php" method="post" name="form1">
+        <input name="dopost" type="hidden" value="save">
+        <tr>
+            <td background="images/tbg.gif" bgcolor="#EDF9D5" colspan="4" height="28"> &nbsp;<strong>点卡产品分类： </strong>
+            </td>
+        </tr>
+        <tr bgcolor="#FBFCE2">
+            <td align="center" height="24" valign="top" width="26%">产品名称</td>
+            <td align="center" valign="top" width="27%">点数(金币数)</td>
+            <td align="center" width="30%">价格</td>
+            <td align="center" width="17%">状态</td>
+        </tr>
+        <?php
+	$dsql->SetQuery("Select * From #@__moneycard_type");
+        $dsql->Execute();
+        $k=0;
+        while($row = $dsql->GetObject())
+        {
+        $k++;
+        ?>
+        <input name="ID_<?php echo $k?>" type="hidden" value="<?php echo $row->tid?>">
+        <tr align="center" bgcolor="#FFFFFF">
+            <td height="24" valign="top">
+                <input class='pubinputs' id="pname_<?php echo $k?>" name="pname_<?php echo $k?>" style="width:90%"
+                       type="text" value="<?php echo $row->pname?>"/>
+            </td>
+            <td height="24" valign="top">
+                <input class='pubinputs' id="num_<?php echo $k?>" name="num_<?php echo $k?>" style="width:80%"
+                       type="text" value="<?php echo $row->num?>"/>
+            </td>
+            <td>
+                <input class='pubinputs' id="money_<?php echo $k?>" name="money_<?php echo $k?>" style="width:80%"
+                       type="text" value="<?php echo $row->money?>"/>
+                (元)
+            </td>
+            <td>
+                <input checked='1' class='np' id="check_<?php echo $k?>" name="check_<?php echo $k?>" type="checkbox"
+                       value="1"/>
+                保留
+            </td>
+        </tr>
+        <?php
+	}
+	?>
+        <input name="idend" type="hidden" value="<?php echo $k?>">
+        <tr bgcolor="#F8FCF1">
+            <td bgcolor="#F9FCEF" colspan="4" height="24" style="padding-left:10px;" valign="top">
+                <strong>新增一个点卡产品类型：</strong></td>
+        </tr>
+        <tr align="center" bgcolor="#FFFFFF" height="24">
+            <td valign="top">
+                <input class='pubinputs' id="pname_new" name="pname_new" style="width:90%" type="text"/>
+            </td>
+            <td valign="top">
+                <input class='pubinputs' id="num_new" name="num_new" style="width:80%" type="text" value="100"/>
+            </td>
+            <td valign="top">
+                <input class='pubinputs' id="money_new" name="money_new" style='width:80%' type="text" value="30"/>
+                (元)
+            </td>
+            <td align="center" bgcolor="#FFFFFF">
+                <input checked='1' class='np' id="check_new" name="check_new" type="checkbox" value="1"/>
+                新增
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#F9FCEF" colspan="4" height="34">
+                <input class="np coolbg" name="imageField" type="submit" value="确定"/>
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>规则选择框</title>
+    <style type="text/css">
+        * {
+            font-size: 14px;
+            line-height: 150%;
+            padding: 0px;
+            margin: 0px auto;
+        }
+
+        td {
+            padding-left: 10px;
+        }
+
+        body {
+            margin-top: 6px;
+            background-color: #E6E4D5;
+        }
+
+        .bt {
+            height: 24px;
+            width: 60px;
+            border-bottom: 1px solid #726B36;
+            border-right: 1px solid #726B36;
+            border-left: 1px solid #DAD5B1;
+            border-top: 1px solid #DAD5B1;
+        }
+    </style>
+    <script language='javascript'>
+        function SelOK() {
+            var okstr = '';
+            var tmpvalue = '';
+            var totalbox = 12;
+            var selid = location.search.replace('?', '');
+            for (var i = 1; i <= totalbox; i++) {
+                if (document.getElementById('font' + i).checked) {
+                    tmpvalue = document.getElementById('font' + i).value;
+                    tmpvalue = tmpvalue.replace(/&lt;/, '<');
+                    tmpvalue = tmpvalue.replace(/&gt;/, '>');
+                    okstr += (okstr == '' ? "{dede:trim replace=''}" + tmpvalue + "{/dede:trim}" : "\r\n{dede:trim replace=''}" + tmpvalue + "{/dede:trim}");
+                }
+            }
+            if (okstr != '') {
+                var nobj = window.opener.document.getElementById(selid);
+                if (nobj != null) nobj.value = (nobj.value == '' ? okstr : "\r\n" + okstr);
+            }
+            window.opener = true;
+            window.close();
+        }
+    </script>
+</head>
+<body>
+<form action="" id="form1" method="post" name="form1">
+    <table bgcolor="#BCC083" border="0" cellpadding="1" cellspacing="1" width="300">
+        <tr>
+            <td bgcolor="#FFFFFF" width="149">
+                <input id="font1" name="font1" type="checkbox" value="&lt;a([^&gt;]*)&gt;(.*)&lt;/a&gt;"/>
+                超链接
+            </td>
+            <td bgcolor="#FFFFFF" width="151"><input id="font7" name="font7" type="checkbox"
+                                                     value="&lt;object([^&gt;]*)&gt;(.*)&lt;/object&gt;"/>
+                Object
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><input id="font2" name="font2" type="checkbox"
+                                         value="&lt;script([^&gt;]*)&gt;(.*)&lt;/script&gt;"/>
+                javascript脚本
+            </td>
+            <td bgcolor="#FFFFFF"><input id="font8" name="font8" type="checkbox"
+                                         value="&lt;embed([^&gt;]*)&gt;(.*)&lt;/embed&gt;"/>
+                embed
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><input id="font3" name="font3" type="checkbox" value="&lt;!--(.*)--&gt;"/>
+                &lt;!--()--&gt;
+            </td>
+            <td bgcolor="#FFFFFF"><input id="font9" name="font9" type="checkbox"
+                                         value="&lt;iframe([^&gt;]*)&gt;(.*)&lt;/iframe&gt;"/>
+                iframe
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><input id="font4" name="font4" type="checkbox"
+                                         value="&lt;table([^&gt;]*)&gt;(.*)&lt;/table&gt;"/>
+                table
+            </td>
+            <td bgcolor="#FFFFFF"><input id="font10" name="font10" type="checkbox"
+                                         value="&lt;param([^&gt;]*)&gt;(.*)&lt;/param&gt;"/>
+                param
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><input id="font5" name="font5" type="checkbox"
+                                         value="&lt;style([^&gt;]*)&gt;(.*)&lt;/style&gt;"/>
+                style
+            </td>
+            <td bgcolor="#FFFFFF"><input id="font11" name="font11" type="checkbox" value="&lt;div([^.]*)&gt;"/>
+                &lt;div([^.]*)&gt;
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF"><input id="font6" name="font6" type="checkbox" value="&lt;img([^&gt;]*)&gt;"/>
+                img
+            </td>
+            <td bgcolor="#FFFFFF"><input id="font12" name="font12" type="checkbox" value="&lt;/div&gt;"/>
+                &lt;/div&gt;
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" colspan="2" height="32">
+                <input class='bt' id="sb" name="sb" onclick="SelOK();" type="button" value="确定"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>{$title}_
+		<yang:sitename/>
+	</title>
+	<meta name="keywords" content="{$description}"/>
+	<meta name="description" content="{$keywords}"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- <link href="__PUBLIC__/css/bootstrap.css" rel="stylesheet"> -->
+	<link href="__PUBLIC__/css/bootstrap.min.css" rel="stylesheet">
+	<link href="__PUBLIC__/css/animate.css" rel="stylesheet">
+	<link href="__PUBLIC__/css/swiper-3.3.1.min.css" rel="stylesheet"/>
+	<link href="__PUBLIC__/css/style.css" rel="stylesheet">
+	<!--[if lt IE 9]>
+	<script src="__PUBLIC__/js/html5shiv.min.js"></script>
+	<script src="__PUBLIC__/js/respond.min.js"></script>
+	<![endif]-->
+	<script src="__PUBLIC__/js/jquery-1.11.3.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/jquery.superslide.2.1.1.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/swiper-3.3.1.jquery.min.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/wow.min.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/main.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/funtion.js" type="text/javascript"></script>
+	<link href="__PUBLIC__/css/sdf.css" rel="stylesheet" type="text/css"/>
+	<script src="__PUBLIC__/js/common.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/js/myfocus-2.0.4.min.js" type="text/javascript"></script>
+</head>
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
+<div id="wrap">
+	<!--xyhcms-->
+	<include file="Public:header"/>
+	<div id="banner_ny">
+		<yang:abc id='2' limit=''>
+			<img src="{$abc.content}"/>
+		</yang:abc>
+	</div>
+	<div id="main">
+		<div class="container">
+			<div class="adr_top col-md-12 col-sm-12 col-xs-12">
+				<yang:type typeid='$cid' level=''>
+					<p class="posnav fl fadeInLeft wow">{$type.name}<span>{$type.ename}</span></p>
+				</yang:type>
+				<span class="navmore visible-xs"><i class="down">+</i><i class="up">-</i></span> <span
+					class="adress fr hidden-xs"><yang:position /> </span></div>
+			<div class="mainav_l col-md-3 col-sm-4 col-xs-12">
+				<ul class="ce">
+
+					<div class="clear"></div>
+				</ul>
+			</div>
+			<script type="text/javascript">
+				jQuery(function () {
+					jQuery('.sub2').hide();
+					jQuery('.sub3').hide();
+					jQuery(".sub1").each(function () {
+						if (jQuery(this).next('.sub2').length > 0) {
+							jQuery(this).find('a').attr('href', "javascript:void(0)");
+						}
+					});
+					jQuery('.sub1').click(function () {
+						jQuery('.sub2').hide();
+						jQuery('.sub3').hide();
+						jQuery(this).nextUntil('.sub1').show();
+					})
+
+					var jcurrent = jQuery('#');
+					var pid = jcurrent.attr("pid");
+					var depth = jcurrent.attr("depth");
+					if (depth == 2) {
+						jQuery("#" + pid).show().nextUntil(".sub1").show();
+					} else if (depth == 3) {
+						var c1id = jQuery("#" + pid).attr('pid');
+						jQuery('#' + c1id).nextUntil(".sub1").show();
+					}
+
+					jcurrent.find('a').addClass("current");
+				})
+			</script>
+			<div class="main_r col-md-9 col-sm-8 col-xs-12">
+				<div class="dectil newdectil">{$content.title}<span>时间{$content.publish_time|get_date='Y-m-d'} 丨 浏览次数:<yang:click /><script
+						src="/plus/count.php?view=yes&aid=39&mid=1" type='text/javascript'
+						language="javascript"></script></span></div>
+				<div style="text-align: center;">
+					{$content.content}
+				</div>
+			</div>
+			<div class="share2 hidden-xs">
+				<div id="bdshare" style="float:right" class="bdshare_t bds_tools get-codes-bdshare"><span
+						class="bds_more" style=" line-height:15px;color:#666;">分享到:</span> <a href="#"
+																							  title="分享到QQ空间"
+																							  class="bds_qzone"></a>
+					<a href="#" title="分享到新浪微博" class="bds_tsina"></a> <a href="#" title="分享到腾讯微博"
+																		  class="bds_tqq"></a> <a href="#"
+																								  title="分享到人人网"
+																								  class="bds_renren"></a>
+					<!-- <a title="累计分享0次" href="#" class="shareCount">0</a> -->
+				</div>
+				<script src="__PUBLIC__/js/bds_s_v2.js" type="text/javascript" id="bdshare_js"
+						data="type=tools"></script>
+				<script src="__PUBLIC__/js/shell_v2.js" type="text/javascript" id="bdshell_js"></script>
+				<script type="text/javascript">
+					document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+				</script>
+			</div>
+			<div class="cho_art pr">上一篇:
+				<yang:prev/>
+			</a>
+				下一篇:<yang:next /></a> <a href="javascript:history.go(-1)"
+																   class="back hidden-xs pa">返回</a></div>
+		</div>
+	</div>
+</div>
+<!--xyhcms-->
+<include file="Public:footer"/>
+</div>
+</body>
+</html>

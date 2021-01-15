@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content='text/html; charset=<?php echo $cfg_soft_lang; ?>' http-equiv='Content-Type'>
+    <title>圈子分类管理</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <link href='css/tb-box.css' rel='stylesheet' type='text/css'/>
+    <script language="javascript" src="js/main.js"></script>
+    <script language="javascript" src="../include/dedeajax2.js"></script>
+    <script language="javascript" src="../include/js/jquery/jquery.js"></script>
+    <script language="javascript" src="../include/js/jquery/ui.core.js"></script>
+    <script language="javascript" src="../include/js/jquery/ui.draggable.js"></script>
+    <script lang='javascript' src='js/tb-box.js'></script>
+    <script type="text/javascript">
+        <!--
+
+        function ShowAddCatalog() {
+            var msgtxt = $("#addCatalog").html();
+            tb_showmsg(msgtxt, "增加一个分类");
+            // $Obj('addCatalog').style.display='block';
+        }
+
+        function CloseEditCatalog() {
+            $Obj('editCatalog').style.display = 'none';
+        }
+
+        function DelCatalog(cid) {
+            if (window.confirm("你确实要删除这个分类么？")) {
+                location.href = 'group_store.php?action=del&id=' + cid;
+            }
+        }
+
+
+        function EditCatalog(cid) {
+            tb_show("编辑圈子", 'group_store.php?catid=' + cid + '&action=editload&width=400&height=200', true);
+        }
+
+        -->
+    </script>
+    <style type="text/css">
+        <!--
+        #addCatalog {
+            position: absolute;
+            left: 455px;
+            top: 64px;
+            width: 325px;
+            height: 238px;
+            z-index: 1;
+            background-color: #F2FDDB;
+            border: 1px solid #889D8F;
+            padding: 6px;
+            display: none
+        }
+
+        #editCatalog {
+            position: absolute;
+            left: 455px;
+            top: 64px;
+            width: 325px;
+            height: 238px;
+            z-index: 1;
+            background-color: #F2FDDB;
+            border: 1px solid #889D8F;
+            padding: 6px;
+            display: none
+        }
+
+        -->
+    </style>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt">圈子管理 <a href="../group" target="_blank">[查看首页]</a></div>
+</div>
+
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+       width="98%">
+    <tr>
+        <td background="images/tbg.gif" bgcolor="#EDF9D5">
+            <table border="0" cellpadding='0' cellspacing='0' width='96%'>
+                <tr>
+                    <td class="tbtitletxt" width='30%'><strong>分类列表</strong></td>
+                    <td align='right'> [<a href="javascript:ShowAddCatalog();"><u>新增分类</u></a>]</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<table align="center" border="0" cellpadding="5" cellspacing="1"
+       style=" border:1px solid #CFCFCF;line-height:31px;margin:auto;border-top:none;" width="98%">
+    <tr>
+        <td style="background:#ffffff;padding:7px 6px 6px 10px;">
+            <font color='red'><?php if(isset($msg)) echo $msg;?></font>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#FFFFFF" height="116" style="padding:7px 6px 6px 10px;">
+            <table border='0' cellpadding='0' cellspacing='2' width='98%'>
+                <tr>
+                    <td height='1' width='1%'></td>
+                    <td width='70%'></td>
+                    <td></td>
+                </tr>
+                <form action='group_store.php' id='frank' method='post' name='frank'>
+                    <input name='action' type='hidden' value='uprank'/>
+                    {dede:datalist}
+                    <tr bgcolor='#FDFEF1' height='24'>
+                        <td><input name='rank_<?php echo $fields[' size='2' storeidtype='text'']?>'
+                            value='<?php echo $fields['orders']?>'>
+                        </td>
+                        <td style='padding-left:3px'>·<?php echo $fields['storename']?> (id
+                            = <?php echo $fields['storeid']?>)
+                        </td>
+                        <td align='right' style='padding-right:8px;'>
+                            <a href='javascript:EditCatalog(<?php echo $fields[' storeid']?>);'>修改</a> | <a
+                                href='javascript:DelCatalog(<?php echo $fields[' storeid']?>);'>删除</a></td>
+                    </tr>
+                    <?php
+$db->SetQuery("SELECT * FROM #@__store_groups WHERE tops='".$fields['storeid']."' ORDER BY orders ASC");
+                    $db->Execute();
+                    while($rs = $db->GetArray()){
+                    ?>
+                    <tr height='24'>
+                        <td><input name='rank_<?php echo $rs[' size='2' storeidtype='text'']?>'
+                            value='<?php echo $rs['orders']?>'>
+                        </td>
+                        <td style='padding-left:18px'>·<?php echo $rs['storename']?> (id = <?php echo $rs['storeid']?>
+                            )
+                        </td>
+                        <td align='right' style='padding-right:8px;'><a href='javascript:EditCatalog(<?php echo $rs['
+                                                                        storeid']?>);'>修改</a> | <a
+                                href='javascript:DelCatalog(<?php echo $rs[' storeid']?>);'>删除</a>
+                        </td>
+                    </tr>
+                    <?php
+
+}?>
+                    {/dede:datalist}
+                    <tr>
+                        <td colspan="3" height="30">
+                            <input class="np coolbg" name='Submit' style='width:80px' type='Submit' value='更新排序'/></td>
+                    </tr>
+                </form>
+                <tr bgcolor="#F9FCEF">
+                    <td align="center" bgcolor="#F9FCEF" colspan="3" height="26"> {dede:pagelist
+                        listitem="info,index,end,pre,next,pageno" listsize="5"/}
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+<div id="editCatalog">
+    <span id='editCatalogBody'>请稍候，正在载入...</span>
+</div>
+<!--  下面是隐藏的栏目增加／修改表单  -->
+<div id="addCatalog">
+    <form action='group_store.php?action=add' id='addform' method='post' name='addform'>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td height="28" width="90">分类名称：</td>
+                <td align="left" width="101"><input id="storename" name="storename" type="text"/></td>
+                <td align="right" valign="top" width="20"></td>
+            </tr>
+            <tr>
+                <td height="28">隶属分类：</td>
+                <td align="left" colspan="2">
+                    <select id="tops" name="tops">
+                        <option value="0">新建顶级分类</option>
+                        <?php echo $options?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td height="28">排序级别：</td>
+                <td align="left" colspan="2"><input id="orders" name="orders" size="5" type="text" value="0"/>
+                    （数值小靠前）
+                </td>
+            </tr>
+            <tr>
+                <td height="43">&nbsp;</td>
+                <td align="left" colspan="2"><input class="np coolbg" name="Submit" style="width:80px" type="submit"
+                                                    value="增加分类"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

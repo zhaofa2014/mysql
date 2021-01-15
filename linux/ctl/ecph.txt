@@ -1,0 +1,216 @@
+#####节点环境准备#####
+yum install yum-plugin-priorities vim wget ntp ntpdate ntp-doc openssh-server -y
+wget https://bootstrap.pypa.io/ez_setup.py -O - | python
+systemctl enable ntpd
+systemctl start ntpd
+
+firewall-cmd --zone=public --add-port=80-19999/tcp --permanent
+firewall-cmd --reload
+
+setenforce 0
+
+vim /etc/selinux/config
+
+
+####管理器环境准备#######
+yum install yum-plugin-priorities vim wget -y
+wget https://bootstrap.pypa.io/ez_setup.py -O - | python
+
+cat << EOM > /etc/hosts
+192.168.0.116 k8s-k8s-node1
+EOM
+
+
+
+ssh-keygen
+
+ssh-copy-id root@k8s-k8s-node1
+
+cat << EOM > ~/.ssh/config
+Host k8s-k8s-node1
+   Hostname k8s-k8s-node1
+   User root
+EOM
+
+#####管理器安装ceph-deploy######
+cat << EOM > /etc/yum.repos.d/ceph.repo
+[ceph-noarch]
+name=Ceph noarch packages
+baseurl=https://download.ceph.com/rpm-nautilus/el7/noarch
+enabled=1
+gpgcheck=1
+type=rpm-md
+gpgkey=https://download.ceph.com/keys/release.asc
+EOM
+
+/**国内镜像源**/
+cat << EOM > /etc/yum.repos.d/ceph.repo
+[ceph-noarch]
+name=Ceph noarch packages
+baseurl=http://mirrors.aliyun.com/ceph/rpm-nautilus/el7/noarch/
+enabled=1
+gpgcheck=1
+type=rpm-md
+gpgkey=http://mirrors.aliyun.com/ceph/keys/release.asc
+EOM
+
+export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-nautilus/el7
+export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc
+
+yum update
+yum install ceph-deploy -y
+
+
+#####使用ceph-deploy安装ceph到节点上#########
+mkdir my-cluster
+cd my-cluster
+ceph-deploy new k8s-master
+ceph-deploy new k8s-master
+ceph-deploy new --cluster-network 192.168.0.116/24 --public-network 192.168.0.116/24 k8s-master
+
+#####如果是单服务器集群 begin######
+# echo "osd crush chooseleaf type = 0" >> ceph.conf  
+
+#####如果是单服务器集群 end######
+
+yum install ceph ceph-radosgw -y
+
+
+
+ ceph-deploy install
+
+ceph-deploy install --release nautilus k8s-master
+ceph-deploy install --release nautilus k8s-node1
+ceph-deploy install --release nautilus k8s-node2
+ceph-deploy mon create-initial
+ceph-deploy admin k8s-master
+ceph-deploy mgr create k8s-master
+ceph-deploy mds create k8s-master
+
+##查看硬盘用lsblk##
+
+ceph-deploy osd create --data /dev/sdb k8s-master
+ceph-deploy osd create --data /dev/sdb k8s-node1
+ceph-deploy osd create --data /dev/sdb k8s-node2
+
+ceph-deploy rgw create k8s-master
+
+ceph-deploy disk zap k8s-master /dev/vdb
+ceph-deploy disk zap k8s-node1 /dev/vdb
+ceph-deploy disk zap k8s-node2 /dev/vdb
+
+systemctl restart ceph-osd@0.service
+systemctl restart ceph-osd@1.service
+systemctl restart ceph-osd@2.service
+ lvremove  ceph-1041e302-3389-407c-a19e-77873c2d08da
+
+ceph osd crush remove osb.0
+
+#########节点部署看板##################
+yum install ceph-mgr-dashboard -y
+ceph config set mgr mgr/dashboard/jwt_token_ttl 288000
+ceph config set mgr mgr/dashboard/ssl false
+ceph config set mgr mgr/dashboard/server_addr 192.168.0.116
+ceph config set mgr mgr/dashboard/server_port 8001
+ceph config set mgr mgr/dashboard/k8s-k8s-node1/server_addr 192.168.0.116
+ceph config set mgr mgr/dashboard/k8s-k8s-node1/server_port 8001
+ceph mgr module enable dashboard
+ceph dashboard ac-user-create admin 123456 administrator
+radosgw-admin user create --uid=root --display-name=root  --system
+ "keys": [
+        {
+            "user": "root",
+            "access_key": "6XV0U8VB8I6ZWDV43F3A",
+            "secret_key": "CbHzhxEMC14oiPRH3yNZAV92nfGq5mfjWLbi1sPC"
+        }
+
+
+
+
+ "keys": [
+        {
+            "user": "root",
+            "access_key": "WQDFBK0WE2966CWK0T8N",
+            "secret_key": "kzk2MZRDxzQTpGwUv3wY7hezYRx5zkMMQ2xm8PtG"
+        }
+    ],
+
+
+
+
+
+
+
+
+
+
+ceph dashboard set-rgw-api-access-key WQDFBK0WE2966CWK0T8N
+ceph dashboard set-rgw-api-secret-key kzk2MZRDxzQTpGwUv3wY7hezYRx5zkMMQ2xm8PtG
+ceph dashboard set-rgw-api-host 192.168.0.116
+ceph dashboard set-rgw-api-port 7480
+ceph dashboard set-rgw-api-scheme http
+ceph dashboard set-rgw-api-user-id root
+ceph dashboard set-rgw-api-ssl-verify False
+
+
+
+
+
+
+
+
+
+ceph config set mgr mgr/dashboard/jwt_token_ttl 288000
+ceph config set mgr mgr/dashboard/ssl false
+ceph config set mgr mgr/dashboard/server_addr 192.168.0.116
+ceph config set mgr mgr/dashboard/server_port 8080
+ceph config set mgr mgr/dashboard/k8s-master/server_addr 192.168.0.116
+ceph config set mgr mgr/dashboard/k8s-master/server_port 8080
+ceph mgr module enable dashboard k8s-master
+ceph dashboard ac-user-create admin 123456 administrator
+
+
+
+
+
+使用
+
+修改了配置, 要同步到其它集群节点
+ceph-deploy --overwrite-conf admin k8s-master k8s-node1 k8s-node2
+
+重启监控服务
+systemctl restart ceph-mon.target
+
+
+
+删除时pool名输两次，后再接 --yes-i-really-really-mean-it 参数就可以删
+除了
+ceph osd pool delete test_pool  test_pool --yes-i-really-really-mean-it 
+ceph osd pool delete cephfs_pool  cephfs_pool --yes-i-really-really-mean-it 
+
+我这里把本机的/etc/fstab文件上传到test_pool,并取名为newfstab
+rados put newfstab /etc/fstab -- pool=test_pool 
+
+
+
+解决方法: disable掉相关特性
+rbd feature disable rbd_pool/volume1 exclusive-lock object-map fast-diff deep-flatten
+
+
+ceph-deploy mds create k8s-master k8s-node1 k8s-node2
+
+ceph osd pool delete rbd_pool rbd_pool --yes-i-really-really-mean-it
+ceph osd pool delete cephfs_metadata cephfs_metadata --yes-i-really-really-mean-it
+ceph osd pool delete cephfs_pool cephfs_pool --yes-i-really-really-mean-it
+
+挂载
+mount -t ceph k8s-master:6789:/ /mnt -o name=admin,secretfile=/root/admin.key
+
+
+
+
+
+
+
+
+、

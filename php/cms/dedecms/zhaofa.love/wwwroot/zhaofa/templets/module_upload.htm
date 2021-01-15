@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>模块打包</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt" style="padding-left:10px;">模块管理</div>
+</div>
+<table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+       width="96%">
+    <form action="plus_add.php" method="post" name="form1">
+        <input name='dopost' type='hidden' value='save'>
+        <tr>
+            <td bgcolor="#EDF9D5" colspan="2" height="20" style="padding-left:10px;"><b><a
+                    href="plus_main.php"><u>模块管理</u></a>
+                &gt; 模块打包：</b></td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF" width="19%">插件名称</td>
+            <td bgcolor="#FFFFFF" width="81%"><input id="plusname" name="plusname" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF">作者</td>
+            <td bgcolor="#FFFFFF"><input id="writer" name="writer" type="text"></td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF">主程序文件</td>
+            <td bgcolor="#FFFFFF"><input id="link" name="link" size="30" type="text"></td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF">目标框架</td>
+            <td bgcolor="#FFFFFF"><input id="target" name="target" type="text" value="main"></td>
+        </tr>
+        <tr>
+            <td align="center" bgcolor="#FFFFFF">文件列表</td>
+            <td bgcolor="#FFFFFF">文件用&quot;,&quot;分开，路径相对于管理目录（当前目录）<br>
+                <textarea id="filelist" name="filelist" rows="8" style="width:60%"></textarea></td>
+        </tr>
+        <tr bgcolor="#F9FDF0">
+            <td colspan="2" height="28">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td width="26%">&nbsp;</td>
+                        <td width="15%"><input class="coolbg np" name="imageField" type="submit" value="提交"/></td>
+                        <td width="59%"><input class="coolbg np" id="button" name="button"
+                                               onClick="location='plus_main.php';" type="button" value="返回"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

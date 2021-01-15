@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type"/>
+    <title>修改附件 - 会员中心 - <?php echo $cfg_webname; ?></title>
+    <link href="templets/style/base.css" rel="stylesheet" type="text/css"/>
+    <script src="templets/js/j.js" type="text/javascript"></script>
+    <script language='javascript' src='templets/js/main.js' type="text/javascript"></script>
+    <script src="templets/js/load.js" type="text/javascript"></script>
+    <script src="templets/js/leftmenu.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        function checkSubmit() {
+            if (document.form1.title.value == '') {
+                alert('标题不能为空！');
+                document.form1.title.focus();
+                return false;
+            }
+            if (document.form1.vdcode.value == '') {
+                document.form1.vdcode.focus();
+                alert('验证码不能为空！');
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="main">
+    <?php include(DEDEMEMBER."/templets/head.htm"); ?>
+    <div class="w960 clearfix" id="content">
+        <?php include(DEDEMEMBER."/templets/menu.php"); ?>
+        <div id="mcpmain">
+            <div id="appTab">
+                <ul>
+                    <li class="thisTab"><a href="uploads.php">附件管理</a></li>
+                </ul>
+            </div>
+            <form action="uploads_edit.php" enctype="multipart/form-data" method="post" name="form1"
+                  onsubmit="return checkSubmit();">
+                <input name="aid" type="hidden" value="<?php echo $aid; ?>"/>
+                <input name="mediatype" type="hidden" value="<?php echo $arow['mediatype']; ?>"/>
+                <input name="oldurl" type="hidden" value="<?php echo $arow['url']; ?>"/>
+                <input name="dopost" type="hidden" value="save"/>
+                <div id="mainCp">
+                    <h3 class="meTitle"><strong>修改附件</strong></h3>
+                    <div class="postForm">
+                        <p class="cellBg">
+                            <label>允许的类型：</label>
+                            <?php
+     			if($arow['mediatype']==1){
+     			echo $cfg_imgtype;
+     		    }
+     			else if($arow['mediatype']==2){
+     			echo "swf";
+			    }
+     			else if($arow['mediatype']==3){
+     			echo $cfg_mediatype;
+     		    }
+     			else{
+     			echo $cfg_mb_addontype;
+     		    }
+     		?>
+                        </p>
+                        <p>
+                            <label>注释标题：</label>
+                            <input class="intxt" id="title" name="title" type="text"
+                                   value="<?php echo $arow['title']?>"/>
+                        </p>
+                        <?php
+    		 if($arow['mediatype']==1){
+     		?>
+                        <p class="cellBg">
+                            <label>更换图片：</label>
+                            <input id="addonfile" name="addonfile" style="width:300px"
+                                   type="file" <?php if($arow['mediatype']==1) echo " onChange=\"SeePicNew('divpicview',this);\" "; ?>
+                            />
+                        </p>
+                        <p>
+                            <label>预览区：</label>
+                            <?php
+             	$furl = $arow['url'];
+             	$w = 150;
+             	if($furl!="" && file_exists($cfg_basedir.$furl))
+             	{
+             		$info = "";
+             		$datas = GetImageSize($cfg_basedir.$furl,$info);
+             		if($datas[0]>500)
+                            {
+                            $w = 500;
+                            }
+                            else
+                            {
+                            $w = $datas[0];
+                            }
+                            }
+                            else
+                            {
+                            $furl = "images/pview.gif";
+                            }
+                            $furl = $furl."?".time();
+                            ?>
+                        <div class='divpre' id='divpicview'></div>
+                        <a href="<?php echo $furl?>" target="_blank"><img border="0" id="picview"
+                                                                          src="<?php echo $furl; ?>"
+                                                                          width="<?php echo $w?>"/></a>
+                        </p>
+                        <?php
+           }else{
+           ?>
+                        <p class="cellBg">
+                            <label>更换附件：</label>
+                            <input id="addonfile" name="addonfile" style="width:300px" type="file"/>
+                        </p>
+                        <?php
+           }
+           ?>
+                        <p>
+                            <button class="button2" type="submit">更改</button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <?php include(DEDEMEMBER."/templets/foot.htm"); ?>
+</div>
+</body>
+</html>

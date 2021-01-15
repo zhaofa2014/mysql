@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <!--xyhcms-->
+  <include file="Public:jscss"/>
+</head>
+<body   data-spy="scroll" data-target="#myScrollspy" data-offset="20">
+<div id="wrap">
+  <!--xyhcms-->
+  <include file="Public:header" />
+  <div id="banner_ny">
+    <!--xyhcms轮播图-->
+    <yang:abc id='2' limit=''>
+      <img src="{$abc.content}"/>
+    </yang:abc>
+  </div>
+  <div id="main">
+    <div class="container"> <div class="adr_top col-md-12 col-sm-12 col-xs-12">
+      <!--xyhcms指定顶级栏目调用-->
+      <yang:type typeid='2' level=''>
+        <p class="posnav fl fadeInLeft wow">{$type.name}<span>{$type.ename}</span></p>
+      </yang:type>
+      <span class="navmore visible-xs"><i class="down">+</i><i class="up">-</i></span> <span class="adress fr hidden-xs"><yang:position /> </span> </div>
+      <div class="mainav_l col-md-3 col-sm-4 col-xs-12">
+        <ul class="ce">
+
+          <!--xyhcms指定二级栏目调用-->
+          <yang:catlist flag='1' type='son' typeid='2'>
+            <li><a href="{$catlist.url}">{$catlist.name}</a></li>
+          </yang:catlist>
+
+          <div class="clear"></div>
+        </ul>
+      </div>
+      <script type="text/javascript">
+        jQuery(function () {
+          jQuery('.sub2').hide();
+          jQuery('.sub3').hide();
+          jQuery(".sub1").each(function () {
+            if (jQuery(this).next('.sub2').length > 0) {
+              jQuery(this).find('a').attr('href', "javascript:void(0)");
+            }
+          });
+          jQuery('.sub1').click(function () {
+            jQuery('.sub2').hide();
+            jQuery('.sub3').hide();
+            jQuery(this).nextUntil('.sub1').show();
+          })
+
+          var jcurrent = jQuery('#');
+          var pid = jcurrent.attr("pid");
+          var depth = jcurrent.attr("depth");
+          if (depth == 2) {
+            jQuery("#" + pid).show().nextUntil(".sub1").show();
+          } else if (depth == 3) {
+            var c1id = jQuery("#" + pid).attr('pid');
+            jQuery('#' + c1id).nextUntil(".sub1").show();
+          }
+
+          jcurrent.find('a').addClass("current");
+        })
+      </script>
+      <div class="main_r products col-md-9 col-sm-8 col-xs-12">
+        <div class="dectil list">
+          <ul class="prolist">
+            <yang:list typeid='19' titlelen='30' pagesize='6'>
+              <li class="col-md-4 col-sm-6 col-xs-6 pr"><a href="{$list.url}">
+                <div class="pimg"><img src="{$list.litpic}"></div>
+                <p class="ptitle tc pa">{$list.title}</p>
+                <div class="li_hover pa tc hidden-xs"> </div>
+              </a></li>
+            </yang:list>
+          </ul>
+          <div class="page tc">
+            {$page}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--xyhcms-->
+  <include file="Public:footer" />
+</div>
+</body>
+</html>

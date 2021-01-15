@@ -1,0 +1,229 @@
+<!doctype html>
+<html class="effect">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <title>{dede:global.cfg_webname/}</title>
+    <meta content="{dede:global.cfg_description/}" name="description"/>
+    <meta content="{dede:global.cfg_keywords/}" name="keywords"/>
+    <meta content="adminbuy.cn" name="author">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/bxslider.min.css" rel="stylesheet" type="text/css">
+    <link href="css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="css/stylem.css" rel="stylesheet" type="text/css">
+    <link href="css/263m.css" rel="stylesheet" type="text/css">
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?1b1ebcede04b7cbba715ba839b85a0a5";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+</head>
+<body>
+<div class="transform" id="sitecontent">
+    <div id="header">
+        <div class="fl btn" id="openlc">
+            <div class="lcbody">
+                <div class="lcitem top">
+                    <div class="rect top"></div>
+                </div>
+                <div class="lcitem bottom">
+                    <div class="rect bottom"></div>
+                </div>
+            </div>
+        </div>
+        <a href="index.php" id="logo"> <img src="/style/images/logo.png"/> </a></div>
+    <div class="scrollView">
+        <div id="indexPage">
+            <div id="mslider">
+                <ul class="slider">
+                    <li style="background-image:url(/style/images/banner1.jpg)"><a>
+                        <div>
+                            <p class="title ellipsis">Welcome To Fafa guanwang</p>
+                            <p class="subtitle">你要明白人与人之间都是互不相欠 你在需要对方时他未能够及时出现 这并不是不在乎 而是所谓的错过了最合适的时间来抚平你的不安
+                                而我们依然需要自己独自来克服眼前的困难 靠自己永远都是最终的选择 无论你多需要关心 无论你正在经历着多大的苦痛 看一看四周无人 你就要逼自己成长 知道吗</p>
+                        </div>
+                    </a></li>
+                    <li style="background-image:url(/style/images/banner2.jpg)"><a>
+                        <div>
+                            <p class="title ellipsis">Hospital Vall d'Hebron Barcelon</p>
+                            <p class="subtitle">你要明白人与人之间都是互不相欠 你在需要对方时他未能够及时出现 这并不是不在乎 而是所谓的错过了最合适的时间来抚平你的不安
+                                而我们依然需要自己独自来克服眼前的困难 靠自己永远都是最终的选择 无论你多需要关心 无论你正在经历着多大的苦痛 看一看四周无人 你就要逼自己成长 知道吗</p>
+                        </div>
+                    </a></li>
+                </ul>
+            </div>
+            <div class="module" id="mproject">
+                <div class="content">
+                    <div class="header">
+                        <p class="title">产品</p>
+                        <p class="subtitle">Product design</p>
+                    </div>
+                    <div id="projectlist">
+                        <div class="wrapper plr5">
+                            {dede:arclist row='6' titlelen='36' typeid='1'}
+                            <div class="projectitem wow fadeIn"><a href="view.php?aid=[field:id/]"><img height="320"
+                                                                                                        src="[field:litpic/]"
+                                                                                                        width="500"/>
+                                <div class="project_info">
+                                    <div>
+                                        <p class="title">[field:title/]</p>
+                                        <p class="subtitle">[field:typename/]</p>
+                                    </div>
+                                </div>
+                            </a></div>
+                            {/dede:arclist}
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    {dede:type typeid='1'}<a href="list.php?tid=[field:id/]" id="projectmore">MORE</a>{/dede:type}
+                </div>
+            </div>
+            <div class="module" id="mservice">
+                <div class="content">
+                    <div class="header">
+                        <p class="title">服务</p>
+                        <p class="subtitle">Our Advantage</p>
+                    </div>
+                    <div class="slider_wrapper">
+                        <ul class="slider">
+                            {dede:arclist row='10' titlelen='36' typeid='9'}
+                            <li class="serviceitem wow fadeIn"><a href="view.php?aid=[field:id/]"><img height="60"
+                                                                                                       src="[field:litpic/]"
+                                                                                                       width="160"/></a>
+                                <div>
+                                    <p class="title">[field:title/]</p>
+                                    <p class="description">[field:description function='cn_substr(@me,150)'/]...</p>
+                                </div>
+                            </li>
+                            {/dede:arclist}
+                        </ul>
+                    </div>
+                    {dede:type typeid='9'}<a class="more" href="list.php?tid=[field:id/]">MORE</a>{/dede:type}
+                    <div style="height:0">&nbsp;</div>
+                </div>
+            </div>
+            <div class="module " id="mpage">
+                <div class="content">
+                    <div class="plr10">
+                        <div class="header">
+                            <p class="title">关于</p>
+                            <p class="subtitle">About US</p>
+                        </div>
+                        <p class="description">{dede:sql sql="select content from dede_arctype where
+                            id=11"}[field:content function=cn_substr(Html2Text(@me),400)/]{/dede:sql}</p>
+                    </div>
+                    {dede:type typeid='11'}<a class="more" href="list.php?tid=[field:id/]">MORE</a>{/dede:type}
+                    <div class="fimg wow fadeIn" style="background-image:url(/style/images/habout.jpg)"></div>
+                    <div style="height:0">&nbsp;</div>
+                </div>
+            </div>
+            <div class="module" id="mteam">
+                <div class="content plr10">
+                    <div class="header">
+                        <p class="title">团队</p>
+                        <p class="subtitle">uemo Team</p>
+                    </div>
+                    <ul id="teamlist">
+                        {dede:arclist row='3' titlelen='36' typeid='8'}
+                        <li class="teamitem wow fadeIn"><a href="view.php?aid=[field:id/]">
+                            <div id="mteam_img"><img height="90" src="[field:litpic/]" width="90"/></div>
+                            <div class="teaminfo">
+                                <div class="header">
+                                    <p class="title">[field:title/]</p>
+                                    <p class="subtitle"></p>
+                                </div>
+                                <p class="description">[field:description function='cn_substr(@me,150)'/]...</p>
+                            </div>
+                        </a></li>
+                        {/dede:arclist}
+                    </ul>
+                    {dede:type typeid='1'}<a class="more" href="list.php?tid=[field:id/]">MORE</a>{/dede:type}
+                    <div style="height:0">&nbsp;</div>
+                </div>
+            </div>
+            <div class="module" id="mnews">
+                <div class="content">
+                    <div class="header">
+                        <p class="title">新闻</p>
+                        <p class="subtitle">news</p>
+                    </div>
+                    <div id="newslist">
+                        {dede:arclist row='3' titlelen='36' typeid='5'}
+                        <div class="newstitem plr10 wow fadeIn" data-wow-delay="0.2s"><a class="newsinfo"
+                                                                                         href="view.php?aid=[field:id/]">
+                            <div class="newsdate">
+                                <p class="md">[field:pubdate function='strftime("%m-%d",@me)'/]</p>
+                                <p class="year">[field:pubdate function='strftime("%Y",@me)'/]</p>
+                            </div>
+                            <div class="newsbody">
+                                <p class="title ellipsis">[field:title/]</p>
+                                <p class="description">[field:description function='cn_substr(@me,150)'/]...</p>
+                            </div>
+                        </a></div>
+                        {/dede:arclist}
+                    </div>
+                    <div class="clear"></div>
+                    {dede:type typeid='5'}<a class="more" href="list.php?tid=[field:id/]">MORE</a>{/dede:type}
+                    <div style="height:0">&nbsp;</div>
+                </div>
+            </div>
+            <div class="module" id="mpartner">
+                <div class="content">
+                    <div class="wrapper">
+                        <ul style="width:560px">
+                            <li><a title="logo name"><img height="80" src="/style/images/hb1.png" width="160"/></a></li>
+                            <li><a title="logo name"><img height="80" src="/style/images/hb2.png" width="160"/></a></li>
+                            <li><a title="logo name"><img height="80" src="/style/images/hb3.png" width="160"/></a></li>
+                            <li><a title="logo name"><img height="80" src="/style/images/hb4.png" width="160"/></a></li>
+                            <li><a title="logo name"><img height="80" src="/style/images/hb5.png" width="160"/></a></li>
+                            <li><a title="logo name"><img height="80" src="/style/images/hb6.png" width="160"/></a></li>
+                            <li><a title="logo name"><img height="80" src="/style/images/hb7.png" width="160"/></a></li>
+                            <li><a title="logo name"><img height="80" src="/style/images/hb8.png" width="160"/></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="module" id="mcontact">
+                <div class="content plr10 wow fadeIn">
+                    <div class="header">
+                        <p class="title">联系</p>
+                        <p class="subtitle">Contact</p>
+                    </div>
+                    <div id="contactlist">
+                        <div id="contactinfo">
+                            <h3 class="ellipsis">{dede:global.cfg_mc/}</h3>
+                            <p class="ellipsis">地点：{dede:global.cfg_dz/}</p>
+                            <p class="ellipsis">电话：<a href='tel:{dede:global.cfg_dh/}'>{dede:global.cfg_dh/}</a></p>
+                            <p class="ellipsis">邮箱：{dede:global.cfg_yx/}</p>
+                            <div><a class="fl" href="{dede:global.cfg_wb/}"><i class="fa fa-weibo"></i></a> <a
+                                    class="fl" href="/style/images/ma.jpg" id="mpbtn"><i class="fa fa-weixin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {dede:include filename="foot_m.htm"/}
+    </div>
+</div>
+{dede:include filename="head_m.htm"/}
+<script type="text/javascript">var YYConfig = {};</script>
+<script src="js/zepto.min.js" type="text/javascript"></script>
+<script src="js/zepto.bxslider.min.js" type="text/javascript">
+
+</script>
+<script src="js/wow.min.js" type="text/javascript"></script>
+<script src="js/masonry_4.min.js" type="text/javascript"></script>
+<script type="text/javascript">$(function () {
+    new WOW({scrollContainer: ".scrollView"}).init();
+})</script>
+<script data-main="IndexMain" src="js/org.min.js" type="text/javascript"></script>
+</html>

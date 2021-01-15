@@ -1,0 +1,44 @@
+https://account.aliyun.com
+账号：吾命于天既寿永昌
+密码 Zhaofa00
+
+
+服务器信息：
+120.24.252.169:222
+root
+MTOWBh6hrX9m5b12
+
+
+
+
+Bt-Panel: http://120.24.252.169:8888/bfdfed9e
+username: yujwzhlh
+password: a359be5b
+
+
+数据库信息：
+mysql
+root
+1705db724811e595
+
+
+
+
+舍礼麦后台账号
+账号：shelimai
+密码 slm64584589
+slm64584589
+
+https://test.shelimai.com/system/default    
+admin    slm64584589
+
+
+
+
+主程序数据库账号资料
+
+数据库名：shelimai_com
+
+用户：shelimai_com
+
+密码：iZAjt4ijmAdkT487

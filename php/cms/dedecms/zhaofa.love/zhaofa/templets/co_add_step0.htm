@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>选择内容模型</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+    <form action="co_add.php" method="get" name="form1">
+        <input name='step' type='hidden' value='1'/>
+        <tr>
+            <td background='images/tbg.gif' colspan="3" height="28" style="padding-left:10px;" width="100%"><strong>选择内容模型</strong>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FFFFFF" colspan="3" height="34">
+                <select id="channelid" name="channelid" style="width:250px">
+                    <?php
+	  $dsql->SetQuery("Select id,typename From `#@__channeltype` where id in(1,2) order by id asc ");
+                    $dsql->Execute();
+                    while($row = $dsql->GetObject())
+                    {
+                    echo "
+                    <option value='{$row->id}'>{$row->typename}</option>
+                    \r\n";
+                    }
+                    ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#F9FCEF" colspan="3" height="24">
+                <input border="0" class="np" height="22" name="imageField" src="images/button_ok.gif" type="image"
+                       width="60">
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>

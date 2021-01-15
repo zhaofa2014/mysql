@@ -1,0 +1,181 @@
+ https://www.cnblogs.com/zhenyuyaodidiao/p/6500830.html
+https://mp.weixin.qq.com/s/rJZEigdgoLVs7wuvUq8cDA
+
+
+https://www.runoob.com/git/git-install-setup.html
+https://github.com/thejosan/in_cn_easy_install_k8s
+
+
+https://gitee.com/q7104475/K8s
+安装git
+yum install curl-devel expat-devel gettext-devel \openssl-devel zlib-devel
+
+git --version
+
+
+
+
+安装yun
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+
+
+
+
+
+ssh://root@106.15.73.60:22
+ssh://root@203.195.233.19:22
+ssh://root@193.112.7.117:22
+
+
+
+/etc/hosts
+
+106.15.73.60	k8s-master
+203.195.233.19	k8s-node-1
+193.112.7.117	k8s-node-2
+172.18.205.47	k8s-node-3
+172.18.5.145	k8s-node-4
+
+
+
+
+
+
+
+
+
+
+
+
+
+cat > /etc/yum.repos.d/kubernetes.repo << EOF [kubernetes] name=Kubernetes baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64 enabled=1 gpgcheck=1 repo_gpgcheck=1 gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg EOF
+
+
+
+
+
+
+
+
+
+cat <<EOF > /etc/sysctl.d/k8s.conf 
+net.bridge.bridge-nf-call-ip6tables = 1 
+net.bridge.bridge-nf-call-iptables = 1 
+EOF
+sysctl --system
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+关闭防火墙：
+ systemctl stop firewalld
+ systemctl disable firewalld
+关闭selinux：
+ sed -i 's/enforcing/disabled/' /etc/selinux/config
+ setenforce 0
+关闭swap：
+ swapoff -a  临时
+ vim /etc/fstab  永久
+添加主机名与IP对应关系（记得设置主机名）：
+ cat /etc/hosts
+106.15.73.60 k8s-master
+203.195.233.19 k8s-node1
+193.112.7.117 k8s-node2
+将桥接的IPv4流量传递到iptables的链：
+ cat > /etc/sysctl.d/k8s.conf << EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+ sysctl --system
+
+
+
+
+
+
+
+
+
+
+
+
+
+安裝docker 
+sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum makecache fast
+yum -y install docker-ce
+systemctl start docker && systemctl enable docker
+
+设置三台机器的主机名：
+
+　　Master上执行：
+
+[root@localhost ~]#  hostnamectl --static set-hostname  k8s-master
+　　Node1上执行：
+
+[root@localhost ~]# hostnamectl --static set-hostname  k8s-node-1
+　　Node2上执行：
+
+[root@localhost ~]# hostnamectl --static set-hostname  k8s-node-2
+
+
+在三台机器上设置hosts，均执行如下命令：
+
+echo '106.15.73.60    k8s-master
+106.15.73.60   etcd
+106.15.73.60   registry
+203.195.233.19   k8s-node-1
+193.112.7.117    k8s-node-2' >> /etc/hosts
+
+
+
+
+cat /etc/hosts 106.15.73.60 k8s-master 203.195.233.19 k8s-node-1 193.112.7.117 k8s-node-2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+关掉selinux、swap和防火墙
+setenforce  0 
+sed -i "s/^SELINUX=enforcing/SELINUX=disabled/g" /etc/sysconfig/selinux
+swapoff -a 
+sed -i 's/.*swap.*/#&/' /etc/fstab
+systemctl stop firewalld && systemctl disable firewalld 
+
+
+
+2、部署etcd
+　　k8s运行依赖etcd，需要先部署etcd，本文采用yum方式安装：
+
+[root@localhost ~]# yum install etcd -y
+
+
+
+cd /etc/yum.repos.d
+touch kubernetes.repo
+vim /etc/yum.repos.d/kubernetes.repo

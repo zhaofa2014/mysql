@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>组权限设置</title>
+    <link href='css/base.css' rel='stylesheet' type='text/css'>
+</head>
+<body background='images/allbg.gif' leftmargin='8' topmargin='8'>
+<center>
+    <table align="center" bgcolor="#D6D6D6" border="0" cellpadding="2" cellspacing="1" width="98%">
+        <form action='sys_group_edit.php' method='post' name='form1'>
+            <input name='dopost' type='hidden' value='save'>
+            <tr>
+                <td align="left" background="images/tbg.gif" height="23" style="padding-left:10px;"><b><a
+                        href='sys_group.php'>系统用户组管理</a>&gt;&gt;更改用户组：</b></td>
+            </tr>
+            <tr>
+                <td align="center" bgcolor="#FFFFFF" valign="top">
+                    <table border="0" cellpadding="0" cellspacing="0" width="98%">
+                        <tr>
+                            <td height="30" width="9%">组名称：</td>
+                            <td style="text-align:left;" width="91%"><input id="typename" name="typename" type="text"
+                                                                            value="<?php echo $groupSet['typename']?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="30" width="9%">级别值：</td>
+                            <td style="text-align:left;" width="91%">
+                                <input id="rank" name="rank" type="hidden" value="<?php echo $groupSet['rank']?>">
+                                <?php echo $groupSet['rank']?>
+                            </td>
+                        </tr>
+                        <?php
+        $start = 0;
+        $k = 0;
+        $gouplists = file(DEDEADMIN.'/inc/grouplist.txt');
+        foreach($gouplists as $line)
+        {
+        	$line = trim($line);
+        	if($line=="") continue;
+        	if(preg_match("#^>>#", $line))
+                        {
+                        if($start>0) echo "             </td></tr>\r\n";
+                        $start++;
+                        $lhead = "
+                        <tr>
+                            <td bgcolor='#F9FAF3' colspan='2' height='25' style='text-align:left;'>
+                                {$start}、".str_replace('>>','',$line)."
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan='2' height='25' style='text-align:left;'>
+                                ";
+                                echo $lhead;
+                                }
+                                else if(preg_match("#^>#", $line))
+                                {
+                                $ls = explode('>',$line);
+                                $tag = $ls[1];
+                                $tagname = str_replace('[br]','<br>',$ls[2]);
+                                if(!preg_match("#<br \/>#", $tagname) ) $tagname .= "<font color='#888888'>($tag)</font>";
+                                else $tagname = str_replace('<br/>', "<font color='#888888'>($tag)</font><br/>",
+                                $tagname);
+                                echo " <input class='np' id='purviews$k' name='purviews[]' type='checkbox' value='$tag'".CRank($tag).">$tagname\r\n";
+                                $k++;
+                                }
+                                }
+                                $start++;
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td bgcolor='#F9FAF3' colspan='2' height='25' style="text-align:left;"><?php echo $start?>
+                                、插件权限
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan='2' height='25' style="text-align:left;">
+                                <?php
+         $l = 0;
+         $dsql->SetQuery('SELECT plusname FROM #@__plus');
+                                $dsql->Execute();
+                                while($row=$dsql->GetObject()){
+                                echo " <input class='np' id='purviews$k' name='purviews[]' type='checkbox'
+                                              value='plus_{$row->plusname}'".CRank("plus_{$row->plusname}").">{$row->plusname}\r\n";
+                                $k++;
+                                $l++;
+                                if($l % 6 == 0) echo "<br>";
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" height="50">&nbsp;</td>
+                            <td height="50"><input border="0" class="np" height="22" name="imageField"
+                                                   src="images/button_save.gif" type="image" width="60">
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </form>
+    </table>
+</center>
+</body>
+</html>

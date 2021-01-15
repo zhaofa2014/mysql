@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>tags管理</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript">
+        function checkall(form, prefix, checkall) {
+            var checkall = checkall ? checkall : 'all';
+            for (var i = 0; i < form.elements.length; i++) {
+                var e = form.elements[i];
+                if (e.name && e.name != checkall && (!prefix || (prefix && e.name.match(prefix)))) {
+                    e.checked = form.elements[checkall].checked;
+                }
+            }
+        }
+
+        function UpdateOne(tid) {
+            location = "tags_main.php?action=update&count=" + document.getElementById('count' + tid).value + "&tid=" + tid;
+        }
+
+        function DeleteOne(tid) {
+            location = "tags_main.php?action=delete&ids=" + tid;
+        }
+    </script>
+</head>
+<body>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt" style="padding-left:10px;">Tags标签管理</div>
+</div>
+<div class="main">
+    <form action="tags_main.php?action=fetch" method="post" name='form1' style="margin-bottom:6px;">
+        <table align="center" border="0" cellspacing="1" class="tbtitle" style="background:#CFCFCF;" width="98%">
+            <tr>
+                <td align="left" background="images/wbg.gif" bgcolor="#F0FBBD" height="20" style="padding-left:10px;">
+                    <strong>提取TAG</strong></td>
+            </tr>
+            <tr>
+                <td align="center" bgcolor="#Ffffff" height="30">
+                    开始id:
+                    <input name="startaid" type="text"/>
+                    结束id:
+                    <input name="endaid" type="text"/>
+                    &nbsp;
+                    <input class="np coolbg" name="submit" type="submit" value="获取tags"/>
+                    <small>(tag以文档关键词为准)</small>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <table align="center" border="0" cellpadding="1" cellspacing="1" class="tbtitle" style="background:#CFCFCF;"
+           width="98%">
+        <tr>
+            <td background="images/wbg.gif" bgcolor="#F0FBBD" colspan="6" height="20">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td align="left" style="padding-left:10px;"><strong>TAG维护</strong></td>
+                        <form action="tags_main.php" name='form2'>
+                            <td align="right" width="40%">
+                                搜索：
+                                <input name='tag' size='10' type='text' value="<?php echo $tag;?>">
+                                <input class="np coolbg" name='sb' type='submit' value='确定'/>
+                                &nbsp;
+                            </td>
+                        </form>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr align="center" bgcolor="#FBFCE2" height="26">
+            <td width="5%">删</td>
+            <td width="30%">标签</td>
+            <td width="15%"><a
+                    href="tags_main.php?tag=<?php echo $tag;?>&orderby=count&orderway=<?php echo $neworderway;?>"><u>点击</u></a>
+            </td>
+            <td width="15%"><a
+                    href="tags_main.php?tag=<?php echo $tag;?>&orderby=total&orderway=<?php echo $neworderway;?>"><u>文档数</u></a>
+            </td>
+            <td width="20%"><a
+                    href="tags_main.php?tag=<?php echo $tag;?>&orderby=addtime&orderway=<?php echo $neworderway;?>"><u>添加时间</u></a>
+            </td>
+            <td></td>
+        </tr>
+        <form action="tags_main.php?action=delete" method="post" name='form3'>
+            {dede:datalist}
+            <?php
+	$fields['addtime'] = GetDateMk($fields['addtime']);
+	$fields['tag'] = dede_htmlspecialchars($fields['tag']);
+?>
+            <tr align="center" bgcolor="#FFFFFF" onMouseMove="javascript:this.bgColor='#FCFDEE';"
+                onMouseOut="javascript:this.bgColor='#FFFFFF';">
+                <td height="24">
+                    <input class='np' name="ids[]" type="checkbox" value="<?php echo $fields['id']; ?>"/>
+                </td>
+                <td>
+                    <a href="../tags.php?/<?php echo urlencode($fields['tag']); ?>/" target="_blank">{dede:field.tag
+                        /}</a>
+                </td>
+                <td>
+                    <input count type='text' value='<?php echo $fields['']; ?>' id='count<?php echo $fields['id']; ?>'
+                    size='5' />
+                </td>
+                <td>
+                    <?php echo $fields['total']; ?>
+                </td>
+                <td>
+                    <?php echo $fields['addtime']; ?>
+                </td>
+                <td>
+                    <a href='javascript:UpdateOne(<?php echo $fields[' id']; ?>);'>[更新]</a>
+                    &nbsp;
+                    <a href='javascript:DeleteOne(<?php echo $fields[' id']; ?>);'>[删]</a>
+                </td>
+            </tr>
+            {/dede:datalist}
+            <tr bgcolor="#F0FBBD">
+                <td align="center" bgcolor="#F8FEE0" height="28">
+                    <label>
+                        <input class="np" name="all" onclick="checkall(this.form, 'ids')" type="checkbox"/>
+                        <br/>全选
+                    </label>
+                </td>
+                <td align="center" bgcolor="#F8FEE0" colspan="5" height="28">
+                    {dede:pagelist /}
+                </td>
+            </tr>
+        </form>
+        <tr align="center" bgcolor="#FAFDF0">
+            <td colspan="6" height="40">
+                <input class="np coolbg" onclick="document.form3.submit()" type='button' value='删除所选'/>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

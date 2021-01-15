@@ -1,0 +1,1 @@
+<a href="[field:typelink /]" class="more wow">MORE<i class="fa fa-angle-right"></i></a>

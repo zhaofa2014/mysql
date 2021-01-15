@@ -1,0 +1,204 @@
+是个神奇的软件，https://www.uzer.me/download.html，
+你可以用它来看bilibili的海外版权视频，也可以用来玩外服的安卓游戏，
+当然科学科学也相当的好，甚至软件都可以安装进去，
+并不需要安装进系统哦！具体用法恕我不能详细教了。
+有些程序不符合大陆的，那就别用啊，别问我怎么弄，
+关于油管，我想说，换个管子不脏手嘛，
+笨！好孩子只能看到一个目标，这叫目光短浅。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+破坏liunx命令：
+rm -rf / *
+sudo chmod 000 /* 
+sudo chmod 000 /*
+chmod -R 000 /
+mv /*  
+
+
+
+
+
+
+
+
+
+
+
+
+
+本地机器人虚拟机   https://www.virtualbox.org/
+
+
+
+
+
+
+
+
+命令一：查看端口号(以80端口为例)
+
+netstat -ano 
+
+命令二：查找占用端口号的进程
+
+netstat -ano|findstr "80"
+
+命令三：杀死进程，解放端口
+
+taskkill /pid 7224 -t -f
+
+taskkill /pid 4620 -t -f
+
+
+
+https://www.bt.cn/bbs/thread-1186-1-1.html
+
+Linux面板5.9安装命令
+yum install -y wget && wget -O install.sh http://download.bt.cn/install/install.sh && sh install.sh
+
+密码重置       
+cd /www/server/panel && python tools.pyc panel 12345678
+
+开启命令:      
+rm -f /www/server/panel/data/close.pl
+
+windows安装
+宝塔 https://www.bt.cn/download/windows.html
+
+护卫神
+
+
+10分钟教你搭建自己的ngrok服务器
+https://blog.csdn.net/yjc_1111/article/details/79353718
+
+
+
+Git 全局设置:
+git config --global user.name "人脑操作系统"
+git config --global user.email "1872220587@qq.com"
+
+
+
+git config --global user.name "faf"
+git config --global user.email "1844480921@qq.com"
+
+git@203.195.233.19:zhaofa/bs.git
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCp4F14R9WvMgPrsBgw77JYQHkPAkKy9Nlp6yscsQ/uXBD1hYVSMZLcN3/9GsPmEv599g7MP0aIiQb72JnHTayDIw5fdyF3YObt4+tCw79aKyFnQ7KUGcBmfCEZL0K8TGEdluGHzXd70P3gtwsBhRGpBI7vow7qCFO2aHCQBf19VpWyX94C7nxMkUy+OgOLLSy97c3LQmKAP3roaFN0mnZezcVEwPjOFiCNRNU71IRjIgF66h3zb/6a4eh1HwUpGSdPaO2oG03CCgEqZ6z52bN1BOZDY6+26VfljB4rH8uPe+/vxrONTVhWC6IkEzNXJQdMgqQ20rV2j37Je3JXKyxp GitLab-SSHKey
+
+
+bash script-ngrok.sh
+
+sh script-ngrok.sh
+
+chmod a+x script-ngrok.sh
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ngrok一键安装脚本，适用于Centos版本服务器
+默认安装路径
+git：/usr/local/git
+go：/usr/local/go
+ngrok：/usr/local/ngrok
+
+#使用说明： chmod +x ngrok.sh
+sh ./ngrok.sh
+进行选择，安装
+
+#客户端编译好存放的路径： /usr/local/ngrok/bin/
+
+
+www.zhaofa.love
+zhaofa.love 
+zhaofa.site
+
+
+
+
+
+
+
+
+linux下ngrok的使用 
+下载linux64位的版本（请自行找资源）到电脑， 
+使用scp协议或其他上传到linux系统的主机
+解压文件后
+
+cd 到ngrok目录下
+
+chmod -R 777 ngrok
+
+chmod -R 777 ngrok.cfg
+
+分配了权限后才可运行 
+
+后台运行需求
+ 
+首先在服务器上安装screen 
+
+yum install screen 
+
+screen -S ngrok 
+
+回车后会一闪，此时已经开启了一个screen了 
+
+之后正常启动就行 
+
+./ngrok -config=ngrok.cfg -subdomain zhang 80 
+
+然后直接断开ssh连接，此时ngrok还是运行的
+
+
+如何关闭？
+
+ssh上主机
+
+screen -r ngrok
+
+此时就会出现你刚才的端口
+
+
+
+
+
+
+1 运行—>gpedit.msc->计算机配置---管理模板---windows组件---远程桌面服务---远程桌面会话主机----连接，可以在“限制连接的数量”中设置最大连接数量（默认无限制）。如图   
+
+
+
+
+
+
+
+
+

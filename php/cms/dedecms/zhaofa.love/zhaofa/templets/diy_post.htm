@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title><?php echo $diy->name;?></title>
+    <link href="css/base.css" rel="stylesheet" type="text/css"/>
+    <script language="javascript" src="../include/js/dedeajax2.js"></script>
+    <script language="javascript" src="js/main.js"></script>
+    <script language="javascript">
+        <!--
+        function SelectTemplets(fname) {
+            if (document.all) {
+                var posLeft = window.event.clientY - 100;
+                var posTop = window.event.clientX - 400;
+            } else {
+                var posLeft = 100;
+                var posTop = 100;
+            }
+            window.open("dialog/select_templets.php?f=" + fname, "poptempWin", "scrollbars=yes,resizable=yes,statebar=no,width=600,height=400,left=" + posLeft + ", top=" + posTop);
+        }
+
+        -->
+    </script>
+</head>
+<body leftmargin='8' topmargin='8'>
+<div class="bodytitle">
+    <div class="bodytitleleft"></div>
+    <div class="bodytitletxt">
+        <a href='diy_main.php'><b>自定义表单管理</b></a> &gt; <a
+            href='diy_list.php?action=list&diyid=<?php echo $diyid; ?>'><b><?php echo $diy->name; ?></b></a> &gt; <b>发布内容</b>
+    </div>
+</div>
+<form action="diy_list.php" method="post" name="form1">
+    <input name="action" type="hidden" value="post"/>
+    <input name="diyid" type="hidden" value="<?php echo $diyid;?>"/>
+    <input name="do" type="hidden" value="2"/>
+    <table align="center" bgcolor="#ffffff" border="0" cellpadding="3" cellspacing="1" width="98%">
+        <tr>
+            <td bgcolor="#ffffff">
+                <?php
+	echo $postform;
+?>
+            </td>
+        </tr>
+    </table>
+    <table align="center" bgcolor="#D6D6D6" border="0" cellpadding="3" cellspacing="1" width="98%">
+        <tr>
+            <td align="center" bgcolor="#F9FCEF" height="36">
+                <input class='np coolbg' name="submit" type="submit" value="提交"/>
+                &nbsp;
+                <input class='np coolbg' name="reset" type="reset" value="重置"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

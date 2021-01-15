@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type"/>
+    <title><?php echo $cfg_webname; ?>_留言本</title>
+    <link href="<?php echo $cfg_templeturl; ?>/default/style/dedecms.css" media="screen" rel="stylesheet"
+          type="text/css"/>
+    <style>
+        .lefttd {
+            border-left: 1px solid #dedede;
+            border-right: 1px solid #dedede;
+        }
+
+        .ltd {
+            border-left: 1px solid #dedede;
+            border-right: 1px solid #dedede;
+            border-top: 1px solid #dedede;
+            border-bottom: 1px dashed #dedede;
+        }
+
+        .msgtd {
+            line-height: 180%;
+            border-right: 1px solid #dedede;
+            padding-left: 5px;
+        }
+
+        .timetd {
+            border-right: 1px solid #dedede;
+            border-top: 1px solid #dedede;
+            border-bottom: 1px dashed #dedede;
+            padding-left: 5px;
+        }
+
+        .bottomtd {
+            border-right: 1px solid #dedede;
+            border-top: 1px dashed #dedede;
+            padding-left: 5px;
+        }
+
+        .writetable td {
+            padding: 5px;
+        }
+
+        .writetd {
+            background: url(img/wbg.gif);
+        }
+
+        .pagetable {
+            border: 1px solid #dedede;
+            margin-bottom: 8px;
+            background: #FBFEED;
+        }
+
+        .pagelistbox {
+
+        }
+
+        .pagelistbox span {
+            border: 1px solid #dedede;
+            padding: 2px;
+            margin-right: 3px;
+            background: #E8F9BF;
+        }
+
+        .pagelistbox a {
+            border: 1px solid #dedede;
+            padding: 2px;
+            margin-right: 3px;
+            background: #E8F9BF;
+        }
+
+        .rebox {
+            width: 98%;
+            padding: 3px;
+            border: 1px solid #dedede;
+        }
+    </style>
+</head>
+<body class="mapspage">
+
+<div class="header">
+    <div class="top w960 center">
+        <div class="title">
+            <h1>
+                <h1><a href="<?php echo $cfg_basehost;?>/"><?php echo $cfg_webname;?></a></h1>
+            </h1>
+        </div><!-- /title -->
+    </div><!-- /top -->
+</div><!-- /header -->
+<div class="w960 clear center mt1">
+    <div class="sp-title">
+        <a href='guestbook.php'><h2>留言板</h2></a>
+        <span class="more"><a href="#write">回复留言</a> <a href="<?php echo $cfg_basehost;?>/">返回首页</a> </span></div>
+
+    <table align="center" bgcolor="#dedede" border="0" cellpadding="4" cellspacing="1" class='writetable' width="100%">
+        <form action="guestbook.php" method="post">
+            <input name="action" type="hidden" value="admin">
+            <input name="id" type="hidden" value="<?php echo $id; ?>">
+            <input name="job" type="hidden" value="editok">
+            <tr>
+                <td class='writetd' colspan='4'><b>回复留言：</b><a name='write'></a></td>
+            </tr>
+            <tr bgcolor="#ffffff">
+                <td align="center" height="30" width="15%"><font color="#FF0000">*</font>留言者：</td>
+                <td width="35%"><?php echo $row['uname']; ?></td>
+                <td align="center" nowrap width="15%">OICQ号码：</td>
+                <td width="35%"><?php echo $row['qq']; ?></td>
+            </tr>
+            <tr bgcolor="#ffffff">
+                <td align="center" height="30" nowrap>&nbsp;电子邮件：</td>
+                <td><?php echo $row['email']; ?></td>
+                <td align="center" height="12" nowrap>个人主页：</td>
+                <td height="12"><?php echo $row['homepage']; ?></td>
+            </tr>
+            <tr bgcolor="#ffffff">
+                <td align="center" nowrap width="10%">
+                    <font color="#FF0000">*</font>留言内容：
+                </td>
+                <td align="left" colspan="3" height="2">
+                    <textarea class="ipt-txt" cols="80" name="msg" rows="6"
+                              style="width:90%;"><?php echo $row['msg']; ?></textarea>
+                </td>
+            </tr>
+            <tr bgcolor="#ffffff">
+                <td align="center" nowrap>
+                    回复留言：
+                </td>
+                <td colspan="3" nowrap>
+                    <div style='width:92%'><?php GetEditor('remsg', "<font color=red>管理员回复：</font>", 250, "MemberLit");
+                        ?>
+                    </div>
+                </td>
+            </tr>
+            <tr bgcolor="#ffffff">
+                <td align="center" colspan="4" height="30" nowrap>
+                    <input class="btn-2" maxlength="1000" name="Submit" type="submit" value=" 保 存 ">
+                    &nbsp;&nbsp;
+                    <input class="btn-2" name="Submit2" type="reset" value="取 消">
+                </td>
+            </tr>
+        </form>
+    </table>
+
+    <div class="footer">
+        <p class="powered">
+            <?php echo $cfg_powerby; ?>
+        </p><!-- /powered -->
+    </div>
+</div>
+
+</body>
+</html>

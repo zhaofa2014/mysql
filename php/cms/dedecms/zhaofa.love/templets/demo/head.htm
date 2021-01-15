@@ -1,0 +1,19 @@
+<div id="header">
+    <div class="content"><a href="/" id="logo"><img height="40" src="/style/images/logo.png"/></a>
+        <ul id="nav">
+            <li class="navitem"><a :@me="" ;{ @me=" class='active'" name=typeid runphp="yes"
+                                   {dede:field}(@me=="")?/dede:field} href="/" target="_self">首页</a></li>
+            {dede:channelartlist row=10 typeid='top'}
+            <li class="navitem"><a name='currentstyle' {dede:field/} href="{dede:field name='typeurl'/}" >{dede:field
+                name='typename'/}</a>
+                <ul class="subnav">
+                    {dede:channel type='son' noself='yes'}
+                    <li><a href="[field:typelink/]">[field:typename/]</a></li>
+                    {/dede:channel}
+                </ul>
+            </li>
+            {/dede:channelartlist}
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <a href="javascript:;" id="headSHBtn"><i class="fa fa-bars"></i></a></div>

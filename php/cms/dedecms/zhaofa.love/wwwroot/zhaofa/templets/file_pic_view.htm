@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=<?php echo $cfg_soft_lang; ?>" http-equiv="Content-Type">
+    <title>图片浏览器</title>
+    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <script language="javascript">
+        function getPic(str) {
+            var ss = new Array(3);
+            ss = str.split("@");
+            window.opener.document.form1.imgsrc.value = ss[0];
+            window.opener.document.form1.imgwidth.value = ss[1];
+            window.opener.document.form1.imgheight.value = ss[2];
+            window.opener.document.form1.picview.src = ss[0];
+            window.opener = true;
+            window.close();
+        }
+    </script>
+</head>
+<body leftmargin="0" topmargin="0">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <form name="form1">
+        <tr>
+            <td colspan="<?php echo $listSize?>" height="10"></td>
+        </tr>
+        <tr>
+            <td colspan="<?php echo $listSize?>">
+                <table align="center" bgcolor="#CCCCCC" border="0" cellpadding="0" cellspacing="1" width="98%">
+                    <tr>
+                        <td align="center" bgcolor="#F9F9F7" height="24" width="4%"><img height="16"
+                                                                                         src="images/file_dir.gif"
+                                                                                         width="16"></td>
+                        <td align="center" bgcolor="#F9F9F7" width="55%"><input id="path" name="activepath" size="30"
+                                                                                style="height:15pt" type="text"
+                                                                                value="<?php echo $activepath?>"></td>
+                        <td bgcolor="#F9F9F7" width="20%">
+                            <table border="0" cellpadding="0" cellspacing="1" width="100%">
+                                <tr>
+                                    <td width="6%">&nbsp;</td>
+                                    <td width="44%"><input border="0" height="20" name="imageField"
+                                                           src="images/next.gif" style="border:0;height:20" type="image"
+                                                           width="52"></td>
+
+                                    <td width="50%"><a
+                                            href="file_manage_main.php?activepath=<?php echo $activepath?>"><img
+                                            border="0" height="20" src="images/file_view.gif" width="60"></a></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td bgcolor="#F9F9F7" width="22%">
+                            <table border="0" cellpadding="0" cellspacing="1" width="100%">
+                                <tr>
+                                    <td align="right" width="18%"><img height="17" src="images/file_topdir.gif"
+                                                                       width="18"></td>
+                                    <td width="82%"><?php GetPrePath($activepath); ?></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="<?php echo $listSize?>" height="4"></td>
+        </tr>
+        <?php ListPic($truePath,$activepath); ?>
+    </form>
+</table>
+</body>
+</html>
